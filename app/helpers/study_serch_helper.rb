@@ -1,0 +1,2 @@
+module StudySerchHelper
+end
