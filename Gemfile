@@ -2,6 +2,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem 'slim-rails'
+gem 'html2slim'
 gem 'rails',      '6.0.3'
 gem 'puma',       '4.3.6'
 gem 'sass-rails', '5.1.0'
