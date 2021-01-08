@@ -1,8 +1,11 @@
 header
   .container
-    = link_to "study_serch",'#'
-    nav
-      ul
-        li = link_to "Home", '#'
-        li = link_to "Log in", '#'
+    .nav.navbar-expand-lg.navbar-light.bg-light.fixed-top.px-1.py-3
+      = link_to "study_serch", '#', class: "navbar-brand"
+      button.navbar-toggler.ml-auto type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNavAltMarkup
+        ul.navbar-nav.ml-auto.my-2.my-lg-0
+          li.nav-item = link_to "ホーム", '#', class: "nav-link"
+          li.nav-item = link_to "ログイン", '#', class: "nav-link"
   
