@@ -1,8 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 body{
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 .home{
+  background-color: red;
+  // background-image: image;
+  background-size: cover;
 }

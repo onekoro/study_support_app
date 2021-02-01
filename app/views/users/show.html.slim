@@ -1,0 +1,13 @@
+= provide(:title, @user.name)
+.container
+  .row
+    .user.col-md-3.text-center
+      .image
+        = image_tag @user.image.url, class: "border border-dark rounded-circle img-fluid m-1"
+      .name.m-1
+        |#{@user.name}
+      .follow
+        = link_to "~フォロー", "#", class: "m-1 text-left"
+        = link_to "~フォロワー", "#", class: "m-1 text-right"
+    .place.col-md-9
+      |投稿一覧

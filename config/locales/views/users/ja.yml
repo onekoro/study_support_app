@@ -1,0 +1,6 @@
+ja:
+  user:
+    new:
+      name: 名前
+      email: メールアドレス
+      password: パスワード

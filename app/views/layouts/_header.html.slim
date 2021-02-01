@@ -1,7 +1,9 @@
 header
   .container
     .nav.navbar-expand-lg.navbar-light.bg-light.fixed-top.px-1.py-3
-      = link_to "study_serch", '#', class: "navbar-brand"
+      = link_to root_path, class: "navbar-brand" do
+        i.fas.fa-pen.fa-lg
+        スタプレ
       button.navbar-toggler.ml-auto type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
         span.navbar-toggler-icon
       .collapse.navbar-collapse#navbarNavAltMarkup
