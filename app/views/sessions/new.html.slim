@@ -1,0 +1,19 @@
+- provide(:title, "Log in")
+h1.text-center.my-4 ログイン
+
+.login.container
+  = form_with(model: @user, local: true) do |f|
+  
+    .form-group
+      = f.label :email, "メールアドレス"
+      = f.email_field :email, class: "form-control"
+
+    .form-group
+      = f.label :password, "パスワード"
+      = f.password_field :password, class: "form-control"
+      
+    = f.submit "ログイン", class: "btn btn-primary mx-auto d-block"
+    
+    p ユーザー登録は  #{link_to "こちら", signup_path}
+    
+  
