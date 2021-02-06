@@ -2,7 +2,7 @@
 h1.text-center.my-4 ログイン
 
 .login.container
-  = form_with(model: @user, local: true) do |f|
+  = form_with(url: login_path, scope: :session, local: true) do |f|
   
     .form-group
       = f.label :email, "メールアドレス"
@@ -12,8 +12,13 @@ h1.text-center.my-4 ログイン
       = f.label :password, "パスワード"
       = f.password_field :password, class: "form-control"
       
+    .form-group
+      = f.label :remember_me, class: "checkbox inline" do
+       = f.check_box :remember_me
+       span ログイン状態を保持する
+      
     = f.submit "ログイン", class: "btn btn-primary mx-auto d-block"
     
-    p ユーザー登録は  #{link_to "こちら", signup_path}
+  p ユーザー登録は  #{link_to "こちら", signup_path}
     
   
