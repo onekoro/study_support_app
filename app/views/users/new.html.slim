@@ -1,29 +1,7 @@
 - provide(:title, "Sign up")
+- provide(:button_text, "新規登録")
+
 h1.text-center.my-4 ユーザー登録
 
 .signup.container
-  = form_with(model: @user, local: true) do |f|
-    = render "shared/error_messages"
-
-    .form-group
-      = f.label :name, "名前"
-      = f.text_field :name, class: "form-control"
-
-    .form-group
-      = f.label :email, "メールアドレス"
-      = f.email_field :email, class: "form-control"
-
-    .form-group
-      = f.label :password, "パスワード"
-      = f.password_field :password, class: "form-control"
-
-    .form-group
-      = f.label :password_confirmation, "パスワード（確認）"
-      = f.password_field :password_confirmation, class: "form-control"
-    
-    .form-group
-      = f.label :image, "プロフィール画像"
-      = f.file_field :image, class: "form-control-image"
-      
-    = f.submit "新規登録", class: "btn btn-primary mx-auto d-block"
-  
+  = render 'form'

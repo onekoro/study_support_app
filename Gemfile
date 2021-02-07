@@ -15,6 +15,8 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'rails-i18n'
 gem 'carrierwave'
+gem 'faker',                   '2.1.2'
+gem 'kaminari'
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'

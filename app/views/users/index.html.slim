@@ -1,0 +1,8 @@
+- provide(:title, "All users")
+h1 ユーザー一覧
+
+.container
+  ul.users
+    = render @users
+    
+  = paginate @users

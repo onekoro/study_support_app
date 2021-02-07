@@ -9,5 +9,6 @@
       .follow
         = link_to "~フォロー", "#", class: "m-1 text-left"
         = link_to "~フォロワー", "#", class: "m-1 text-right"
+      = link_to "プロフィールの編集", edit_user_path(current_user), class: "btn btn-primary btn-sm btn-block my-3"
     .place.col-md-9
       |投稿一覧
