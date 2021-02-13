@@ -1,0 +1,12 @@
+= form_with(model: @place, local: true) do |f|
+  = render "shared/error_messages", object: f.object
+
+  .form-group
+    = f.label :title, "場所名"
+    = f.text_field :title, class: "form-control"
+
+  .form-group
+    = f.label :content, "コメント"
+    = f.email_field :content, class: "form-control"
+    
+  = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"

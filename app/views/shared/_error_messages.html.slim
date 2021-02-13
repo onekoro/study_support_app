@@ -1,7 +1,7 @@
-- if @user.errors.any?
+- if object.errors.any?
   #error_explanation
     .alert.alert-warning
       入力内容に不備があります
     .ul
-      - @user.errors.full_messages.each do |msg|
+      - object.errors.full_messages.each do |msg|
         li.text-danger = msg

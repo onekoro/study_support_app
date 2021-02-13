@@ -9,12 +9,13 @@ header
       .collapse.navbar-collapse#navbarNavAltMarkup
         ul.navbar-nav.ml-auto.my-2.my-lg-0
           li.nav-item = link_to "ホーム", root_path, class: "nav-link"
-          li.nav-item = link_to "勉強場所一覧", '#', class: "nav-link"
+          li.nav-item = link_to "勉強場所一覧", places_path, class: "nav-link"
           - if logged_in?
             li.nav-item = link_to "マイページ", current_user, class: "nav-link"
             li.nav-item = link_to "ユーザー一覧", users_path, class: "nav-link"
+            li.nav-item = link_to "勉強場所投稿", new_place_path, class: "nav-link"
             li.nav-item = link_to "ログアウト", logout_path, class: "nav-link", method: :delete  
           - else
             li.nav-item = link_to "ログイン", login_path, class: "nav-link"
-            li.nav-item = link_to "新規登録", signup_path, class: "nav-link"
+            li.nav-item = link_to "新規登録", new_user_path, class: "nav-link"
   
