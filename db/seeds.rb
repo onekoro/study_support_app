@@ -22,3 +22,11 @@ User.create!(name:  "Example User",
                password:              password,
                password_confirmation: password)
 end
+
+# ユーザーの一部を対象にマイクロポストを生成する
+users = User.all
+5.times do |n|
+  title = "タイトル#{n}"
+  content = Faker::Lorem.sentence(word_count: 5)
+  users.each { |user| user.places.create!(title: title, content: content) }
+end

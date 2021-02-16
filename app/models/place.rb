@@ -4,4 +4,5 @@ class Place < ApplicationRecord
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 20 }
   validates :content, presence: true, length: { maximum: 400 }
+  mount_uploader :image, ImageUploader
 end

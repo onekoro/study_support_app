@@ -2,6 +2,10 @@ class PlacesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_poster, only: [:edit, :update, :destroy]
   
+  def index
+    @places = Place.page(params[:page]).per(10)
+  end
+  
   def show
     @place = Place.find(params[:id])
   end
@@ -34,11 +38,16 @@ class PlacesController < ApplicationController
     end
   end
   
+  def destroy
+    Place.find(params[:id]).destroy
+    flash[:success] = "勉強場所を削除しました"
+    redirect_to places_url
+  end
   
   private
   
     def place_params
-      params.require(:place).permit(:title, :content)
+      params.require(:place).permit(:title, :content, :image)
     end
     
     def correct_poster

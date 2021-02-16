@@ -9,4 +9,8 @@
     = f.label :content, "コメント"
     = f.email_field :content, class: "form-control"
     
+  .form-group
+    = f.label :image, "写真をアップロード"
+    = f.file_field :image, class: "form-control-image"
+    
   = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"

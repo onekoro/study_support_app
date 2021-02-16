@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  root 'study_serch#home'
-  # get '/signup', to: 'users#new'
+  root 'places#index'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'

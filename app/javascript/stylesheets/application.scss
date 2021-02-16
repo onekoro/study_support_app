@@ -1,11 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
 
 body{
-  padding-top: 70px;
+  margin-top: 90px;
 }
 
-.home{
-  background-color: red;
-  // background-image: image;
-  background-size: cover;
+header{
+  .nav-link{
+    display: flex;
+    align-items: center;
+  }
 }
