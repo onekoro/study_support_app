@@ -1,0 +1,2 @@
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+$("#followers").html('<%= link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right" %>');

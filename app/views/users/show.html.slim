@@ -1,5 +1,5 @@
 = provide(:title, @user.name)
-.container
+.container.user_show
   .row
     .user.col-md-3.text-center
       .image
@@ -7,8 +7,13 @@
       .name.m-1
         |#{@user.name}
       .follow
-        = link_to "~フォロー", "#", class: "m-1 text-left"
-        = link_to "~フォロワー", "#", class: "m-1 text-right"
-      = link_to "プロフィールの編集", edit_user_path(current_user), class: "btn btn-primary btn-sm btn-block my-3"
+        #following
+          = link_to "#{@user.following.count}フォロー中", following_user_path(@user), class: "m-1 text-left"
+        #followers
+          = link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right"
+      - if current_user?(@user)
+        = link_to "プロフィールの編集", edit_user_path(current_user), class: "btn btn-primary btn-sm btn-block my-3"
+      - elsif logged_in?
+        = render 'follow_form'
     .place.col-md-9
       |投稿一覧
