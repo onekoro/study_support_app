@@ -1,8 +1,10 @@
 - provide(:title, "All users")
-h1 ユーザー一覧
 
-.container
-  ul.users
-    = render @users
-    
-  = paginate @users
+.container.users_index
+  .row.d-flex.align-items-center.justify-content-center
+    i.fas.fa-search.fa-lg.mx-1
+    = form_tag(users_path,:method => 'get') do
+      = text_field_tag :search
+      = submit_tag '検索する', :name => nil, class: "mx-1"
+  = render @users
+  = paginate @users, remote: true

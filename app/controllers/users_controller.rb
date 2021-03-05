@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   
   def index
-    @users = User.page(params[:page]).per(10)
+    @user = current_user
+    @users = User.search(params[:search]).page(params[:page]).per(20)
   end
   
   def show
@@ -46,17 +47,13 @@ class UsersController < ApplicationController
   end
   
   def following
-    @title = "フォローしているユーザー"
     @user  = User.find(params[:id])
-    @users = @user.following.page(params[:page]).per(10)
-    render 'show_follow'
+    @users = @user.following.page(params[:page]).per(100)
   end
 
   def followers
-    @title = "フォロワー"
     @user  = User.find(params[:id])
-    @users = @user.followers.page(params[:page]).per(10)
-    render 'show_follow'
+    @users = @user.followers.page(params[:page]).per(100)
   end
   
   private

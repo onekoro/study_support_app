@@ -1,0 +1,14 @@
+- provide(:title, "Following list")
+.container.follow_list
+  .row
+    = link_to "マイページに戻る", user_path
+  .row
+    .following.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
+      = link_to "#{@user.following.count}フォロー中", following_user_path(@user), class: "stretched-link"
+    .followers.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "stretched-link text-secondary"
+  - if @users.any?
+    = render @users
+    = paginate @users
+  - else
+    h2 "{@title}はいません"

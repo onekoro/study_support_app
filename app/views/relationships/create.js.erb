@@ -1,2 +1,4 @@
-$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
-$("#followers").html('<%= link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right" %>');
+$("#users_follow_form_<%= @user.id %>").html("<%= escape_javascript(render partial: 'users/unfollow', locals: { user: @user }) %>");
+$("#show_follow_form").html("<%= escape_javascript(render partial: 'users/unfollow', locals: { user: @user }) %>");
+$(".user_show").find(".followers").html('<%= link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right" %>');
+$(".follow_list").find(".following").html('<%= link_to "#{current_user.following.count}フォロー中", following_user_path(current_user), class: "m-1 text-left" %>');
