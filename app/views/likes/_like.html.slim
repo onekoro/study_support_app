@@ -1,0 +1,5 @@
+= form_with(model: place.likes.build, remote: true) do |f|
+  = hidden_field_tag :place_id, place.id
+  = button_tag(class: "btn btn-default btn-xs d-flex align-items-center") do
+    i.far.fa-heart.text-danger
+    h5.ml-2.my-0 #{place.likes.count}

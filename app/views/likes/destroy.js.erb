@@ -1,0 +1,1 @@
+$("#places_like_form_<%= @place.id %>").html("<%= escape_javascript(render partial: "likes/like", locals: { place: @place }) %>");

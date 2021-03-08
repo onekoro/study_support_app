@@ -1,0 +1,5 @@
+div id='places_like_form_#{place.id}'
+  - if place.good?(current_user)
+    = render partial: 'likes/unlike', locals: { place: place }
+  - else
+    = render partial: 'likes/like', locals: { place: place }

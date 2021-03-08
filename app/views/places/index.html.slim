@@ -10,7 +10,5 @@
         = link_to "新規登録", new_user_path, class: "btn btn-primary btn-xl m-1"
         = link_to "ゲストログイン", "#", class: "btn btn-primary btn-xl m-1"
   .row
-    ul.places
     = render @places
-    
-  = paginate @places
+    = paginate @places, remote: true
