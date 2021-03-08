@@ -6,46 +6,41 @@ input#button type="button" value="Encode" onclick="codeAddress()"
 
 #map
 
-.style
-  #map{
-    height: 600px;
-    width: 600px;
-  }
-
-.script
+javascript:
   let map
   function initMap(){
     geocoder = new google.maps.Geocoder()
   
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.7828, lng:-73.9653},
-      zoom: 12,
+      center: {lat: 35.6909, lng: 139.7002},
+      zoom: 15,
     });
   
     marker = new google.maps.Marker({
-      position:  {lat: 40.7828, lng:-73.9653},
+      position:  {lat: 35.6909, lng: 139.7002},
       map: map
     });
-    }
-  
-let geocoder
-
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  }); 
   }
-.script src="AIzaSyBTkEtAw0iLGM0fD-kyF9g7ywubuZlO9x4"
+  
+  let geocoder
+  
+  function codeAddress(){
+    let inputAddress = document.getElementById('address').value;
+  
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
+    
+script{ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTkEtAw0iLGM0fD-kyF9g7ywubuZlO9x4&callback=initMap" async defer}
 
 .content = @place.content
 .name = @place.user.name

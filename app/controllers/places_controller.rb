@@ -3,7 +3,7 @@ class PlacesController < ApplicationController
   before_action :correct_poster, only: [:edit, :update, :destroy]
   
   def index
-    @places = Place.page(params[:page]).per(10)
+    @places = Place.page(params[:page]).per(6)
   end
   
   def show
