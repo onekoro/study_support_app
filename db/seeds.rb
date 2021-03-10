@@ -13,7 +13,7 @@ User.create!(name:  "Example User",
              admin: true)
 
 # 追加のユーザーをまとめて生成する
-99.times do |n|
+60.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -24,11 +24,17 @@ User.create!(name:  "Example User",
 end
 
 # ユーザーの一部を対象にマイクロポストを生成する
-users = User.all
+users = User.order(:created_at).take(10)
 5.times do |n|
   title = "タイトル#{n}"
-  content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.places.create!(title: title, content: content) }
+  content = Faker::String.random(length: 100..300)
+  image = "default_place.jpg"
+  adress = Faker::Address.full_address
+  web = Faker::Internet.url
+  cost = Faker::Number.number(digits: 3)
+  wifi = "あり"
+  recommend = n
+  users.each { |user| user.places.create!(title: title, content: content, image: image, adress: adress, web: web, cost: cost, wifi: wifi, recommend: recommend) }
 end
 
 # 以下のリレーションシップを作成する

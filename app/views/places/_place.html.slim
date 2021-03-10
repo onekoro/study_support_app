@@ -1,9 +1,13 @@
 .col-lg-4.col-sm-6
   .place_content.border.my-2
-    .place_image
-      = image_tag place.image.url, class: "mb-1 img-fluid"
+    .place_image_thumb
+      = link_to place_path(place) do
+        - if place.image?
+          = image_tag place.image.url, class: "mb-1 img-fluid"
+        - else
+          = image_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title
-      h4.mb-0.py-1 = link_to place.title, place
+      h4.mb-0.py-1 = link_to place.title, place_path(place)
     .place_info1.d-flex
       .user_info.mr-3
         = link_to user_path(place.user) do

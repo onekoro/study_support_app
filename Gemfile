@@ -15,8 +15,11 @@ gem 'slim-rails'
 gem 'html2slim'
 gem 'rails-i18n'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'faker',                   '2.1.2'
 gem 'kaminari'
+gem 'ransack'
+gem "geocoder"
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'

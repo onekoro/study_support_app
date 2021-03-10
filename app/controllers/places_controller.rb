@@ -3,7 +3,8 @@ class PlacesController < ApplicationController
   before_action :correct_poster, only: [:edit, :update, :destroy]
   
   def index
-    @places = Place.page(params[:page]).per(6)
+    @q = Place.ransack(params[:q])
+    @places = @q.result(distinct: true).page(params[:page]).per(6)
   end
   
   def show
@@ -47,7 +48,7 @@ class PlacesController < ApplicationController
   private
   
     def place_params
-      params.require(:place).permit(:title, :content, :image)
+      params.require(:place).permit(:title, :content, :image, :adress, :web, :cost, :wifi, :recommend)
     end
     
     def correct_poster

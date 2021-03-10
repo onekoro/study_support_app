@@ -1,46 +1,84 @@
 - provide(:title, @place.title)
-h2 = @place.title
-
-input#address type="textbox" value="GeekSalon"
-input#button type="button" value="Encode" onclick="codeAddress()"
-
-#map
-
-javascript:
-  let map
-  function initMap(){
-    geocoder = new google.maps.Geocoder()
+.container.place_show
+  .row
+    .place_title.d-flex.align-items-center
+      h2.mr-2 = @place.title
+      .user_info.mr-3
+        = link_to user_path(@place.user) do
+          = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+          = @place.user.name
+      = @place.created_at.strftime("%Y/%m/%d").to_s
+  .row
+    .place_image.col-lg-6
+      - if @place.image?
+        = image_tag @place.image.url, class: "mb-1 img-fluid"
+      - else
+        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+    .place_info.col-lg-6
+      .content 所在地：#{@place.adress}
+      .content.d-flex
+        .content-1 URL:　
+        .content-2 = link_to "#{@place.web}", @place.web
+      .content 費用： #{@place.cost}円
+      .content Wifi： #{@place.wifi}
+      .content.d-flex 
+        .content-1 評価：
+        i.fas.fa-star.star-icon
+        .content-2 #{@place.recommend}
+      .content コメント: #{@place.content}
+      .place_info2.d-flex
+        .place_like
+          - if logged_in?
+            = render partial: 'likes/like_form', locals: { place: @place }
+          - else
+            .d-flex.align-items-center
+              i.fas.fa-heart.text-danger
+              h5.ml-2 #{@place.likes.count}
+        - if logged_in? && current_user.admin? || current_user?(@place.user)
+          .place_edit.d-flex.align-items-center
+            p.my-0 = link_to "編集", edit_place_path(@place)
+          p.d-flex.align-items-center.my-0 |
+          .place_delete.d-flex.align-items-center
+            p.my-0 = link_to "削除", @place, method: :delete,　data: { confirm: "本当に削除しますか？" }
+        
   
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 35.6909, lng: 139.7002},
-      zoom: 15,
-    });
+  input#address type="textbox" value="GeekSalon"
+  input#button type="button" value="Encode" onclick="codeAddress()"
   
-    marker = new google.maps.Marker({
-      position:  {lat: 35.6909, lng: 139.7002},
-      map: map
-    });
-  }
+  #map
   
-  let geocoder
-  
-  function codeAddress(){
-    let inputAddress = document.getElementById('address').value;
-  
-    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-        alert('該当する結果がありませんでした：' + status);
-      }
-    });
-  }
+  javascript:
+    let map
+    function initMap(){
+      geocoder = new google.maps.Geocoder()
     
-script{ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTkEtAw0iLGM0fD-kyF9g7ywubuZlO9x4&callback=initMap" async defer}
-
-.content = @place.content
-.name = @place.user.name
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 35.6909, lng: 139.7002},
+        zoom: 15,
+      });
+    
+      marker = new google.maps.Marker({
+        position:  {lat: 35.6909, lng: 139.7002},
+        map: map
+      });
+    }
+    
+    let geocoder
+    
+    function codeAddress(){
+      let inputAddress = document.getElementById('address').value;
+    
+      geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+        if (status == 'OK') {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+          });
+        } else {
+          alert('該当する結果がありませんでした：' + status);
+        }
+      });
+    }
+      
+  script{ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTkEtAw0iLGM0fD-kyF9g7ywubuZlO9x4&callback=initMap" async defer}

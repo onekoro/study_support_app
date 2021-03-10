@@ -2,12 +2,28 @@
   = render "shared/error_messages", object: f.object
 
   .form-group
-    = f.label :title, "場所名"
+    = f.label :title, "店名"
     = f.text_field :title, class: "form-control"
+    
+  .form-group
+    = f.label :adress, "所在地"
+    = f.text_field :adress, class: "form-control"
+    
+  .form-group
+    = f.label :web, "Webページ"
+    = f.text_field :web, class: "form-control"
+    
+  .form-group
+    = f.label :cost, "費用"
+    = f.text_field :cost, class: "form-control"
+    
+  .form-group
+    = f.label :wifi, "Wifiの有無"
+    = f.select :wifi, [["あり", "あり"], ["なし", "なし"]], include_blank: "選択して下さい"
 
   .form-group
     = f.label :content, "コメント"
-    = f.email_field :content, class: "form-control"
+    = f.text_field :content, class: "form-control"
     
   .form-group
     = f.label :image, "写真をアップロード"

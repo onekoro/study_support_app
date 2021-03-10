@@ -7,6 +7,8 @@ class Place < ApplicationRecord
   validates :title, presence: true, length: { maximum: 20 }
   validates :content, presence: true, length: { maximum: 400 }
   mount_uploader :image, ImageUploader
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
   
   # マイクロポストをいいねする
   def good(user)

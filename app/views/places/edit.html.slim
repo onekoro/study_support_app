@@ -1,7 +1,10 @@
 - provide(:title, "Update place")
 - provide(:button_text, "編集")
 
-h1.text-center.my-4 編集
-
-.signup.container
-  = render 'form'
+.container
+  .row
+    h2 投稿編集
+  
+  .row
+    .edit_form
+      = render 'form'
