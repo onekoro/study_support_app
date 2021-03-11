@@ -19,6 +19,14 @@ header{
 
 // places/show
 .place_show{
+  .place_title{
+    a{
+      color: rgb(91, 112, 131);
+    }
+    .user_info{
+      color: rgb(91, 112, 131);
+    }
+  }
   #map{
     height: 400px;
     width: 100%;
@@ -54,12 +62,28 @@ header{
 }
 
 // _place
-.place_image_thumb{
-  img{
-    height: 250px;
-    width: 350px;
+.place_content{
+  border: solid 2px #EEEEEE;
+  border-radius: 2px;
+  .title{
+    a{
+      color: black;
+    }
+  }
+  .place_info1{
+    a{
+      color: rgb(91, 112, 131);
+    }
+    color: rgb(91, 112, 131);
+  }
+  .place_image_thumb{
+    img{
+      height: 250px;
+      width: 350px;
+    }
   }
 }
+
 
 .place_image{
   img{

@@ -20,6 +20,7 @@ gem 'faker',                   '2.1.2'
 gem 'kaminari'
 gem 'ransack'
 gem "geocoder"
+gem "dotenv-rails"
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'

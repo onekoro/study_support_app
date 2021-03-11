@@ -29,12 +29,16 @@ users = User.order(:created_at).take(10)
   title = "タイトル#{n}"
   content = Faker::String.random(length: 100..300)
   image = "default_place.jpg"
-  adress = Faker::Address.full_address
+  address = Faker::Address.full_address
   web = Faker::Internet.url
-  cost = Faker::Number.number(digits: 3)
-  wifi = "あり"
+  cost = Faker::Number.between(from: 100, to: 10000)
+  if n%2 == 0
+    wifi = "あり"
+  else
+    wifi = "なし"
+  end
   recommend = n
-  users.each { |user| user.places.create!(title: title, content: content, image: image, adress: adress, web: web, cost: cost, wifi: wifi, recommend: recommend) }
+  users.each { |user| user.places.create!(title: title, content: content, image: image, address: address, web: web, cost: cost, wifi: wifi, recommend: recommend) }
 end
 
 # 以下のリレーションシップを作成する

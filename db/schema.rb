@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_004942) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
-    t.string "adress"
+    t.string "address"
     t.string "web"
     t.integer "cost"
     t.string "wifi"

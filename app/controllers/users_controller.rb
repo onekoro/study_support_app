@@ -10,6 +10,13 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @places = Place.find_by(user_id: @user.id)
+    @places = @places.page(params[:page]).per(6)
+  end
+  
+  def like_show
+    @user = User.find(params[:id])
+    @places = @user.good_places
   end
   
   def new

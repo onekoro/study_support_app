@@ -48,7 +48,7 @@ class PlacesController < ApplicationController
   private
   
     def place_params
-      params.require(:place).permit(:title, :content, :image, :adress, :web, :cost, :wifi, :recommend)
+      params.require(:place).permit(:title, :content, :image, :address, :web, :cost, :wifi, :recommend, :latitude, :longitude)
     end
     
     def correct_poster
