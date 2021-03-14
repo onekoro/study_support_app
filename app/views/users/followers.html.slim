@@ -1,14 +1,35 @@
 - provide(:title, "Follower list")
 .container.follow_list
+  .row.align-items-center
+    .col-lg-2
+    .col-lg-2.col-sm-3
+      = image_tag @user.image.url, class: "border border-dark rounded-circle img-fluid"
+    .col-lg-4.col-sm-6
+      h2 #{@user.name}
+      .follow.d-flex
+        .following
+          = link_to "#{@user.following.count}フォロー中", following_user_path(@user), class: "m-1 text-left"
+        .followers
+          = link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right"
+    .col-lg-2.col-sm-3
+      - if current_user?(@user)
+        = link_to "プロフィールの編集", edit_user_path(current_user), class: "btn btn-primary btn-sm btn-block my-3"
+      - elsif logged_in?
+        div id='show_follow_form'
+          - if current_user.following?(@user)
+            = render partial: 'unfollow', locals: { user: @user }
+          - else
+            = render partial: 'follow', locals: { user: @user }
+    .col-lg-2
   .row
-    = link_to "マイページに戻る", user_path
-  .row
-    .following.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
-      = link_to "#{@user.following.count}フォロー中", following_user_path(@user), class: "stretched-link text-secondary"
-    .followers.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
-      = link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "stretched-link"
+    .my_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "投稿", user_path(@user), class: "stretched-link text-secondary"
+    .likes_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "いいね", like_show_user_path(@user), class: "stretched-link text-secondary"
+    .follow.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "フォロー", following_user_path(@user), class: "stretched-link text-secondary"
+    .follower.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
+      = link_to "フォロワー", followers_user_path(@user), class: "stretched-link"
   - if @users.any?
     = render @users
     = paginate @users
-  - else
-    h2 "{@title}はいません"

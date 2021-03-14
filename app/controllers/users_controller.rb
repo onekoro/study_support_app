@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :check_guest, only: [:edit, :destroy]
   
   def index
     @user = current_user
@@ -11,12 +12,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @places = Place.find_by(user_id: @user.id)
-    @places = @places.page(params[:page]).per(6)
+    # @places = Kaminari.paginate_array(@places).page(params[:page]).per(10)
+    # @places = @places.page(params[:page]).per(10)
   end
   
   def like_show
     @user = User.find(params[:id])
     @places = @user.good_places
+    @places = @places.page(params[:page]).per(6)
   end
   
   def new
@@ -75,5 +78,14 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user.admin? || current_user?(@user)
     end
+    
+    # ゲストユーザーか確認
+    def check_guest
+      if current_user.email == 'guest@example.com'
+        flash[:danger] = 'ゲストユーザーは編集・削除できません。'
+        redirect_to user_path(current_user)
+      end
+    end
+
     
 end

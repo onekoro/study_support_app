@@ -1,32 +1,53 @@
-= form_with(model: @place, local: true) do |f|
-  = render "shared/error_messages", object: f.object
-
-  .form-group
-    = f.label :title, "店名"
-    = f.text_field :title, class: "form-control"
+.row
+  .col-lg-4.col-sm-2
+  .form.col-lg-4.col-sm-8.py-2
+    h2 = yield(:title)
     
-  .form-group
-    = f.label :address, "所在地"
-    = f.text_field :address, class: "form-control"
-    
-  .form-group
-    = f.label :web, "Webページ"
-    = f.text_field :web, class: "form-control"
-    
-  .form-group
-    = f.label :cost, "費用"
-    = f.text_field :cost, class: "form-control"
-    
-  .form-group
-    = f.label :wifi, "Wifiの有無"
-    = f.select :wifi, [["あり", "あり"], ["なし", "なし"]], include_blank: "選択して下さい"
-
-  .form-group
-    = f.label :content, "コメント"
-    = f.text_field :content, class: "form-control"
-    
-  .form-group
-    = f.label :image, "写真をアップロード"
-    = f.file_field :image, class: "form-control-image"
-    
-  = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"
+    = form_with(model: @place, local: true) do |f|
+      = render "shared/error_messages", object: f.object
+      .form-group
+        .d-flex
+          = f.label :title, "店名"
+          p （必須）
+        = f.text_field :title, class: "form-control"
+        
+      .form-group
+        .d-flex
+          = f.label :address, "所在地"
+          p （必須）
+        = f.text_field :address, class: "form-control"
+        
+      .form-group
+        = f.label :web, "Webページ"
+        = f.text_field :web, class: "form-control"
+        
+      .form-group
+        .d-flex
+          = f.label :cost, "費用"
+          p （必須）
+        .d-flex  
+          = f.text_field :cost, class: "form-control"
+          span 円
+        
+      .form-group.d-flex.flex-column
+        .d-flex
+          = f.label :wifi, "Wifiの有無"
+          p （必須）
+        = f.select :wifi, [["あり", "あり"], ["なし", "なし"]], include_blank: "選択して下さい"
+      
+      .form-group.d-flex.flex-column
+        .d-flex
+          = f.label :recommend, "評価"
+          p （必須）
+        = f.select :recommend, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5]], include_blank: "選択して下さい"
+        
+      .form-group
+        = f.label :content, "コメント"
+        = f.text_area :content, class: "form-control"
+        
+      .form-group
+        = f.label :image, "写真をアップロード"
+        = f.file_field :image, class: "form-control-image"
+        
+      = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"
+  .col-lg-4.col-sm-2

@@ -1,6 +1,6 @@
 header
   .container
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top.px-1.py-3
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top.px-1.py-3
       .title
         = link_to root_path, class: "navbar-brand d-flex" do
           li.fas.fa-pen.fa-2x.mx-2
@@ -26,7 +26,7 @@ header
                 .tag Users
             li.nav-item
               = link_to new_place_path, class: "nav-link"
-                
+                i.fas.fa-plus-square
                 .tag New
             li.nav-item 
               = link_to logout_path, class: "nav-link", method: :delete

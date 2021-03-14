@@ -1,30 +1,26 @@
 .col-lg-4.col-sm-6
   .place_content.my-2
+    = link_to place_path(place), class: "place_link" do
     .place_image_thumb
-      = link_to place_path(place) do
-        - if place.image?
-          = image_tag place.image.url, class: "mb-1 img-fluid"
-        - else
-          = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+      - if place.image?
+        = image_tag place.image.url, class: "mb-1 img-fluid"
+      - else
+        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title
-      h4.mb-0.py-1 = link_to place.title, place_path(place)
+      h4.mb-0.py-1 #{place.title}
     .place_info1.d-flex
       .user_info.mr-3
-        = link_to user_path(place.user) do
+        = link_to user_path(place.user), class: "inlink" do
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
       = place.created_at.strftime("%Y/%m/%d").to_s
     .place_info2.d-flex
-      .place_like
+      .place_like.inlink
         - if logged_in?
           = render partial: 'likes/like_form', locals: { place: place }
-        - else
-          .d-flex.align-items-center
-            i.fas.fa-heart.text-danger
-            h5.ml-2 #{place.likes.count}
       - if logged_in? && current_user.admin? || current_user?(place.user)
         .place_edit.d-flex.align-items-center
-          p.my-0 = link_to "編集", edit_place_path(place)
+          p.my-0.inlink = link_to "編集", edit_place_path(place)
         p.d-flex.align-items-center.my-0 |
         .place_delete.d-flex.align-items-center
-          p.my-0 = link_to "削除", place, method: :delete,　data: { confirm: "本当に削除しますか？" } 
+          p.my-0.inlink = link_to "削除", place, method: :delete,　data: { confirm: "本当に削除しますか？" }

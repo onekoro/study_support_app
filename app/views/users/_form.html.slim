@@ -1,24 +1,38 @@
-= form_with(model: @user, local: true) do |f|
-  = render "shared/error_messages", object: f.object
-
-  .form-group
-    = f.label :name, "名前"
-    = f.text_field :name, class: "form-control"
-
-  .form-group
-    = f.label :email, "メールアドレス"
-    = f.email_field :email, class: "form-control"
-
-  .form-group
-    = f.label :password, "パスワード"
-    = f.password_field :password, class: "form-control"
-
-  .form-group
-    = f.label :password_confirmation, "パスワード（確認）"
-    = f.password_field :password_confirmation, class: "form-control"
-  
-  .form-group
-    = f.label :image, "プロフィール画像"
-    = f.file_field :image, class: "form-control-image"
+.row
+  .col-lg-4.col-sm-2
+  .form.col-lg-4.col-sm-8.py-2
+    .subhead
+      h2 = yield(:title)
     
-  = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"
+    = form_with(model: @user, local: true) do |f|
+      = render "shared/error_messages", object: f.object
+    
+      .form-group
+        .d-flex
+          = f.label :name, "名前"
+          p （必須）
+        = f.text_field :name, class: "form-control"
+    
+      .form-group
+        .d-flex
+          = f.label :email, "メールアドレス"
+          p （必須）
+        = f.email_field :email, class: "form-control"
+    
+      .form-group
+        .d-flex
+          = f.label :password, "パスワード"
+          p （必須）
+        = f.password_field :password, class: "form-control"
+    
+      .form-group
+        .d-flex
+          = f.label :password_confirmation, "パスワード（確認）"
+          p （必須）
+        = f.password_field :password_confirmation, class: "form-control"
+      
+      .form-group
+        = f.label :image, "プロフィール画像"
+        = f.file_field :image, class: "form-control-image"
+        
+      = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"

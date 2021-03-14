@@ -1,15 +1,17 @@
 - provide(:title, "users")
+.home_back
+  .container.home
+    - if !logged_in?
+      .row.align-items-center.justify-content-center.text-center
+        .col-lg-10
+          h1.font-weight-bold 勉強は場所選びから
+        .col-lg-8.justfy-content-center
+          p.text-white-75.font-weight-light.mb-5 お気に入りの勉強場所を探すアプリ
+          = link_to "ログイン", login_path, class: "btn btn-primary btn-xl m-1"
+          = link_to "新規登録", new_user_path, class: "btn btn-primary btn-xl m-1"
+          = link_to "ゲストログイン", guest_login_path, method: :post, class: "btn btn-success btn-xl m-1"
 .container.home
-  - if !logged_in?
-    .row.align-items-center.justify-content-center.text-center
-      .col-lg-10
-        h1.font-weight-bold 勉強は集中できるところでしよう！
-      .col-lg-8.justfy-content-center
-        p.text-white-75.font-weight-light.mb-5 Study Serchはあなたの好みの勉強場所を見つけます
-        = link_to "ログイン", login_path, class: "btn btn-primary btn-xl m-1"
-        = link_to "新規登録", new_user_path, class: "btn btn-primary btn-xl m-1"
-        = link_to "ゲストログイン", "#", class: "btn btn-primary btn-xl m-1"
-  .row
+  .row.subhead
     h2 投稿一覧
   .row
     .serch_box
@@ -20,10 +22,10 @@
       .box_content
         = search_form_for @q do |f|
           .row
-            .form_group.col-lg-3.d-flex.flex-column
+            .form_group.col-lg-3.col-sm-6.d-flex.flex-column
               = f.label :keyword, "キーワード"
               = f.search_field :title_or_address_or_cost_or_wifi_cont
-            
+            .col-lg-0
             .form_group.col-lg-6
               = f.label :cost, "費用"
               .d-flex
@@ -31,14 +33,16 @@
                 h5 ~
                 = f.number_field :cost_lteq
                 h5 円
-            
-            .form_group.col-lg-3.d-flex.flex-column
+            .form_group.col-lg-3.col-sm-6.d-flex.flex-column
               = f.label :wifi, "Wifiの有無"
               = f.select :wifi_eq, [["あり", "あり"], ["なし", "なし"]], include_blank: "選択して下さい"
-            
-            .form_group.col-12
-              = f.submit "検索", class: "my-2"
+            .col-lg-0.col-sm-6
+            .col-12.row
+              .col-5
+              .form_group.col-2
+                = f.submit "検索", class: "my-4 w-100 btn btn-outline-secondary"
+              .col-5
     
-  .row
+  .row.places
     = render @places
     = paginate @places

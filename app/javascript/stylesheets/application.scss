@@ -1,10 +1,15 @@
 @import '~bootstrap/scss/bootstrap';
 
+$text-grey: rgb(91, 112, 131);
+
 body{
   margin-top: 90px;
 }
 
 header{
+  .navbar {
+    background-color: #FFFF99;
+  }
   .title{
     h3{
       font-family: 'Anton', sans-serif;
@@ -17,14 +22,66 @@ header{
   }
 }
 
+.home_back{
+  // background-color: red;
+  // background-image: image-url("<%= asset_path('haikei.jpg') %>");
+  // background-image: image-url('haikei.jpg');
+  // background-image: url(<%= asset_path 'haikei.jpg' %>);
+  background-image: image-url("/assets/images/haikei.jpg");
+  background-size: cover;
+}
+
+.subhead{
+  h2{
+    border-bottom: solid 2px #1F2125;
+    margin: 2% 0;
+  }
+}
+
+// 入力フォーム
+.form p{
+  color: red;
+}
+
+// _user
+// .user_form{
+//   position: relative;
+//   z-index: 1;
+//   :hover{
+//     background-color: #D9E5FF;
+//     z-index: -1;
+//     opacity: 0.1;
+//   }
+//   .user_link{
+//     position: absolute;
+//     z-index: 2;
+//     display: block;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//   }
+//   .inlink{
+//     position: relative;
+//     z-index: 3;
+//   }
+// }
+
+
+// place/new
+.form{
+  border: solid 1px #EEEEEE;
+  border-radius: 1%;
+}
+
 // places/show
 .place_show{
   .place_title{
     a{
-      color: rgb(91, 112, 131);
+      color: $text-grey;
     }
     .user_info{
-      color: rgb(91, 112, 131);
+      color: $text-grey;
     }
   }
   #map{
@@ -46,8 +103,8 @@ header{
 .serch_box{
   padding: 2%;
   margin: 2% auto;
-  background-color: #F7F8F9;
   border: solid 2px #1F2125;
+  background-color: #f8f9fa;
   border-radius: 8px;
   .box_title{
     .serch_icon{
@@ -64,7 +121,22 @@ header{
 // _place
 .place_content{
   border: solid 2px #EEEEEE;
-  border-radius: 2px;
+  border-radius: 0 0 3% 3%;
+  position: relative;
+  z-index: 1;
+  .place_link{
+    position: absolute;
+    z-index: 2;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .inlink{
+    position: relative;
+    z-index: 3;
+  }
   .title{
     a{
       color: black;
@@ -84,6 +156,9 @@ header{
   }
 }
 
+.place_content:hover{
+  border: solid 2px rgb(0, 123, 255);
+}
 
 .place_image{
   img{
@@ -91,3 +166,23 @@ header{
     width: 500px;
   }
 }
+
+// user/show
+.user_show{
+  .follow{
+    .content{
+      color: rgb(91, 112, 131);
+    }
+  }
+}
+
+.my_content:hover{
+  background-color: #D9E5FF;
+}
+
+.follow{
+  a{
+    color: $text-grey;
+  }
+}
+

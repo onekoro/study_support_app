@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
+  post '/guest_login', to: 'sessions#new_guest'
   resources :users do
     member do
       get :following, :followers, :like_show

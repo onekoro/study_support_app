@@ -1,6 +1,8 @@
 - provide(:title, "All users")
 
 .container.users_index
+  .row.subhead
+    h2 ユーザー一覧
   .row.justify-content-center.align-items-center
     i.fas.fa-search.fa-lg.mx-1
     = search_form_for @q do |f|

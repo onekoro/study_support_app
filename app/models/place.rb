@@ -5,17 +5,21 @@ class Place < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 20 }
-  validates :content, presence: true, length: { maximum: 400 }
+  validates :address, presence: true, length: { maximum: 100 }
+  validates :cost, presence: true
+  validates :wifi, presence: true
+  validates :recommend, presence: true
+  validates :content, length: { maximum: 200 }
   mount_uploader :image, ImageUploader
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
   
-  # マイクロポストをいいねする
+  # 投稿をいいねする
   def good(user)
     likes.create(user_id: user.id)
   end
 
-  # マイクロポストのいいねを解除する（ネーミングセンスに対するクレームは受け付けません）
+  # 投稿のいいねを解除する
   def ungood(user)
     likes.find_by(user_id: user.id).destroy
   end

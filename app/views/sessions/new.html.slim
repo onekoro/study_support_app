@@ -1,24 +1,29 @@
 - provide(:title, "Log in")
-h1.text-center.my-4 ログイン
 
 .login.container
-  = form_with(url: login_path, scope: :session, local: true) do |f|
-  
-    .form-group
-      = f.label :email, "メールアドレス"
-      = f.email_field :email, class: "form-control"
-
-    .form-group
-      = f.label :password, "パスワード"
-      = f.password_field :password, class: "form-control"
-      
-    .form-group
-      = f.label :remember_me, class: "checkbox inline" do
-       = f.check_box :remember_me
-       span ログイン状態を保持する
-      
-    = f.submit "ログイン", class: "btn btn-primary mx-auto d-block"
+  .row
+    .col-lg-4.col-sm-2
+    .col-lg-4.col-sm-8.py-2.form
+      .subhead
+        h2 ログイン
+      = form_with(url: login_path, scope: :session, local: true) do |f|
+        .form-group
+          = f.label :email, "メールアドレス"
+          = f.email_field :email, class: "form-control"
     
-  p ユーザー登録は  #{link_to "こちら", new_user_path}
+        .form-group
+          = f.label :password, "パスワード"
+          = f.password_field :password, class: "form-control"
+          
+        .form-group
+          = f.label :remember_me, class: "checkbox inline" do
+           = f.check_box :remember_me
+           span ログイン状態を保持する
+          
+        = f.submit "ログイン", class: "btn btn-primary mx-auto d-block"
+      .d-flex.my-2
+        span ゲストログインは 
+        = link_to "こちら", guest_login_path, method: :post
+    .col-lg-4.col-sm-2
     
   

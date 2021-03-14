@@ -7,9 +7,9 @@
     .col-lg-4.col-sm-6
       h2 #{@user.name}
       .follow.d-flex
-        .following
+        .following.content
           = link_to "#{@user.following.count}フォロー中", following_user_path(@user), class: "m-1 text-left"
-        .followers
+        .followers.content
           = link_to "#{@user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right"
     .col-lg-2.col-sm-3
       - if current_user?(@user)
@@ -22,10 +22,14 @@
             = render partial: 'follow', locals: { user: @user }
     .col-lg-2
   .row
-    .my_post.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
-      = link_to "自分の投稿", user_path(@user), class: "stretched-link text-secondary"
-    .likes_post.col-6.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
-      = link_to "いいねした投稿", like_show_user_path(@user), class: "stretched-link"
+    .my_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "投稿", user_path(@user), class: "stretched-link text-secondary"
+    .likes_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
+      = link_to "いいね", like_show_user_path(@user), class: "stretched-link"
+    .follow.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "フォロー", following_user_path(@user), class: "stretched-link text-secondary"
+    .follower.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "フォロワー", followers_user_path(@user), class: "stretched-link text-secondary"
   .row
     = render @places
     = paginate @places

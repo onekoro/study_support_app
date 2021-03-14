@@ -1,10 +1,11 @@
-.row.border-bottom.border-secoundary
+.row.border-bottom.border-secoundary.position-relative.user_form
   .col-md-2.col-4
-    = image_tag user.image.url, class: "border border-dark rounded-circle img-fluid m-1"
+    = link_to user_path(user) do
+      = image_tag user.image.url, class: "border border-dark rounded-circle img-fluid m-1"
   .col-md-8.col-4.d-flex.align-items-center
-    = link_to user.name, user
+    h5 = link_to "#{user.name}", user_path(user)
   .col-md-2.col-4
     - if logged_in? && !current_user?(user)
       = render partial: 'follow_form', locals: { user: user }
     - if current_user.admin? && !current_user?(user)
-      = link_to "アカウント削除", user, method: :delete,　data: { confirm: "本当に削除しますか？" }, class: "btn btn-outline-danger btn-sm btn-block my-3" 
+      = link_to "アカウント削除", user, method: :delete,　data: { confirm: "本当に削除しますか？" }, class: "btn btn-outline-danger btn-sm btn-block my-3 inlink" 

@@ -1,5 +1,7 @@
 - provide(:title, @place.title)
 .container.place_show
+  .row.subhead
+    h2 投稿詳細
   .row
     .place_title.align-items-center.col-6
       h1.mr-4 = @place.title
@@ -33,10 +35,6 @@
         .place_like
           - if logged_in?
             = render partial: 'likes/like_form', locals: { place: @place }
-          - else
-            .d-flex.align-items-center
-              i.fas.fa-heart.text-danger
-              h5.ml-2 #{@place.likes.count}
         - if logged_in? && current_user.admin? || current_user?(@place.user)
           .place_edit.d-flex.align-items-center
             p.my-0 = link_to "編集", edit_place_path(@place)
@@ -45,6 +43,7 @@
             p.my-0 = link_to "削除", @place, method: :delete,　data: { confirm: "本当に削除しますか？" }
         
   .row
+    h5.border-bottom.border-secondary 地図
     #map
     
     javascript:
