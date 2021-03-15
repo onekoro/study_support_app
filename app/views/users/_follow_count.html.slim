@@ -1,0 +1,4 @@
+.following
+  = link_to "#{user.following.count}フォロー中", following_user_path(@user), class: "m-1 text-left"
+.followers
+  = link_to "#{user.followers.count}フォロワー", followers_user_path(@user), class: "m-1 text-right"
