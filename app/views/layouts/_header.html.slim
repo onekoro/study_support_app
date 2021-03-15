@@ -17,17 +17,17 @@ header
               .tag Spots
           - if logged_in?
             li.nav-item
-              = link_to user_path(current_user), class: "nav-link"
-                i.fas.fa-user-circle.fa-lg
-                .tag My page
+              = link_to new_place_path, class: "nav-link"
+                i.fas.fa-plus-square
+                .tag New
             li.nav-item
               = link_to users_path, class: "nav-link"
                 i.fas.fa-users.fa-lg
                 .tag Users
             li.nav-item
-              = link_to new_place_path, class: "nav-link"
-                i.fas.fa-plus-square
-                .tag New
+              = link_to user_path(current_user), class: "nav-link"
+                = image_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
+                .tag My page
             li.nav-item 
               = link_to logout_path, class: "nav-link", method: :delete
                 i.fas.fa-sign-out-alt.fa-lg

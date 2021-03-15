@@ -1,10 +1,11 @@
-.row.border-bottom.border-secoundary.position-relative.user_form
+.row.position-relative.user_form
+  = link_to user_path(user), class: "user_link" do
   .col-md-2.col-4
     = link_to user_path(user) do
       = image_tag user.image.url, class: "border border-dark rounded-circle img-fluid m-1"
   .col-md-8.col-4.d-flex.align-items-center
-    h5 = link_to "#{user.name}", user_path(user)
-  .col-md-2.col-4
+    h5 #{user.name}
+  .col-md-2.col-4.inlink
     - if logged_in? && !current_user?(user)
       = render partial: 'follow_form', locals: { user: user }
     - if current_user.admin? && !current_user?(user)
