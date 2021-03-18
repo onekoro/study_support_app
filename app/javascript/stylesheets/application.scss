@@ -2,6 +2,15 @@
 
 $text-grey: rgb(91, 112, 131);
 
+@mixin grey-border{
+  border: solid 2px #EEEEEE;
+}
+
+@mixin y-center{
+  display: flex;
+  align-items: center;
+}
+
 body{
   margin-top: 83px;
 }
@@ -16,9 +25,8 @@ header{
     }
   }
   .nav-link{
-    display: flex;
+    @include y-center;
     justify-content: center;
-    align-items: center;
   }
 }
 .alert{
@@ -36,6 +44,18 @@ header{
 // 入力フォーム
 .form p{
   color: red;
+}
+
+// placeの製作者の画像と名前
+.user_link{
+  @include y-center;
+  color: black;
+}
+
+// placeの制作日
+.created_at{
+  @include y-center;
+  color: $text-grey;
 }
 
 // _user
@@ -59,13 +79,7 @@ header{
   }
   .inlink{
     position: relative;
-    z-index: 3; 
-    // input{
-    //   background-color: blue;
-    //   :hover{
-    //     background-color: red;
-    //   }
-    // }
+    z-index: 3;
   }
 }
 
@@ -78,25 +92,35 @@ header{
 
 // places/show
 .place_show{
+  .row{
+    margin-bottom: 10px;
+  }
   .place_title{
-    a{
-      color: $text-grey;
-    }
-    .user_info{
-      color: $text-grey;
+    @include grey-border;
+    border-radius: 3%;
+    // font-size: 120%;
+    .place_address{
+      @include y-center;
     }
   }
   #map{
-    height: 400px;
+    height: 180px;
     width: 100%;
   }
   .star-icon{
-    color: yellow;
+    color: #28a745;
+  }
+  .map-icon{
+    color: red;
   }
   .content{
-    border-bottom: solid 2px #C0C0C0;
-    margin-bottom: 3%;
-    font-size: 110%;
+    @include grey-border;
+    // font-size: 110%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+  }
+  .comment_recommend{
+    border-bottom: solid 1px #EEEEEE;
   }
 }
 
@@ -133,9 +157,8 @@ header{
   border-radius: 8px;
   .box_title{
     .serch_icon{
-      display: flex;
+      @include y-center;
       justify-content: center;
-      align-items: center;
     }
     h4{
       border-bottom: solid 2px #1F2125;
@@ -145,7 +168,7 @@ header{
 
 // _place
 .place_content{
-  border: solid 2px #EEEEEE;
+  @include grey-border;
   border-radius: 0 0 3% 3%;
   position: relative;
   z-index: 1;
@@ -165,29 +188,10 @@ header{
     position: relative;
     z-index: 3;
   }
-  .title{
-    a{
-      color: black;
-    }
-  }
-  .place_info1{
-    a{
-      color: rgb(91, 112, 131);
-    }
-    color: rgb(91, 112, 131);
-  }
-  .place_image_thumb{
-    img{
-      height: 250px;
-      width: 350px;
-    }
-  }
-}
-
-.place_image{
-  img{
-    height: 400px;
-    width: 500px;
+  .title h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

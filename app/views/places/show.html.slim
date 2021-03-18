@@ -1,70 +1,75 @@
 - provide(:title, @place.title)
 .container.place_show
-  .row.subhead
-    h2 投稿詳細
   .row
-    .place_title.align-items-center.col-6
-      h1.mr-4 = @place.title
-      .right_contents.d-flex
-        .user_info.mr-2
-          = link_to user_path(@place.user) do
-            .d-flex
-              = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
-              = @place.user.name
-        .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
-      
-  .row
-    .place_image.col-lg-6
+    .place_image.col-12
       - if @place.image?
-        = image_tag @place.image.url, class: "mb-1 img-fluid"
+        = image_tag @place.image.to_s, class: "mb-1"
       - else
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
-    .place_info.col-lg-6
-      .content 所在地：#{@place.address}
-      .content.d-flex
-        .content-1 URL:　
-        .content-2 = link_to "#{@place.web}", @place.web
-      .content 費用： #{@place.cost}円
-      .content Wifi： #{@place.wifi}
-      .content.d-flex 
-        .content-1 評価：
-        i.fas.fa-star.star-icon
-        .content-2 #{@place.recommend}
-      .content コメント: #{@place.content}
-      .place_info2.d-flex
-        .place_like
-          - if logged_in?
-            = render partial: 'likes/like_form', locals: { place: @place }
+    
+  .row
+    .place_title.align-items-center.col-lg-8
+      h1.mr-4 = @place.title
+      .place_address
+        i.fas.fa-map-marker-alt.map-icon
+        span #{@place.address}
+      .post_info.d-flex
+        .user_info.mr-2
+          = link_to user_path(@place.user), class: "user_link" do
+            = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+            = @place.user.name
+        .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
+      .place_recommend.d-flex
+        - @place.recommend.times do
+          i.fas.fa-star.star-icon
+        - (5-@place.recommend).times do
+          i.far.fa-star.star-icon
+      .place_edit_form.d-flex
         - if logged_in? && current_user.admin? || current_user?(@place.user)
           .place_edit.d-flex.align-items-center
             p.my-0 = link_to "編集", edit_place_path(@place)
           p.d-flex.align-items-center.my-0 |
           .place_delete.d-flex.align-items-center
             p.my-0 = link_to "削除", @place, method: :delete,　data: { confirm: "本当に削除しますか？" }
-        
-  .row
-    h5.border-bottom.border-secondary 地図
-    #map
+    - if @place.latitude && @place.longitude
+      .map.col-lg-4
+        #map
+        javascript:
+          let map
     
-    javascript:
-      let map
-
-      function initMap(){
-        geocoder = new google.maps.Geocoder()
-
-        var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: test,
-          zoom: 17,
-        });
+          function initMap(){
+            geocoder = new google.maps.Geocoder()
+    
+            var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: test,
+              zoom: 17,
+            });
+          
+            marker = new google.maps.Marker({
+              position: test,
+              map: map
+            });
+          }
+        script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
       
-        marker = new google.maps.Marker({
-          position: test,
-          map: map
-        });
-      }
-
-    
-      
-    script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
-    
+  .row.poster_comment
+    .col-lg-7
+      h4 投稿者コメント
+    .col-lg-6
+      - if @place.content == "" 
+        .content コメントはありません
+      - else
+        .content #{@place.content}
+  .row.comments
+    .col-lg-7
+      h4 レビュー
+    .col-lg-6
+      - if @comments
+        = render @comments
+      - else
+        .content コメントはありません
+  .row.comment_form
+    .col-12
+      h5 レビュー・評価する
+    = render "comment_form"

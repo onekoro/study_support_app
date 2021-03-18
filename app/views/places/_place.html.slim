@@ -3,17 +3,17 @@
     = link_to place_path(place), class: "place_link" do
     .place_image_thumb
       - if place.image?
-        = image_tag place.image.url, class: "mb-1 img-fluid"
+        = image_tag place.image.to_s, class: "mb-1 img-fluid"
       - else
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title
       h4.mb-0.py-1 #{place.title}
     .place_info1.d-flex
       .user_info.mr-3
-        = link_to user_path(place.user), class: "inlink" do
+        = link_to user_path(place.user), class: "inlink user_link" do
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
-      = place.created_at.strftime("%Y/%m/%d").to_s
+      .created_at = place.created_at.strftime("%Y/%m/%d").to_s
     .place_info2.d-flex
       .place_like.inlink
         - if logged_in?

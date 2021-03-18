@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/destroy'
   root 'places#index'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
@@ -9,7 +11,10 @@ Rails.application.routes.draw do
       get :following, :followers, :like_show
     end
   end
-  resources :places
+  resources :places do
+    resources :comments, only: [:create, :destroy]
+  end
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+  
 end

@@ -27,7 +27,7 @@ header
             li.nav-item
               = link_to user_path(current_user), class: "nav-link"
                 = image_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
-                .tag My page
+                .tag #{current_user.name}
             li.nav-item 
               = link_to logout_path, class: "nav-link", method: :delete
                 i.fas.fa-sign-out-alt.fa-lg

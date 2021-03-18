@@ -1,0 +1,20 @@
+.content
+    .comment_info.d-flex
+        .comenter_info.mr-2
+          = link_to user_path(comment.user), class: "user_link" do
+              = image_tag comment.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+              = comment.user.name
+        .created_at = comment.created_at.strftime("%Y/%m/%d").to_s
+    .comment_recommend
+        - comment.recommend.times do
+            i.fas.fa-star.star-icon
+        - (5-comment.recommend).times do
+            i.far.fa-star.star-icon
+    .comment_content
+        - if comment.content == "" 
+            .bun コメントはありません
+        - else
+            .bun #{comment.content}
+            - if current_user?(comment.user)
+                p.my-0 = link_to "削除", place_comment_path(@place, comment), method: :delete, data: { confirm: "本当に削除しますか？" }
+    

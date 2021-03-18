@@ -9,6 +9,8 @@ class PlacesController < ApplicationController
   
   def show
     @place = Place.find(params[:id])
+    @comments = @place.comments
+    @comment = Comment.new
   end
   
   def new
@@ -18,7 +20,7 @@ class PlacesController < ApplicationController
   def create
     @place = current_user.places.build(place_params)
     if @place.save
-      flash[:success] = "勉強場所の登録ができました"
+      flash[:success] = "勉強場所を投稿しました"
       redirect_to @place
     else
       render 'new'

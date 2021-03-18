@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_004942) do
+ActiveRecord::Schema.define(version: 2021_03_15_074509) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.integer "recommend"
+    t.integer "user_id", null: false
+    t.integer "place_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["place_id"], name: "index_comments_on_place_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -62,5 +73,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_004942) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "comments", "places"
+  add_foreign_key "comments", "users"
   add_foreign_key "places", "users"
 end
