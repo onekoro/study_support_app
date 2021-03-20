@@ -13,8 +13,12 @@ Rails.application.routes.draw do
   end
   resources :places do
     resources :comments, only: [:create, :destroy]
+    collection do
+      get :tag_search
+    end
   end
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
+
   
 end

@@ -40,7 +40,13 @@
           = f.label :recommend, "評価"
           p （必須）
         = f.select :recommend, [["1", 1], ["2", 2], ["3", 3], ["4", 4], ["5", 5]], include_blank: "選択して下さい"
-        
+      
+      .form-group
+        = f.label :tag_name, "タグ入力"
+        div "スペースを入力することで複数のタグを付けることができます。"
+        div "例：喫茶店 図書館 雑談OK"
+        = f.text_field :tag_name, class: "form-control"
+      
       .form-group
         = f.label :content, "コメント"
         = f.text_area :content, class: "form-control"

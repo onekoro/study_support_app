@@ -3,6 +3,8 @@ class Place < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :good_users, through: :likes, source: :user
   has_many :comments, dependent: :destroy
+  has_many :tag_maps, dependent: :destroy
+  has_many :tags, through: :tag_maps
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 20 }
@@ -28,5 +30,22 @@ class Place < ApplicationRecord
   # 現在のユーザーがいいねしてたらtrueを返す
   def good?(user)
     good_users.include?(user)
+  end
+  
+  def save_tag(sent_tags)
+  current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+  old_tags = current_tags - sent_tags
+  new_tags = sent_tags - current_tags
+
+    # Destroy old taggings:
+    old_tags.each do |old_name|
+      self.tags.delete Tag.find_by(tag_name: old_name)
+    end
+
+    # Create new taggings:
+    new_tags.each do |new_name|
+      place_tag = Tag.find_or_create_by(tag_name: new_name)
+      self.tags << place_tag
+    end
   end
 end

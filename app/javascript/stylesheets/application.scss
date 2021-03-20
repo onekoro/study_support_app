@@ -58,6 +58,20 @@ header{
   color: $text-grey;
 }
 
+// タグ
+.place_tags{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  .tag{
+    margin-left: 5px;
+    a{
+      padding: 0 3px;
+    }
+  }
+}
+
+
 // _user
 .user_form{
   position: relative;
@@ -98,10 +112,15 @@ header{
   .place_title{
     @include grey-border;
     border-radius: 3%;
-    // font-size: 120%;
     .place_address{
       @include y-center;
+      .map-icon{
+        color: red;
+      }
     }
+  }
+  .place_recommend{
+    font-size: 120%;
   }
   #map{
     height: 180px;
@@ -110,9 +129,7 @@ header{
   .star-icon{
     color: #28a745;
   }
-  .map-icon{
-    color: red;
-  }
+  
   .content{
     @include grey-border;
     // font-size: 110%;
@@ -146,6 +163,21 @@ header{
     .text_contents{
       color: white;
     }
+  }
+}
+
+// tag_search
+.tag_search{
+  display: flex;
+  justify-content: center;
+  h2{
+    margin-top: 2%;
+  }
+  span{
+    color: white;
+    background-color: #17a2b8;
+    padding: 0 3px;
+    border-radius: 3px;
   }
 }
 

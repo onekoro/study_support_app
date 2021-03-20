@@ -1,0 +1,11 @@
+.container
+  .row.tag_search
+    h2
+      |
+      span
+        |#{@tag.tag_name}
+      |の検索結果
+  
+  .row.places
+    = render @places
+    = paginate @places

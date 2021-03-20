@@ -14,6 +14,9 @@
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
       .created_at = place.created_at.strftime("%Y/%m/%d").to_s
+    .place_tags.row
+      - if place.tags
+        = render partial: 'places/tag', locals: { tags: place.tags }
     .place_info2.d-flex
       .place_like.inlink
         - if logged_in?

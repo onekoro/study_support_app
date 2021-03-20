@@ -5,12 +5,20 @@ class PlacesController < ApplicationController
   def index
     @q = Place.ransack(params[:q])
     @places = @q.result(distinct: true).page(params[:page]).per(6)
+    @tag_list = Tag.all
+  end
+  
+  def  tag_search
+    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
+    @places = @tag.places.page(params[:page]).per(6)
+    @tag_list = Tag.all
   end
   
   def show
     @place = Place.find(params[:id])
     @comments = @place.comments
     @comment = Comment.new
+    @place_tags = @place.tags
   end
   
   def new
@@ -19,7 +27,9 @@ class PlacesController < ApplicationController
   
   def create
     @place = current_user.places.build(place_params)
+    tag_list = params[:place][:tag_name].split(nil) 
     if @place.save
+      @place.save_tag(tag_list)
       flash[:success] = "勉強場所を投稿しました"
       redirect_to @place
     else
@@ -33,7 +43,9 @@ class PlacesController < ApplicationController
   
   def update
     @place = Place.find(params[:id])
+    tag_list = params[:place][:tag_name].split(nil) 
     if @place.update(place_params)
+      @place.save_tag(tag_list)
       flash[:success] = "勉強場所の更新をしました"
       redirect_to @place
     else
