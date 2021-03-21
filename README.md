@@ -1,30 +1,23 @@
 # Study Spot Serch
 勉強できる場所を探すアプリです．
-場所の様子の確認
-集中して勉強できるスポットを探し，
-その場所の雰囲気などを確認することのできるアプリ
-https://user-images.githubusercontent.com/64568034/111750271-60012a00-88d6-11eb-86a8-def91617f122.png
+<img width="1434" alt="スクリーンショット 2021-03-19 17 12 45" src="https://user-images.githubusercontent.com/64568034/111899527-7a6f0b00-8a70-11eb-9a12-0b3ec71c258f.png">
 
+# 使用技術
+* Ruby 2.6.3
+* Ruby on Rails 6.0.3
+* SQLite 3.22.0
+* AWS
+  * EC2
+* Google Maps API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 機能一覧
+* ユーザー登録
+* ログイン機能
+* 投稿機能
+  * 画像投稿(carrierwave, mini_magick)
+  * 位置情報表示(geocoder)
+* いいね機能(Ajax)
+* コメント機能
+* フォロー機能(Ajax)
+* ページネーション機能(kaminari)
+* 検索機能(ransack)

@@ -33,7 +33,7 @@
             p.my-0 = link_to "編集", edit_place_path(@place)
           p.d-flex.align-items-center.my-0 |
           .place_delete.d-flex.align-items-center
-            p.my-0 = link_to "削除", @place, method: :delete,　data: { confirm: "本当に削除しますか？" }
+            p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }
     - if @place.latitude && @place.longitude
       .map.col-lg-4
         #map
