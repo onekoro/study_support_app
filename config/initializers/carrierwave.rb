@@ -1,22 +1,13 @@
-require 'carrierwave/storage/abstract'
-require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog'
-
-CarrierWave.configure do |config|
-  if Rails.env.production? # 本番環境の場合はS3へアップロード
-    config.storage :fog
-    config.fog_provider = 'fog/aws'
-    config.fog_directory  = 'studyplaceapp' # バケット名
-    config.fog_public = false
+unless Rails.env.development? || Rails.env.test?
+  CarrierWave.configure do |config|
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: ENV['S3_ACCESS_KEY_ID'], # アクセスキー
-      aws_secret_access_key: ENV['S3_SECRET_ACCESS_KEY'], # シークレットアクセスキー
-      region: 'ap-northeast-1', # リージョン
-      path_style: true
+      aws_access_key_id: ENV['S3_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      region: 'us-east-2'
     }
-  else # 本番環境以外の場合はアプリケーション内にアップロード
-    config.storage :file
-    config.enable_processing = false if Rails.env.test?
+
+    config.fog_directory  = 'studyplace-app'
+    config.cache_storage = :fog
   end
 end
