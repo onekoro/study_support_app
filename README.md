@@ -1,5 +1,6 @@
 # Study Spot Serch
 勉強できる場所を探すアプリです．
+URL: https://study-spot-search.herokuapp.com/
 <img width="1434" alt="スクリーンショット 2021-03-19 17 12 45" src="https://user-images.githubusercontent.com/64568034/111899527-7a6f0b00-8a70-11eb-9a12-0b3ec71c258f.png">
 
 # 使用技術

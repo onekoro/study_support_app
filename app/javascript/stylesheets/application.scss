@@ -46,6 +46,16 @@ header{
   color: red;
 }
 
+// placeのwifiとcost
+.place_wifi_cost{
+    @include y-center;
+    .wifi{
+      @include y-center;
+    }
+    .cost{
+      @include y-center;
+    }
+  }
 // placeの製作者の画像と名前
 .user_link{
   @include y-center;
@@ -112,15 +122,31 @@ header{
   .place_title{
     @include grey-border;
     border-radius: 3%;
-    .place_address{
+  }
+  .place_info{
+    .user_info{
       @include y-center;
-      .map-icon{
-        color: red;
-      }
     }
   }
   .place_recommend{
     font-size: 120%;
+  }
+  .place_wifi_cost{
+    font-size: 150%;
+    img{
+      width: 25%;
+      height: 25%;
+    }
+  }
+  .place_address{
+    @include y-center;
+    margin-bottom: 2px;
+    .map-icon{
+      color: red;
+    }
+    .address{
+      border-bottom: solid 2px black;
+    }
   }
   #map{
     height: 180px;
@@ -224,6 +250,15 @@ header{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .place_wifi_cost{
+    .wifi{
+      width: 85px;
+    }
+    img{
+      height: 25%;
+      width: 25%;
+    }
   }
 }
 

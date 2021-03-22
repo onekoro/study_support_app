@@ -31,11 +31,15 @@ end
 # ユーザーの一部を対象にマイクロポストを生成する
 users = User.order(:created_at).take(10)
 5.times do |n|
-  title = Faker::String.random(length: 5..20)
-  content = Faker::String.random(length: 100..400)
+  # title = Faker::String.random(length: 5..20)
+  title = "test"
+  # content = Faker::String.random(length: 100..400)
+  content = "test"
   image = "default_place.jpg"
-  address = Faker::Address.full_address
-  web = Faker::Internet.url
+  # address = Faker::Address.full_address
+  address = "東京"
+  # web = Faker::Internet.url
+  web = "test"
   cost = Faker::Number.between(from: 100, to: 10000)
   if n%2 == 0
     wifi = "あり"

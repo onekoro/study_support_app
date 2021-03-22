@@ -8,18 +8,27 @@
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
     
   .row
-    .place_title.align-items-center.col-lg-8
-      h1.mr-4 = @place.title
-      .place_address
-        i.fas.fa-map-marker-alt.map-icon
-        span #{@place.address}
-      .place_info.d-flex
+    .place_title.align-items-center.col-lg-8.mb-2
+      .d-flex
+        h1.mr-4 = @place.title
+        .place_wifi_cost
+          .wifi
+            - if @place.wifi == "あり"
+              i.fas.fa-wifi.wifi-icon
+              .word Wifiあり
+            - else
+              = image_tag "wifi_slash_icon.png", class: "img-fluid"
+              .word Wifiなし
+          .cost
+            i.fas.fa-yen-sign.yen-icon
+            .word #{@place.cost}円
+      .place_info.d-flex.mb-2
         .user_info.mr-2
           = link_to user_path(@place.user), class: "user_link" do
             = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
             = @place.user.name
         .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
-      .place_recommend.d-flex
+      .place_recommend.d-flex.mb-2
         - @place.recommend.times do
           i.fas.fa-star.star-icon
         - (5-@place.recommend).times do
@@ -27,6 +36,8 @@
       .place_tags.row
         - if @place.tags
           = render partial: 'places/tag', locals: { tags: @place.tags }
+      .place_like
+        = render partial: 'likes/like_form', locals: { place: @place }
       .place_edit_form.d-flex
         - if logged_in? && current_user.admin? || current_user?(@place.user)
           .place_edit.d-flex.align-items-center
@@ -35,26 +46,30 @@
           .place_delete.d-flex.align-items-center
             p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }
     - if @place.latitude && @place.longitude
-      .map.col-lg-4
-        #map
-        javascript:
-          let map
-    
-          function initMap(){
-            geocoder = new google.maps.Geocoder()
-    
-            var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
-            map = new google.maps.Map(document.getElementById('map'), {
-              center: test,
-              zoom: 17,
-            });
-          
-            marker = new google.maps.Marker({
-              position: test,
-              map: map
-            });
-          }
-        script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
+      .col-lg-4
+        .map
+          .place_address
+            i.fas.fa-map-marker-alt.map-icon
+            .address #{@place.address}
+          #map
+          javascript:
+            let map
+      
+            function initMap(){
+              geocoder = new google.maps.Geocoder()
+      
+              var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
+              map = new google.maps.Map(document.getElementById('map'), {
+                center: test,
+                zoom: 17,
+              });
+            
+              marker = new google.maps.Marker({
+                position: test,
+                map: map
+              });
+            }
+          script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
       
   .row.poster_comment
     .col-lg-7
@@ -71,7 +86,7 @@
       - if @comments
         = render @comments
       - else
-        .content コメントはありません
+        p レビューはありません
   .row.comment_form
     .col-12
       h5 レビュー・評価する
