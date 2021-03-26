@@ -24,7 +24,8 @@ gem "geocoder"
 gem "dotenv-rails"
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.8.0'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'factory_bot_rails', '~> 4.10.0'
   gem 'sqlite3', '1.4.1'
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -39,6 +40,7 @@ end
 
 group :test do
   gem 'capybara',                 '3.28.0'
+  gem 'launchy', '~> 2.4.3'
   gem 'selenium-webdriver',       '3.142.4'
   gem 'webdrivers',               '4.1.2'
   gem 'rails-controller-testing', '1.0.4'
