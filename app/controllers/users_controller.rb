@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :following, :followers]
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :check_guest, only: [:edit, :destroy]
   
@@ -23,6 +23,10 @@ class UsersController < ApplicationController
   end
   
   def new
+    if logged_in?
+      flash[:danger] = "既にログイン済みです"
+      redirect_to user_path(current_user)
+    end
     @user = User.new
   end
   
@@ -31,7 +35,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "ユーザー登録ができました"
-      redirect_to @user
+      redirect_to root_path
     else
       render 'new'
     end

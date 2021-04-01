@@ -1,4 +1,4 @@
-= provide(:title, @user.name)
+= provide(:title, "投稿一覧")
 .container.user_show
   .row.align-items-center
     .col-lg-2
@@ -9,7 +9,7 @@
       .follow_count.d-flex
         = render partial: 'users/follow_count', locals: { user: @user }
     .col-lg-2.col-sm-3
-      - if current_user?(@user) || current_user.admin?
+      - if current_user?(@user)
         = link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn btn-primary btn-sm btn-block my-3"
         = link_to "アカウント削除", @user, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn btn-danger btn-sm btn-block my-3"
       - elsif logged_in?

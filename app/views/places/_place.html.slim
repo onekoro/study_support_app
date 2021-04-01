@@ -24,7 +24,11 @@
         = render partial: 'places/tag', locals: { tags: place.tags }
     .place_info1.d-flex
       .user_info.mr-3
-        = link_to user_path(place.user), class: "inlink user_link" do
+        - if logged_in?
+          = link_to user_path(place.user), class: "inlink user_link" do
+            = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+            = place.user.name
+        - else
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
       .created_at = place.created_at.strftime("%Y/%m/%d").to_s

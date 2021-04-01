@@ -4,13 +4,7 @@ RSpec.feature "Places", type: :feature do
   scenario "ユーザーが新しい勉強場所を投稿する" do
     user = FactoryBot.create(:user)
     
-    visit root_path
-    within "header" do
-      click_on "ログイン"
-    end
-    fill_in "メールアドレス", with: user.email
-    fill_in "パスワード", with: user.password
-    click_button "ログイン"
+    valid_login(user)
     
     expect{
       click_link "New"
@@ -31,5 +25,6 @@ RSpec.feature "Places", type: :feature do
       expect(page).to have_content "コーヒーが美味しい"
       expect(page).to have_content "静か"
     }.to change(user.places, :count).by(1)
+    expect(current_path).to eq place_path(Place.last)
   end
 end
