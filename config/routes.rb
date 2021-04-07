@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
   resources :places do
     resources :comments, only: [:create, :destroy]
-    collection do
+    member do
       get :tag_search
     end
   end

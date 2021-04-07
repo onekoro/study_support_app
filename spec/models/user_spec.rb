@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { FactoryBot.build(:user) }
+  let(:user) { build(:user) }
   
   it "ファクトリが有効" do
     expect(user).to be_valid
@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_length_of(:password).is_at_least(6) }
   
   it "メールアドレスが他のユーザーと同じなら無効" do
-    FactoryBot.create(:user, email: "test@test.com")
+    create(:user, email: "test@test.com")
     user.email = "test@test.com"
     user.valid?
     expect(user.errors[:email]).to include("はすでに存在します")
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
   
   describe "パスワード確認が" do
     it "一致する場合" do
-      user.password_confirmation = "password"
+      user.password_confirmation = user.password
       expect(user).to be_valid
     end
     
@@ -51,5 +51,6 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
   end
+
   
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Places", type: :feature do
   scenario "ユーザーが新しい勉強場所を投稿する" do
-    user = FactoryBot.create(:user)
+    user = create(:user)
     
     valid_login(user)
     

@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def unlogged_in_user
+      if logged_in?
+        store_location
+        flash[:danger] = "既にログイン済みです"
+        redirect_to user_path(current_user)
+      end
+    end
+    
 end

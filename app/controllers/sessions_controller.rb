@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
-
+  before_action :unlogged_in_user, only: [:new, :create, :new_guest]
+  before_action :logged_in_user, only: [:destroy]
+  
   def new
   end
 
@@ -9,7 +11,7 @@ class SessionsController < ApplicationController
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       flash[:success] = "ログインしました"
-      redirect_to root_path
+      redirect_back_or root_path
     else
       flash.now[:danger] = "メールアドレスまたはパスワードが異なります"
       render 'new'
@@ -20,14 +22,12 @@ class SessionsController < ApplicationController
     user = User.find_by(email: 'guest@example.com') 
     log_in user
     flash[:success] = "ゲストユーザーとしてログインしました"
-    redirect_to root_path
+    redirect_back_or root_path
   end
 
   def destroy
-    if logged_in?
-      log_out
-      flash[:success] = "ログアウトしました"
-    end
-    redirect_to root_url
+    log_out
+    flash[:success] = "ログアウトしました"
+    redirect_back_or root_path
   end
 end

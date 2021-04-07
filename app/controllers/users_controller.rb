@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :following, :followers]
+  before_action :logged_in_user, only: [:index, :show, :like_show, :edit, :update, :destroy, :following, :followers]
+  before_action :unlogged_in_user, only: [:new, :create]
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :check_guest, only: [:edit, :destroy]
   
@@ -23,10 +24,6 @@ class UsersController < ApplicationController
   end
   
   def new
-    if logged_in?
-      flash[:danger] = "既にログイン済みです"
-      redirect_to user_path(current_user)
-    end
     @user = User.new
   end
   
@@ -56,9 +53,14 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    User.find(params[:id]).destroy
+    user = User.find(params[:id])
+    user.destroy
     flash[:success] = "削除しました"
-    redirect_to users_url
+    if user == current_user
+      redirect_to root_path
+    else
+      redirect_to users_path
+    end
   end
   
   def following
@@ -80,7 +82,10 @@ class UsersController < ApplicationController
     # 正しいユーザーかどうか確認
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user.admin? || current_user?(@user)
+      unless current_user.admin? || current_user?(@user)
+        flash[:danger] = "他のユーザーの編集・削除はできません"
+        redirect_to user_path(current_user)
+      end
     end
     
     # ゲストユーザーか確認

@@ -9,10 +9,10 @@
       .follow_count.d-flex
         = render partial: 'users/follow_count', locals: { user: @user }
     .col-lg-2.col-sm-3
-      - if current_user?(@user)
+      - if current_user?(@user) || current_user.admin
         = link_to "プロフィールの編集", edit_user_path(current_user), class: "btn btn-primary btn-sm btn-block my-3"
         = link_to "アカウント削除", @user, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn btn-danger btn-sm btn-block my-3"
-      - elsif logged_in?
+      - if logged_in? || current_user.admin
         div id='show_follow_form'
           - if current_user.following?(@user)
             = render partial: 'unfollow', locals: { user: @user }

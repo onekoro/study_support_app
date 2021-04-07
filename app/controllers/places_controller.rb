@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
   end
   
   def  tag_search
-    @tag = Tag.find(params[:tag_id])  #クリックしたタグを取得
+    @tag = Tag.find(params[:id])  #クリックしたタグを取得
     @places = @tag.places.page(params[:page]).per(6)
     @tag_list = Tag.all
   end
@@ -56,7 +56,7 @@ class PlacesController < ApplicationController
   def destroy
     Place.find(params[:id]).destroy
     flash[:success] = "勉強場所を削除しました"
-    redirect_to places_url
+    redirect_to user_path(current_user)
   end
   
   private
@@ -67,7 +67,7 @@ class PlacesController < ApplicationController
     
     def correct_poster
       unless Place.find(params[:id]).user_id.to_i == current_user.id || current_user.admin?
-        redirect_to tasks_path(current_user)
+        redirect_to user_path(current_user)
       end
     end
       
