@@ -22,7 +22,7 @@
     .place_tags.row
       - if place.tags
         = render partial: 'places/tag', locals: { tags: place.tags }
-    .place_info1.d-flex
+    .place_info.d-flex
       .user_info.mr-3
         - if logged_in?
           = link_to user_path(place.user), class: "inlink user_link" do
@@ -32,14 +32,7 @@
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
       .created_at = place.created_at.strftime("%Y/%m/%d").to_s
-    
-    .place_info2.d-flex
       .place_like.inlink
         - if logged_in?
           = render partial: 'likes/like_form', locals: { place: place }
-      - if logged_in? && current_user.admin? || current_user?(place.user)
-        .place_edit.d-flex.align-items-center
-          p.my-0.inlink = link_to "編集", edit_place_path(place)
-        p.d-flex.align-items-center.my-0 |
-        .place_delete.d-flex.align-items-center
-          p.my-0.inlink = link_to "削除", place, method: :delete, data: { confirm: "本当に削除しますか？" }
+    

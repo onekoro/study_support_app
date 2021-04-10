@@ -1,6 +1,6 @@
 .row
-  .col-lg-4.col-sm-2
-  .form.col-lg-4.col-sm-8.py-2
+  .col-lg-3.col-sm-2
+  .form.col-lg-6.col-sm-8.py-2
     h2 = yield(:title)
     
     = form_with(model: @place, local: true) do |f|
@@ -43,9 +43,7 @@
       
       .form-group
         = f.label :tag_name, "タグ入力"
-        div "スペースを入力することで複数のタグを付けることができます。"
-        div "例：喫茶店 図書館 雑談OK"
-        = f.text_field :tag_name, class: "form-control"
+        = f.text_field :tag_name, class: "form-control", placeholder: "スペースを入力することで複数のタグを付けることができます"
       
       .form-group
         = f.label :content, "コメント"
@@ -56,4 +54,4 @@
         = f.file_field :image, class: "form-control-image"
         
       = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"
-  .col-lg-4.col-sm-2
+  .col-lg-3.col-sm-2

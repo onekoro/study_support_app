@@ -1,8 +1,7 @@
-.col-lg-6.content
+.content.p-1
   = form_with(model: [@place, @comment], local: true) do |f|
     = render "shared/error_messages", object: f.object
     .form-group
-      .form-group.d-flex.flex-column
       .d-flex
         = f.label :recommend, "評価"
         .remark （必須）

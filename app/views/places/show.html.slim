@@ -6,47 +6,42 @@
         = image_tag @place.image.to_s, class: "mb-1"
       - else
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
-    
   .row
-    .place_title.align-items-center.col-lg-8.mb-2
-      .d-flex
-        h1.mr-4 = @place.title
-        .place_wifi_cost
-          .wifi
-            - if @place.wifi == "あり"
-              i.fas.fa-wifi.wifi-icon
-              .word Wifiあり
-            - else
-              = image_tag "wifi_slash_icon.png", class: "img-fluid"
-              .word Wifiなし
-          .cost
-            i.fas.fa-yen-sign.yen-icon
-            .word #{@place.cost}円
-      .place_info.d-flex.mb-2
-        .user_info.mr-2
-          = link_to user_path(@place.user), class: "user_link" do
-            = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
-            = @place.user.name
-        .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
-      .place_recommend.d-flex.mb-2
-        - @place.recommend.times do
-          i.fas.fa-star.star-icon
-        - (5-@place.recommend).times do
-          i.far.fa-star.star-icon
-      .place_tags.row
+    .col-lg-7
+      .place_title.align-items-center
+        .d-flex
+          h1.mr-4 = @place.title
+        .place_info1.d-flex.mb-2
+          .user_info.mr-2
+            = link_to user_path(@place.user), class: "user_link" do
+              = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+              = @place.user.name
+          .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
+        .place_recommend.d-flex.mb-2
+          - @place.recommend.times do
+            i.fas.fa-star.star-icon
+          - (5-@place.recommend).times do
+            i.far.fa-star.star-icon
         - if @place.tags
-          = render partial: 'places/tag', locals: { tags: @place.tags }
-      .place_like
-        = render partial: 'likes/like_form', locals: { place: @place }
-      .place_edit_form.d-flex
-        - if logged_in? && current_user.admin? || current_user?(@place.user)
-          .place_edit.d-flex.align-items-center
-            p.my-0 = link_to "編集", edit_place_path(@place)
-          p.d-flex.align-items-center.my-0 |
-          .place_delete.d-flex.align-items-center
-            p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }
-    - if @place.latitude && @place.longitude
-      .col-lg-4
+          .place_tags.row
+            = render partial: 'places/tag', locals: { tags: @place.tags }
+        .place_info2.d-flex
+          .place_like
+            = render partial: 'likes/like_form', locals: { place: @place }
+          - if logged_in? && current_user.admin? || current_user?(@place.user)
+            .place_edit_form.d-flex
+              .place_edit.mr-2
+                p.my-0 = link_to "編集", edit_place_path(@place), class: "btn btn-primary btn-sm"
+              .place_delete
+                p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
+      .poster_comment
+        h4 投稿者コメント
+        - if @place.content == "" 
+          .content コメントはありません
+        - else
+          .content #{@place.content}
+    .col-lg-5
+      - if @place.latitude && @place.longitude
         .map
           .place_address
             i.fas.fa-map-marker-alt.map-icon
@@ -70,17 +65,23 @@
               });
             }
           script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
-      
-  .row.poster_comment
-    .col-lg-7
-      h4 投稿者コメント
-    .col-lg-6
-      - if @place.content == "" 
-        .content コメントはありません
-      - else
-        .content #{@place.content}
+      .place_wifi_cost
+        .wifi
+          - if @place.wifi == "あり"
+            i.fas.fa-wifi.wifi-icon.icon
+            .word Wifiあり
+          - else
+            = image_tag "wifi_slash_icon.png", class: "img-fluid"
+            .word Wifiなし
+        .cost
+          i.fas.fa-yen-sign.yen-icon.icon
+          .word #{@place.cost}円
+        - if @place.web
+          .url
+            i.fas.fa-link.link_icon.icon
+            = link_to "#{@place.web}", "#{@place.web}"
   .row.comments
-    .col-lg-7
+    .col-lg-12
       h4 レビュー
     .col-lg-6
       - if @comments
@@ -88,6 +89,8 @@
       - else
         p レビューはありません
   .row.comment_form
-    .col-12
-      h5 レビュー・評価する
-    = render "comment_form"
+    - if logged_in?
+      .col-lg-12
+        h5 レビュー・評価する
+      .col-lg-6
+        = render "comment_form"

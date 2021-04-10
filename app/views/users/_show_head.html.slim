@@ -1,0 +1,19 @@
+.row.align-items-center
+  .col-lg-2
+  .col-lg-2.col-sm-3
+    = image_tag user.image.url, class: "border border-dark rounded-circle img-fluid"
+  .col-lg-4.col-sm-6
+    h2 #{user.name}
+    .follow_count.d-flex
+      = render partial: 'users/follow_count', locals: { user: user }
+  .col-lg-2.col-sm-3
+    - if current_user?(user) || current_user.admin
+      = link_to "プロフィール編集", edit_user_path(current_user), class: "btn btn btn-primary btn-sm btn-block my-3"
+      = link_to "アカウント削除", user, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn btn-danger btn-sm btn-block my-3"
+    - if logged_in? && !current_user?(user)
+      div id='show_follow_form'
+        - if current_user.following?(user)
+          = render partial: 'unfollow', locals: { user: user }
+        - else
+          = render partial: 'follow', locals: { user: user }
+  .col-lg-2

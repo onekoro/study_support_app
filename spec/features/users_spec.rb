@@ -76,6 +76,19 @@ RSpec.feature "Users", type: :feature do
     expect(page).to have_content "入力内容に不備があります"
   end
   
+  # scenario "ユーザー情報の削除に成功する", js: true do
+  #   valid_login(user)
+    
+  #   visit user_path(user)
+    
+  #   click_link "アカウント削除"
+    
+  #   expect{
+  #     expect(page.accept_confirm).to eq "本当に削除しますか？"
+  #     expect(page).to have_content "削除しました"
+  #   }.to change(User, :count).by(-1)
+  # end
+  
   def fill_in_new_user
     fill_in "名前", with: new_user.name
     fill_in "メールアドレス", with: new_user.email

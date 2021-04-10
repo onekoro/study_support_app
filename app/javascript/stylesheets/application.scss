@@ -42,20 +42,28 @@ header{
 }
 
 // 入力フォーム
-.form p{
-  color: red;
+.form{
+  border: solid 1px #EEEEEE;
+  border-radius: 1%;
+  margin-top: 10px;
+  p{
+    color: red;
+  }
 }
 
 // placeのwifiとcost
 .place_wifi_cost{
+  // @include y-center;
+  .wifi{
     @include y-center;
-    .wifi{
-      @include y-center;
-    }
-    .cost{
-      @include y-center;
-    }
   }
+  .cost{
+    @include y-center;
+  }
+  .url{
+    @include y-center;    
+  }
+}
 // placeの製作者の画像と名前
 .user_link{
   @include y-center;
@@ -80,6 +88,7 @@ header{
     }
   }
 }
+
 
 
 // _user
@@ -107,13 +116,6 @@ header{
   }
 }
 
-
-// place/new
-.form{
-  border: solid 1px #EEEEEE;
-  border-radius: 1%;
-}
-
 // places/show
 .place_show{
   .row{
@@ -122,20 +124,42 @@ header{
   .place_title{
     @include grey-border;
     border-radius: 3%;
+    margin-bottom: 5%;
   }
-  .place_info{
-    .user_info{
-      @include y-center;
-    }
+  .user_info{
+    @include y-center;
   }
   .place_recommend{
     font-size: 120%;
   }
+  .place_edit_form{
+    margin: 0 0.5rem 0 auto;
+  }
+  .poster_comment{
+    .content{
+      min-height: 130px;
+      @include grey-border;
+    }
+  }
   .place_wifi_cost{
-    font-size: 150%;
+    @include grey-border;
+    border-radius: 3%;
+    margin-bottom: 5%;
     img{
-      width: 25%;
-      height: 25%;
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+    }
+    .icon{
+      width: 30px;
+      height: 30px;
+      margin: 0.5rem;
+    }
+    .word{
+      font-size: 120%;
+    }
+    a{
+      word-break: break-all;
     }
   }
   .place_address{
@@ -148,29 +172,38 @@ header{
       border-bottom: solid 2px black;
     }
   }
-  #map{
-    height: 180px;
-    width: 100%;
+  .map{
+    margin-bottom: 5%;
+    #map{
+      height: 180px;
+      width: 100%;
+    }
   }
   .star-icon{
     color: #28a745;
   }
+  .comments{
+    margin-bottom: 5%;
+    .content{
+      @include grey-border;
+      word-wrap: break-word;
+      margin-bottom: 10px;
+    }
+  }
+  .comment_form{
+    margin-bottom: 5%;
+    .content{
+      @include grey-border;
+    }
+  }
   
-  .content{
-    @include grey-border;
-    // font-size: 110%;
-    word-wrap: break-word;
-    margin-bottom: 10px;
-  }
-  .comment_recommend{
-    border-bottom: solid 1px #EEEEEE;
-  }
 }
 
 
 // place/index
 .home_back{
-  background-image: url("/assets/images/haikei.jpg");
+  background-image: url('/assets/haikei.jpg');
+  // background-image: image-url('haikei.jpg');
   background-size: cover;
   position: relative;
   &::before{
@@ -252,6 +285,7 @@ header{
     text-overflow: ellipsis;
   }
   .place_wifi_cost{
+    @include y-center;
     .wifi{
       width: 85px;
     }
@@ -259,6 +293,12 @@ header{
       height: 25%;
       width: 25%;
     }
+  }
+  .user_info{
+    @include y-center;
+  }
+  .place_like{
+    margin: 0 0 0 auto;
   }
 }
 

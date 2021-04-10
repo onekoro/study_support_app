@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <title>Chrome Platform Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+  <meta name="theme-color" content="#366597">
+  <link rel="icon" sizes="192x192" href="/static/img/crstatus_192.png">
+
+  <!-- iOS: run in full-screen mode and display upper status bar as translucent -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="apple-touch-icon" href="/static/img/crstatus_128.png">
+  <link rel="apple-touch-icon-precomposed" href="/static/img/crstatus_128.png">
+  <link rel="shortcut icon" href="/static/img/crstatus_128.png">
+
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin="">
+
+  
+
+  <style>
+    html,body{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline}div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,abbr,acronym,address,code,del,dfn,em,img,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,caption,tbody,tfoot,thead,tr{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline}blockquote,q{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;quotes:"" ""}blockquote:before,q:before,blockquote:after,q:after{content:""}th,td,caption{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;text-align:left;font-weight:normal;vertical-align:middle}table{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;border-collapse:separate;border-spacing:0;vertical-align:middle}a img{border:none}*{box-sizing:border-box}*{box-sizing:border-box;list-style:none;font:inherit;text-decoration:inherit;-webkit-tap-highlight-color:rgba(0,0,0,0)}h1,h2,h3,h4{font-weight:300}h1{font-size:30px}h2,h3,h4{background:var(--heading-background);color:var(--heading-color)}h2{font-size:25px}h3{font-size:20px}a{text-decoration:none;color:var(--link-color)}a:hover{text-decoration:underline;color:var(--link-hover-color)}input:not([type="submit"]),textarea{border:1px solid #D4D4D4}input:not([type="submit"])[disabled],textarea[disabled]{opacity:0.5}button,input[type="submit"],.button{display:inline-block;padding:4px 16px;background:var(--button-background);border:var(--button-border);border-radius:var(--button-border-radius);color:var(--button-color);white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;font-size:var(--button-font-size)}button.primary,input[type="submit"],.button.primary{background:var(--primary-button-background);color:var(--primary-button-color);font-weight:bold}button:not(:disabled):hover{border-color:#515151}.comma::after{content:',';margin-right:.2em}.conditional-comma:last-child{display:none}.no-web-share{display:none}iron-icon{height:var(--icon-size);width:var(--icon-size)}.preformatted{white-space:pre-wrap}#updated{padding-top:var(--content-padding)}#updated span{color:var(--unimportant-text-color);border-top:var(--default-border);padding:var(--content-padding-quarter) var(--content-padding) 0 0}:root{--md-red-50: #ffebee;--md-red-700: #d32f2f;--md-light-blue-50: #e1f5fe;--md-blue-100: #bbdefb;--md-blue-700: #1976d2;--md-blue-900: #01579b;--md-orange-50: #fff3e0;--md-orange-200: #ffcc80;--md-yellow-100: #FFF9C4;--md-yellow-200: #FFF59D;--md-gray-50: #fafafa;--md-gray-300: #e0e0e0;--md-gray-50-alpha: hsla(0, 0%, 0%, 0.04);--md-gray-100-alpha: hsla(0, 0%, 0%, 0.12);--md-gray-700-alpha: hsla(0, 0%, 0%, 0.62);--md-gray-900-alpha: hsla(0, 0%, 0%, 0.87)}:root{--page-background: var(--md-gray-50);--default-font: 14px "Roboto", sans-serif;--form-element-font: system-ui;--default-color: var(--md-gray-900-alpha);--unimportant-text-color: var(--md-gray-700-alpha);--content-padding: 16px;--content-padding-half: 8px;--content-padding-quarter: 4px;--max-content-width: 760px;--border-radius: 4px;--large-border-radius: 8px;--logo-color: var(--default-color);--logo-size: 32px;--icon-size: 20px;--link-color: var(--md-blue-700);--link-hover-color: var(--md-blue-900);--light-accent-color: var(--md-light-blue-50);--dark-spot-color: var(--md-blue-900);--heading-background: transparent;--heading-color: var(--md-gray-700-alpha);--heading-underbar: 2px solid var(--md-blue-700);--nav-link-color: var(--md-gray-700-alpha);--nav-link-font-size: 16px;--nav-link-hover-background: var(--md-gray-100-alpha);--leftnav-link-color: var(--md-blue-900);--leftnav-selected-color: var(--md-blue-900);--leftnav-divider-border: 1px solid var(--md-gray-100-alpha);--button-background: inherit;--button-color: var(--md-gray-900-alpha);--button-font-size: 10pt;--button-border: 0;--button-border-radius: var(--border-radius);--primary-button-background: var(--md-blue-700);--primary-button-color: white;--default-border: 1px solid hsl(0, 0%, 85%);--card-background: white;--card-border: var(--default-border);--shadow-color: var(--md-gray-100-alpha);--card-box-shadow: var(--shadow-color) 1px 1px 4px;--spot-card-border: 1px solid var(--dark-spot-color);--spot-card-box-shadow: none;--accordion-background: var(--md-gray-100-alpha);--accordion-color: var(--default-color);--accordion-border-radius: var(--border-radius);--warning-background: var(--md-orange-200);--warning-color: var(--md-gray-900-alpha);--invalid-color: var(--md-red-700);--error-color: var(--md-red-700);--table-header-background: var(--md-gray-300);--table-row-background: white;--table-divider: var(--default-border);--table-alternate-background: var(--md-gray-50-alpha);--callout-bg-color: var(--dark-spot-color);--callout-text-color: white;--barchart-background: var(--md-blue-100);--barchart-foreground: var(--md-blue-700);--barchart-color: white;--toast-background: var(--md-gray-900-alpha);--toast-color: var(--md-gray-50);--toast-action-color: var(--md-orange-200);--footer-background: transparent}html,body{height:100%}body{color:var(--default-color);font:var(--default-font);background:var(--page-background)}body.loading #spinner{display:flex}body.loading chromedash-toast{visibility:hidden}#spinner{display:none;align-items:center;justify-content:center;position:fixed;height:60%;max-width:var(--max-content-width);width:100%}#site-banner{display:none;background:#4580c0;color:#fff;position:fixed;z-index:1;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;text-transform:capitalize;text-align:center;-webkit-transform:rotate(35deg);transform:rotate(35deg);right:-40px;top:20px;padding:10px 40px 8px 60px;box-shadow:inset 0px 5px 6px -3px rgba(0,0,0,0.4)}#site-banner iron-icon{margin-right:var(--content-padding-half)}#site-banner a{color:currentcolor;text-decoration:none}app-drawer{font-size:14px}app-drawer .drawer-content-wrapper{height:100%;overflow:auto;padding:16px;background:#fafafa}app-drawer paper-listbox{background-color:inherit !important}app-drawer paper-listbox paper-item{font-size:inherit !important}app-drawer h3{margin-bottom:16px;font-weight:500;font-size:14px;color:inherit}app-header{right:0;top:0;left:0;z-index:1}app-header-layout{flex:1}.main-toolbar{display:flex;position:relative;padding:0}header,footer{display:flex;align-items:center}header{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background:var(--card-background);border-bottom:var(--card-border);box-shadow:var(--card-box-shadow)}header a{text-decoration:none !important}header nav{display:flex;flex:1;align-items:center;margin:0 var(--content-padding);-webkit-font-smoothing:initial}header nav a{cursor:pointer;font-size:var(--nav-link-font-size);text-align:center;padding:var(--content-padding-half) var(--content-padding);color:var(--nav-link-color);white-space:nowrap}header nav a:hover{color:black;background:var(--nav-link-hover-background)}header nav a.disabled{opacity:0.5;pointer-events:none}header nav .nav-dropdown-container{position:relative}header nav .nav-dropdown-container ul{display:none;position:absolute;top:80%;left:0;list-style:none;z-index:1;background:var(--card-background);border-bottom:var(--card-border);box-shadow:var(--card-box-shadow)}header nav .nav-dropdown-container a{text-align:left;display:block}header nav .nav-dropdown-container .nav-dropdown-trigger:hover+ul,header nav .nav-dropdown-container ul:hover{display:block}header aside{background:url(/static/img/chrome_logo.svg) no-repeat 16px 50%;background-size:32px;padding:0.75em 2em;padding-left:56px}header aside hgroup a{color:var(--logo-color)}header aside h1{line-height:1}header aside img{height:45px;width:45px;margin-right:7px}footer{background:var(--footer-background);box-shadow:0 -2px 5px var(--shadow-color);display:flex;flex-direction:column;justify-content:center;text-align:center;margin-top:2em;padding:var(--content-padding-half)}footer div>*+*{margin-left:var(--content-padding);padding-left:var(--content-padding)}.description{line-height:1.4}.sub-nav-links{padding-left:var(--content-padding-quarter);padding-right:var(--content-padding-quarter)}#subheader,.subheader{display:flex;align-items:center;margin:var(--content-padding) 0;max-width:var(--max-content-width);width:100%}#subheader .num-features,.subheader .num-features{font-weight:400}#subheader div.search,.subheader div.search{min-width:350px}#subheader div.search input,.subheader div.search input{width:280px;padding:10px 7px}#subheader div.actionlinks,.subheader div.actionlinks{display:flex;justify-content:flex-end;flex:1 0 auto}#subheader div.actionlinks .blue-button,.subheader div.actionlinks .blue-button{background:var(--primary-button-background);color:var(--primary-button-color);display:inline-flex;align-items:center;justify-content:center;max-height:35px;min-width:5.14em;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;text-decoration:none;border:var(--button-border);border-radius:var(--button-border-radius);-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;padding:0.7em 0.57em}#subheader div.actionlinks .blue-button iron-icon,.subheader div.actionlinks .blue-button iron-icon{margin-right:4px}#subheader div.actionlinks .legend,.subheader div.actionlinks .legend{font-size:18px;cursor:pointer;text-decoration:none}#container{display:flex;flex-direction:column;height:100%;width:100%}#app-content-container{display:flex;flex-direction:column;height:100%}#content{margin:var(--content-padding);position:relative}#column-container{display:flex;align-items:stretch}#drawer-column{padding:1em 2em 1em 1em}#content-column{flex:1;padding-left:2em}#panels{display:flex;width:100%;overflow:hidden}.alertbox{margin:2em;padding:1em;background:var(--warning-background);color:var(--warning-color)}@media only screen and (min-width: 701px){.main-toolbar .toolbar-content{width:100%}app-header{left:0 !important}}@media only screen and (max-width: 700px){h1{font-size:24px}h2{font-size:20px}h3{font-size:15px}app-header .main-toolbar{padding:0;display:block}app-drawer{z-index:2}#content{margin-left:0;margin-right:0}#drawer-column{display:none}#content-column{padding-left:var(--content-padding-half)}header{margin:0;display:block}header aside{display:flex;padding:var(--content-padding-half);border-radius:0;background:inherit}header nav{margin:0;justify-content:center;flex-wrap:wrap}header nav a{padding:var(--content-padding-half) var(--content-padding);margin:0;border-radius:0;flex:1 0 auto}#panels{display:block}#panels nav{display:none}.subheader .description{margin:0 var(--content-padding)}#subheader div:not(.search):not(.actionlinks){display:none}#subheader div.search{text-align:center;flex:1 0 0;margin:0}chromedash-toast{width:100%;left:0;margin:0}}@media only screen and (min-width: 700px){#horizontal-sub-nav{display:none}}@media only screen and (min-width: 1100px){#site-banner{display:block}}body.loading chromedash-legend{display:none}body.loading chromedash-featurelist{visibility:hidden}
+
+    :root {
+      --app-drawer-width: 210px; /* Used by the component. */
+    }
+
+    /* Set the left sidebar the same background color as the page. */
+    .drawer-content-wrapper {
+      background: #eee;
+    }
+
+    /* Manually hide the toggle button
+     * https://github.com/PolymerElements/app-layout/tree/master/app-drawer-layout */
+    app-drawer-layout:not([narrow]) [drawer-toggle] {
+      display: none;
+    }
+  </style>
+
+  
+  
+    <style>#content.error::after{content:'Error loading features list.';color:darkred}app-drawer h3{margin-left:8px}button{background:transparent;border:0}.legend-button{color:#58f}chromedash-legend{font-size:90%}chromedash-legend .description{margin-bottom:10px}chromedash-featurelist{max-width:760px;margin-bottom:86px}#subheader .feature-count{min-width:170px}#subheader .actionlinks .blue-button{margin-left:4px}@media only screen and (min-width: 701px){#content::after{width:760px}}@media only screen and (max-width: 700px){#subheader{margin:8px;width:initial}#subheader div.actionlinks{flex:1 0 0}#subheader div.actionlinks span{display:none}}
+</style>
+  
+
+  
+  
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script>/*! (c) 2021 Copyright (c) 2016 The Google Inc. All rights reserved. (Apache2) */
+"use strict";!function(r){class e{static get supportsPerfNow(){return performance&&performance.now}static get supportsPerfMark(){return performance&&performance.mark}get duration(){var r=this._end-this._start;if(e.supportsPerfMark){var t=performance.getEntriesByName(this.name)[0];t&&"measure"!==t.entryType&&(r=t.duration)}return r||-1}constructor(r){if(!r)throw Error("Please provide a metric name");if(!e.supportsPerfMark&&(console.warn("Timeline won't be marked for \"".concat(r,'".')),!e.supportsPerfNow))throw Error("This library cannot be used in this browser.");this.name=r}log(){return console.info(this.name,this.duration,"ms"),this}logAll(){var r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this.name;if(e.supportsPerfNow)for(var t=window.performance.getEntriesByName(r),n=0;n<t.length;++n){var a=t[n];console.info(r,a.duration,"ms")}return this}start(){return this._start?(console.warn("Recording already started."),this):(this._start=performance.now(),e.supportsPerfMark&&performance.mark("mark_".concat(this.name,"_start")),this)}end(){if(this._end)return console.warn("Recording already stopped."),this;if(this._end=performance.now(),e.supportsPerfMark){var r="mark_".concat(this.name,"_start"),t="mark_".concat(this.name,"_end");performance.mark(t),performance.measure(this.name,r,t)}return this}sendToAnalytics(r){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:this.name,t=arguments.length>2&&void 0!==arguments[2]?arguments[2]:this.duration;return window.ga?t>=0&&ga("send","timing",r,e,t):console.warn("Google Analytics has not been loaded"),this}}window.Metric=e}();</script>
+
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs/webcomponents-loader.js" defer=""></script>
+  <script type="module">
+    WebComponents.waitFor(() => {
+      return import('/static/dist/components.js');
+    });
+  </script>
+
+  
+
+  
+  <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml" title="All features">
+  
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=webcomponents" title="&quot;Web Components&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=miscellaneous" title="&quot;Miscellaneous&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=security" title="&quot;Security&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=multimedia" title="&quot;Multimedia&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=dom" title="&quot;DOM&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=fileapis" title="&quot;File APIs&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=offlinestorage" title="&quot;Offline / Storage&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=device" title="&quot;Device&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=realtimecommunication" title="&quot;Realtime / Communication&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=javascript" title="&quot;JavaScript&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=networkconnectivity" title="&quot;Network / Connectivity&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=userinput" title="&quot;User input&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=performance" title="&quot;Performance&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=graphics" title="&quot;Graphics&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=css" title="&quot;CSS&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=houdini" title="&quot;Houdini&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=serviceworker" title="&quot;Service Worker&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=webrtc" title="&quot;Web RTC&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=layeredapis" title="&quot;Layered APIs&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=webassembly" title="&quot;WebAssembly&quot; features">
+    
+    <link rel="alternate" type="application/rss+xml" href="https://www.chromestatus.com/features.xml?category=capabilities(fugu)" title="&quot;Capabilities (Fugu)&quot; features">
+    
+  
+
+
+<custom-style>
+  <style is="custom-style">[hidden] {
+  display: none !important;
+}
+
+</style>
+</custom-style>
+<custom-style>
+  <style is="custom-style">html {
+  --layout_-_display:  flex;;
+
+      --layout-inline_-_display:  inline-flex;;
+
+      --layout-horizontal_-_display:  var(--layout_-_display); --layout-horizontal_-_-ms-flex-direction:  row; --layout-horizontal_-_-webkit-flex-direction:  row; --layout-horizontal_-_flex-direction:  row;;
+
+      --layout-horizontal-reverse_-_display:  var(--layout_-_display); --layout-horizontal-reverse_-_-ms-flex-direction:  row-reverse; --layout-horizontal-reverse_-_-webkit-flex-direction:  row-reverse; --layout-horizontal-reverse_-_flex-direction:  row-reverse;;
+
+      --layout-vertical_-_display:  var(--layout_-_display); --layout-vertical_-_-ms-flex-direction:  column; --layout-vertical_-_-webkit-flex-direction:  column; --layout-vertical_-_flex-direction:  column;;
+
+      --layout-vertical-reverse_-_display:  var(--layout_-_display); --layout-vertical-reverse_-_-ms-flex-direction:  column-reverse; --layout-vertical-reverse_-_-webkit-flex-direction:  column-reverse; --layout-vertical-reverse_-_flex-direction:  column-reverse;;
+
+      --layout-wrap_-_-ms-flex-wrap:  wrap; --layout-wrap_-_-webkit-flex-wrap:  wrap; --layout-wrap_-_flex-wrap:  wrap;;
+
+      --layout-wrap-reverse_-_-ms-flex-wrap:  wrap-reverse; --layout-wrap-reverse_-_-webkit-flex-wrap:  wrap-reverse; --layout-wrap-reverse_-_flex-wrap:  wrap-reverse;;
+
+      --layout-flex-auto_-_-ms-flex:  1 1 auto; --layout-flex-auto_-_-webkit-flex:  1 1 auto; --layout-flex-auto_-_flex:  1 1 auto;;
+
+      --layout-flex-none_-_-ms-flex:  none; --layout-flex-none_-_-webkit-flex:  none; --layout-flex-none_-_flex:  none;;
+
+      --layout-flex_-_-ms-flex:  1 1 0.000000001px; --layout-flex_-_-webkit-flex:  1; --layout-flex_-_flex:  1; --layout-flex_-_-webkit-flex-basis:  0.000000001px; --layout-flex_-_flex-basis:  0.000000001px;;
+
+      --layout-flex-2_-_-ms-flex:  2; --layout-flex-2_-_-webkit-flex:  2; --layout-flex-2_-_flex:  2;;
+
+      --layout-flex-3_-_-ms-flex:  3; --layout-flex-3_-_-webkit-flex:  3; --layout-flex-3_-_flex:  3;;
+
+      --layout-flex-4_-_-ms-flex:  4; --layout-flex-4_-_-webkit-flex:  4; --layout-flex-4_-_flex:  4;;
+
+      --layout-flex-5_-_-ms-flex:  5; --layout-flex-5_-_-webkit-flex:  5; --layout-flex-5_-_flex:  5;;
+
+      --layout-flex-6_-_-ms-flex:  6; --layout-flex-6_-_-webkit-flex:  6; --layout-flex-6_-_flex:  6;;
+
+      --layout-flex-7_-_-ms-flex:  7; --layout-flex-7_-_-webkit-flex:  7; --layout-flex-7_-_flex:  7;;
+
+      --layout-flex-8_-_-ms-flex:  8; --layout-flex-8_-_-webkit-flex:  8; --layout-flex-8_-_flex:  8;;
+
+      --layout-flex-9_-_-ms-flex:  9; --layout-flex-9_-_-webkit-flex:  9; --layout-flex-9_-_flex:  9;;
+
+      --layout-flex-10_-_-ms-flex:  10; --layout-flex-10_-_-webkit-flex:  10; --layout-flex-10_-_flex:  10;;
+
+      --layout-flex-11_-_-ms-flex:  11; --layout-flex-11_-_-webkit-flex:  11; --layout-flex-11_-_flex:  11;;
+
+      --layout-flex-12_-_-ms-flex:  12; --layout-flex-12_-_-webkit-flex:  12; --layout-flex-12_-_flex:  12;;
+
+      
+
+      --layout-start_-_-ms-flex-align:  start; --layout-start_-_-webkit-align-items:  flex-start; --layout-start_-_align-items:  flex-start;;
+
+      --layout-center_-_-ms-flex-align:  center; --layout-center_-_-webkit-align-items:  center; --layout-center_-_align-items:  center;;
+
+      --layout-end_-_-ms-flex-align:  end; --layout-end_-_-webkit-align-items:  flex-end; --layout-end_-_align-items:  flex-end;;
+
+      --layout-baseline_-_-ms-flex-align:  baseline; --layout-baseline_-_-webkit-align-items:  baseline; --layout-baseline_-_align-items:  baseline;;
+
+      
+
+      --layout-start-justified_-_-ms-flex-pack:  start; --layout-start-justified_-_-webkit-justify-content:  flex-start; --layout-start-justified_-_justify-content:  flex-start;;
+
+      --layout-center-justified_-_-ms-flex-pack:  center; --layout-center-justified_-_-webkit-justify-content:  center; --layout-center-justified_-_justify-content:  center;;
+
+      --layout-end-justified_-_-ms-flex-pack:  end; --layout-end-justified_-_-webkit-justify-content:  flex-end; --layout-end-justified_-_justify-content:  flex-end;;
+
+      --layout-around-justified_-_-ms-flex-pack:  distribute; --layout-around-justified_-_-webkit-justify-content:  space-around; --layout-around-justified_-_justify-content:  space-around;;
+
+      --layout-justified_-_-ms-flex-pack:  justify; --layout-justified_-_-webkit-justify-content:  space-between; --layout-justified_-_justify-content:  space-between;;
+
+      --layout-center-center_-_-ms-flex-align:  var(--layout-center_-_-ms-flex-align); --layout-center-center_-_-webkit-align-items:  var(--layout-center_-_-webkit-align-items); --layout-center-center_-_align-items:  var(--layout-center_-_align-items); --layout-center-center_-_-ms-flex-pack:  var(--layout-center-justified_-_-ms-flex-pack); --layout-center-center_-_-webkit-justify-content:  var(--layout-center-justified_-_-webkit-justify-content); --layout-center-center_-_justify-content:  var(--layout-center-justified_-_justify-content);;
+
+      
+
+      --layout-self-start_-_-ms-align-self:  flex-start; --layout-self-start_-_-webkit-align-self:  flex-start; --layout-self-start_-_align-self:  flex-start;;
+
+      --layout-self-center_-_-ms-align-self:  center; --layout-self-center_-_-webkit-align-self:  center; --layout-self-center_-_align-self:  center;;
+
+      --layout-self-end_-_-ms-align-self:  flex-end; --layout-self-end_-_-webkit-align-self:  flex-end; --layout-self-end_-_align-self:  flex-end;;
+
+      --layout-self-stretch_-_-ms-align-self:  stretch; --layout-self-stretch_-_-webkit-align-self:  stretch; --layout-self-stretch_-_align-self:  stretch;;
+
+      --layout-self-baseline_-_-ms-align-self:  baseline; --layout-self-baseline_-_-webkit-align-self:  baseline; --layout-self-baseline_-_align-self:  baseline;;
+
+      
+
+      --layout-start-aligned_-_-ms-flex-line-pack:  start; --layout-start-aligned_-_-ms-align-content:  flex-start; --layout-start-aligned_-_-webkit-align-content:  flex-start; --layout-start-aligned_-_align-content:  flex-start;;
+
+      --layout-end-aligned_-_-ms-flex-line-pack:  end; --layout-end-aligned_-_-ms-align-content:  flex-end; --layout-end-aligned_-_-webkit-align-content:  flex-end; --layout-end-aligned_-_align-content:  flex-end;;
+
+      --layout-center-aligned_-_-ms-flex-line-pack:  center; --layout-center-aligned_-_-ms-align-content:  center; --layout-center-aligned_-_-webkit-align-content:  center; --layout-center-aligned_-_align-content:  center;;
+
+      --layout-between-aligned_-_-ms-flex-line-pack:  justify; --layout-between-aligned_-_-ms-align-content:  space-between; --layout-between-aligned_-_-webkit-align-content:  space-between; --layout-between-aligned_-_align-content:  space-between;;
+
+      --layout-around-aligned_-_-ms-flex-line-pack:  distribute; --layout-around-aligned_-_-ms-align-content:  space-around; --layout-around-aligned_-_-webkit-align-content:  space-around; --layout-around-aligned_-_align-content:  space-around;;
+
+      
+
+      --layout-block_-_display:  block;;
+
+      --layout-invisible_-_visibility:  hidden !important;;
+
+      --layout-relative_-_position:  relative;;
+
+      --layout-fit_-_position:  absolute; --layout-fit_-_top:  0; --layout-fit_-_right:  0; --layout-fit_-_bottom:  0; --layout-fit_-_left:  0;;
+
+      --layout-scroll_-_-webkit-overflow-scrolling:  touch; --layout-scroll_-_overflow:  auto;;
+
+      --layout-fullbleed_-_margin:  0; --layout-fullbleed_-_height:  100vh;;
+
+      
+
+      --layout-fixed-top_-_position:  fixed; --layout-fixed-top_-_top:  0; --layout-fixed-top_-_left:  0; --layout-fixed-top_-_right:  0;;
+
+      --layout-fixed-right_-_position:  fixed; --layout-fixed-right_-_top:  0; --layout-fixed-right_-_right:  0; --layout-fixed-right_-_bottom:  0;;
+
+      --layout-fixed-bottom_-_position:  fixed; --layout-fixed-bottom_-_right:  0; --layout-fixed-bottom_-_bottom:  0; --layout-fixed-bottom_-_left:  0;;
+
+      --layout-fixed-left_-_position:  fixed; --layout-fixed-left_-_top:  0; --layout-fixed-left_-_bottom:  0; --layout-fixed-left_-_left:  0;;
+}
+
+</style>
+</custom-style><style>[hidden] { display: none !important; }</style><dom-module id="app-grid-style">
+  <template>
+    <style>
+      :host {
+        /**
+         * The width for the expandible item is:
+         * ((100% - subPixelAdjustment) / columns * itemColumns - gutter
+         *
+         * - subPixelAdjustment: 0.1px (Required for IE 11)
+         * - gutter: var(--app-grid-gutter)
+         * - columns: var(--app-grid-columns)
+         * - itemColumn: var(--app-grid-expandible-item-columns)
+         */
+        --app-grid-expandible-item: {
+          -webkit-flex-basis: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+          flex-basis: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+          max-width: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+        };
+      }
+
+      .app-grid {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+        padding-top: var(--app-grid-gutter, 0px);
+        padding-left: var(--app-grid-gutter, 0px);
+        box-sizing: border-box;
+      }
+
+      .app-grid > * {
+        /* Required for IE 10 */
+        -ms-flex: 1 1 100%;
+        -webkit-flex: 1;
+        flex: 1;
+
+        /* The width for an item is: (100% - subPixelAdjustment - gutter * columns) / columns */
+        -webkit-flex-basis: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+        flex-basis: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+
+        max-width: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+        margin-bottom: var(--app-grid-gutter, 0px);
+        margin-right: var(--app-grid-gutter, 0px);
+        height: var(--app-grid-item-height);
+        box-sizing: border-box;
+      }
+
+      .app-grid[has-aspect-ratio] > * {
+        position: relative;
+      }
+
+      .app-grid[has-aspect-ratio] > *::before {
+        display: block;
+        content: "";
+        padding-top: var(--app-grid-item-height, 100%);
+      }
+
+      .app-grid[has-aspect-ratio] > * > * {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    </style>
+  </template>
+</dom-module>
+<custom-style>
+  <style is="custom-style">html {
+  --google-red-100: #f4c7c3;
+      --google-red-300: #e67c73;
+      --google-red-500: #db4437;
+      --google-red-700: #c53929;
+
+      --google-blue-100: #c6dafc;
+      --google-blue-300: #7baaf7;
+      --google-blue-500: #4285f4;
+      --google-blue-700: #3367d6;
+
+      --google-green-100: #b7e1cd;
+      --google-green-300: #57bb8a;
+      --google-green-500: #0f9d58;
+      --google-green-700: #0b8043;
+
+      --google-yellow-100: #fce8b2;
+      --google-yellow-300: #f7cb4d;
+      --google-yellow-500: #f4b400;
+      --google-yellow-700: #f09300;
+
+      --google-grey-100: #f5f5f5;
+      --google-grey-300: #e0e0e0;
+      --google-grey-500: #9e9e9e;
+      --google-grey-700: #616161;
+
+      
+
+      --paper-red-50: #ffebee;
+      --paper-red-100: #ffcdd2;
+      --paper-red-200: #ef9a9a;
+      --paper-red-300: #e57373;
+      --paper-red-400: #ef5350;
+      --paper-red-500: #f44336;
+      --paper-red-600: #e53935;
+      --paper-red-700: #d32f2f;
+      --paper-red-800: #c62828;
+      --paper-red-900: #b71c1c;
+      --paper-red-a100: #ff8a80;
+      --paper-red-a200: #ff5252;
+      --paper-red-a400: #ff1744;
+      --paper-red-a700: #d50000;
+
+      --paper-pink-50: #fce4ec;
+      --paper-pink-100: #f8bbd0;
+      --paper-pink-200: #f48fb1;
+      --paper-pink-300: #f06292;
+      --paper-pink-400: #ec407a;
+      --paper-pink-500: #e91e63;
+      --paper-pink-600: #d81b60;
+      --paper-pink-700: #c2185b;
+      --paper-pink-800: #ad1457;
+      --paper-pink-900: #880e4f;
+      --paper-pink-a100: #ff80ab;
+      --paper-pink-a200: #ff4081;
+      --paper-pink-a400: #f50057;
+      --paper-pink-a700: #c51162;
+
+      --paper-purple-50: #f3e5f5;
+      --paper-purple-100: #e1bee7;
+      --paper-purple-200: #ce93d8;
+      --paper-purple-300: #ba68c8;
+      --paper-purple-400: #ab47bc;
+      --paper-purple-500: #9c27b0;
+      --paper-purple-600: #8e24aa;
+      --paper-purple-700: #7b1fa2;
+      --paper-purple-800: #6a1b9a;
+      --paper-purple-900: #4a148c;
+      --paper-purple-a100: #ea80fc;
+      --paper-purple-a200: #e040fb;
+      --paper-purple-a400: #d500f9;
+      --paper-purple-a700: #aa00ff;
+
+      --paper-deep-purple-50: #ede7f6;
+      --paper-deep-purple-100: #d1c4e9;
+      --paper-deep-purple-200: #b39ddb;
+      --paper-deep-purple-300: #9575cd;
+      --paper-deep-purple-400: #7e57c2;
+      --paper-deep-purple-500: #673ab7;
+      --paper-deep-purple-600: #5e35b1;
+      --paper-deep-purple-700: #512da8;
+      --paper-deep-purple-800: #4527a0;
+      --paper-deep-purple-900: #311b92;
+      --paper-deep-purple-a100: #b388ff;
+      --paper-deep-purple-a200: #7c4dff;
+      --paper-deep-purple-a400: #651fff;
+      --paper-deep-purple-a700: #6200ea;
+
+      --paper-indigo-50: #e8eaf6;
+      --paper-indigo-100: #c5cae9;
+      --paper-indigo-200: #9fa8da;
+      --paper-indigo-300: #7986cb;
+      --paper-indigo-400: #5c6bc0;
+      --paper-indigo-500: #3f51b5;
+      --paper-indigo-600: #3949ab;
+      --paper-indigo-700: #303f9f;
+      --paper-indigo-800: #283593;
+      --paper-indigo-900: #1a237e;
+      --paper-indigo-a100: #8c9eff;
+      --paper-indigo-a200: #536dfe;
+      --paper-indigo-a400: #3d5afe;
+      --paper-indigo-a700: #304ffe;
+
+      --paper-blue-50: #e3f2fd;
+      --paper-blue-100: #bbdefb;
+      --paper-blue-200: #90caf9;
+      --paper-blue-300: #64b5f6;
+      --paper-blue-400: #42a5f5;
+      --paper-blue-500: #2196f3;
+      --paper-blue-600: #1e88e5;
+      --paper-blue-700: #1976d2;
+      --paper-blue-800: #1565c0;
+      --paper-blue-900: #0d47a1;
+      --paper-blue-a100: #82b1ff;
+      --paper-blue-a200: #448aff;
+      --paper-blue-a400: #2979ff;
+      --paper-blue-a700: #2962ff;
+
+      --paper-light-blue-50: #e1f5fe;
+      --paper-light-blue-100: #b3e5fc;
+      --paper-light-blue-200: #81d4fa;
+      --paper-light-blue-300: #4fc3f7;
+      --paper-light-blue-400: #29b6f6;
+      --paper-light-blue-500: #03a9f4;
+      --paper-light-blue-600: #039be5;
+      --paper-light-blue-700: #0288d1;
+      --paper-light-blue-800: #0277bd;
+      --paper-light-blue-900: #01579b;
+      --paper-light-blue-a100: #80d8ff;
+      --paper-light-blue-a200: #40c4ff;
+      --paper-light-blue-a400: #00b0ff;
+      --paper-light-blue-a700: #0091ea;
+
+      --paper-cyan-50: #e0f7fa;
+      --paper-cyan-100: #b2ebf2;
+      --paper-cyan-200: #80deea;
+      --paper-cyan-300: #4dd0e1;
+      --paper-cyan-400: #26c6da;
+      --paper-cyan-500: #00bcd4;
+      --paper-cyan-600: #00acc1;
+      --paper-cyan-700: #0097a7;
+      --paper-cyan-800: #00838f;
+      --paper-cyan-900: #006064;
+      --paper-cyan-a100: #84ffff;
+      --paper-cyan-a200: #18ffff;
+      --paper-cyan-a400: #00e5ff;
+      --paper-cyan-a700: #00b8d4;
+
+      --paper-teal-50: #e0f2f1;
+      --paper-teal-100: #b2dfdb;
+      --paper-teal-200: #80cbc4;
+      --paper-teal-300: #4db6ac;
+      --paper-teal-400: #26a69a;
+      --paper-teal-500: #009688;
+      --paper-teal-600: #00897b;
+      --paper-teal-700: #00796b;
+      --paper-teal-800: #00695c;
+      --paper-teal-900: #004d40;
+      --paper-teal-a100: #a7ffeb;
+      --paper-teal-a200: #64ffda;
+      --paper-teal-a400: #1de9b6;
+      --paper-teal-a700: #00bfa5;
+
+      --paper-green-50: #e8f5e9;
+      --paper-green-100: #c8e6c9;
+      --paper-green-200: #a5d6a7;
+      --paper-green-300: #81c784;
+      --paper-green-400: #66bb6a;
+      --paper-green-500: #4caf50;
+      --paper-green-600: #43a047;
+      --paper-green-700: #388e3c;
+      --paper-green-800: #2e7d32;
+      --paper-green-900: #1b5e20;
+      --paper-green-a100: #b9f6ca;
+      --paper-green-a200: #69f0ae;
+      --paper-green-a400: #00e676;
+      --paper-green-a700: #00c853;
+
+      --paper-light-green-50: #f1f8e9;
+      --paper-light-green-100: #dcedc8;
+      --paper-light-green-200: #c5e1a5;
+      --paper-light-green-300: #aed581;
+      --paper-light-green-400: #9ccc65;
+      --paper-light-green-500: #8bc34a;
+      --paper-light-green-600: #7cb342;
+      --paper-light-green-700: #689f38;
+      --paper-light-green-800: #558b2f;
+      --paper-light-green-900: #33691e;
+      --paper-light-green-a100: #ccff90;
+      --paper-light-green-a200: #b2ff59;
+      --paper-light-green-a400: #76ff03;
+      --paper-light-green-a700: #64dd17;
+
+      --paper-lime-50: #f9fbe7;
+      --paper-lime-100: #f0f4c3;
+      --paper-lime-200: #e6ee9c;
+      --paper-lime-300: #dce775;
+      --paper-lime-400: #d4e157;
+      --paper-lime-500: #cddc39;
+      --paper-lime-600: #c0ca33;
+      --paper-lime-700: #afb42b;
+      --paper-lime-800: #9e9d24;
+      --paper-lime-900: #827717;
+      --paper-lime-a100: #f4ff81;
+      --paper-lime-a200: #eeff41;
+      --paper-lime-a400: #c6ff00;
+      --paper-lime-a700: #aeea00;
+
+      --paper-yellow-50: #fffde7;
+      --paper-yellow-100: #fff9c4;
+      --paper-yellow-200: #fff59d;
+      --paper-yellow-300: #fff176;
+      --paper-yellow-400: #ffee58;
+      --paper-yellow-500: #ffeb3b;
+      --paper-yellow-600: #fdd835;
+      --paper-yellow-700: #fbc02d;
+      --paper-yellow-800: #f9a825;
+      --paper-yellow-900: #f57f17;
+      --paper-yellow-a100: #ffff8d;
+      --paper-yellow-a200: #ffff00;
+      --paper-yellow-a400: #ffea00;
+      --paper-yellow-a700: #ffd600;
+
+      --paper-amber-50: #fff8e1;
+      --paper-amber-100: #ffecb3;
+      --paper-amber-200: #ffe082;
+      --paper-amber-300: #ffd54f;
+      --paper-amber-400: #ffca28;
+      --paper-amber-500: #ffc107;
+      --paper-amber-600: #ffb300;
+      --paper-amber-700: #ffa000;
+      --paper-amber-800: #ff8f00;
+      --paper-amber-900: #ff6f00;
+      --paper-amber-a100: #ffe57f;
+      --paper-amber-a200: #ffd740;
+      --paper-amber-a400: #ffc400;
+      --paper-amber-a700: #ffab00;
+
+      --paper-orange-50: #fff3e0;
+      --paper-orange-100: #ffe0b2;
+      --paper-orange-200: #ffcc80;
+      --paper-orange-300: #ffb74d;
+      --paper-orange-400: #ffa726;
+      --paper-orange-500: #ff9800;
+      --paper-orange-600: #fb8c00;
+      --paper-orange-700: #f57c00;
+      --paper-orange-800: #ef6c00;
+      --paper-orange-900: #e65100;
+      --paper-orange-a100: #ffd180;
+      --paper-orange-a200: #ffab40;
+      --paper-orange-a400: #ff9100;
+      --paper-orange-a700: #ff6500;
+
+      --paper-deep-orange-50: #fbe9e7;
+      --paper-deep-orange-100: #ffccbc;
+      --paper-deep-orange-200: #ffab91;
+      --paper-deep-orange-300: #ff8a65;
+      --paper-deep-orange-400: #ff7043;
+      --paper-deep-orange-500: #ff5722;
+      --paper-deep-orange-600: #f4511e;
+      --paper-deep-orange-700: #e64a19;
+      --paper-deep-orange-800: #d84315;
+      --paper-deep-orange-900: #bf360c;
+      --paper-deep-orange-a100: #ff9e80;
+      --paper-deep-orange-a200: #ff6e40;
+      --paper-deep-orange-a400: #ff3d00;
+      --paper-deep-orange-a700: #dd2c00;
+
+      --paper-brown-50: #efebe9;
+      --paper-brown-100: #d7ccc8;
+      --paper-brown-200: #bcaaa4;
+      --paper-brown-300: #a1887f;
+      --paper-brown-400: #8d6e63;
+      --paper-brown-500: #795548;
+      --paper-brown-600: #6d4c41;
+      --paper-brown-700: #5d4037;
+      --paper-brown-800: #4e342e;
+      --paper-brown-900: #3e2723;
+
+      --paper-grey-50: #fafafa;
+      --paper-grey-100: #f5f5f5;
+      --paper-grey-200: #eeeeee;
+      --paper-grey-300: #e0e0e0;
+      --paper-grey-400: #bdbdbd;
+      --paper-grey-500: #9e9e9e;
+      --paper-grey-600: #757575;
+      --paper-grey-700: #616161;
+      --paper-grey-800: #424242;
+      --paper-grey-900: #212121;
+
+      --paper-blue-grey-50: #eceff1;
+      --paper-blue-grey-100: #cfd8dc;
+      --paper-blue-grey-200: #b0bec5;
+      --paper-blue-grey-300: #90a4ae;
+      --paper-blue-grey-400: #78909c;
+      --paper-blue-grey-500: #607d8b;
+      --paper-blue-grey-600: #546e7a;
+      --paper-blue-grey-700: #455a64;
+      --paper-blue-grey-800: #37474f;
+      --paper-blue-grey-900: #263238;
+
+      
+      --dark-divider-opacity: 0.12;
+      --dark-disabled-opacity: 0.38; 
+      --dark-secondary-opacity: 0.54;
+      --dark-primary-opacity: 0.87;
+
+      
+      --light-divider-opacity: 0.12;
+      --light-disabled-opacity: 0.3; 
+      --light-secondary-opacity: 0.7;
+      --light-primary-opacity: 1.0;
+}
+
+</style>
+</custom-style>
+
+<custom-style>
+  <style is="custom-style">html {
+  --primary-text-color: var(--light-theme-text-color);
+      --primary-background-color: var(--light-theme-background-color);
+      --secondary-text-color: var(--light-theme-secondary-color);
+      --disabled-text-color: var(--light-theme-disabled-color);
+      --divider-color: var(--light-theme-divider-color);
+      --error-color: var(--paper-deep-orange-a700);
+
+      
+      --primary-color: var(--paper-indigo-500);
+      --light-primary-color: var(--paper-indigo-100);
+      --dark-primary-color: var(--paper-indigo-700);
+
+      --accent-color: var(--paper-pink-a200);
+      --light-accent-color: var(--paper-pink-a100);
+      --dark-accent-color: var(--paper-pink-a400);
+
+
+      
+      --light-theme-background-color: #ffffff;
+      --light-theme-base-color: #000000;
+      --light-theme-text-color: var(--paper-grey-900);
+      --light-theme-secondary-color: #737373;  
+      --light-theme-disabled-color: #9b9b9b;  
+      --light-theme-divider-color: #dbdbdb;
+
+      
+      --dark-theme-background-color: var(--paper-grey-900);
+      --dark-theme-base-color: #ffffff;
+      --dark-theme-text-color: #ffffff;
+      --dark-theme-secondary-color: #bcbcbc;  
+      --dark-theme-disabled-color: #646464;  
+      --dark-theme-divider-color: #3c3c3c;
+
+      
+      --text-primary-color: var(--dark-theme-text-color);
+      --default-primary-color: var(--primary-color);
+}
+
+</style>
+</custom-style><link rel="stylesheet" type="text/css" crossorigin="anonymous" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,300,300italic,400italic,500,500italic,700,700italic"><custom-style>
+  <style is="custom-style">html {
+  --paper-font-common-base_-_font-family:  'Roboto', 'Noto', sans-serif; --paper-font-common-base_-_-webkit-font-smoothing:  antialiased;;
+
+      --paper-font-common-code_-_font-family:  'Roboto Mono', 'Consolas', 'Menlo', monospace; --paper-font-common-code_-_-webkit-font-smoothing:  antialiased;;
+
+      --paper-font-common-expensive-kerning_-_text-rendering:  optimizeLegibility;;
+
+      --paper-font-common-nowrap_-_white-space:  nowrap; --paper-font-common-nowrap_-_overflow:  hidden; --paper-font-common-nowrap_-_text-overflow:  ellipsis;;
+
+      
+
+      --paper-font-display4_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-display4_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-display4_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-display4_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-display4_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-display4_-_font-size:  112px; --paper-font-display4_-_font-weight:  300; --paper-font-display4_-_letter-spacing:  -.044em; --paper-font-display4_-_line-height:  120px;;
+
+      --paper-font-display3_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-display3_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-display3_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-display3_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-display3_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-display3_-_font-size:  56px; --paper-font-display3_-_font-weight:  400; --paper-font-display3_-_letter-spacing:  -.026em; --paper-font-display3_-_line-height:  60px;;
+
+      --paper-font-display2_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-display2_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-display2_-_font-size:  45px; --paper-font-display2_-_font-weight:  400; --paper-font-display2_-_letter-spacing:  -.018em; --paper-font-display2_-_line-height:  48px;;
+
+      --paper-font-display1_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-display1_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-display1_-_font-size:  34px; --paper-font-display1_-_font-weight:  400; --paper-font-display1_-_letter-spacing:  -.01em; --paper-font-display1_-_line-height:  40px;;
+
+      --paper-font-headline_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-headline_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-headline_-_font-size:  24px; --paper-font-headline_-_font-weight:  400; --paper-font-headline_-_letter-spacing:  -.012em; --paper-font-headline_-_line-height:  32px;;
+
+      --paper-font-title_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-title_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-title_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-title_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-title_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-title_-_font-size:  20px; --paper-font-title_-_font-weight:  500; --paper-font-title_-_line-height:  28px;;
+
+      --paper-font-subhead_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-subhead_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-subhead_-_font-size:  16px; --paper-font-subhead_-_font-weight:  400; --paper-font-subhead_-_line-height:  24px;;
+
+      --paper-font-body2_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-body2_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-body2_-_font-size:  14px; --paper-font-body2_-_font-weight:  500; --paper-font-body2_-_line-height:  24px;;
+
+      --paper-font-body1_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-body1_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-body1_-_font-size:  14px; --paper-font-body1_-_font-weight:  400; --paper-font-body1_-_line-height:  20px;;
+
+      --paper-font-caption_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-caption_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-caption_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-caption_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-caption_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-caption_-_font-size:  12px; --paper-font-caption_-_font-weight:  400; --paper-font-caption_-_letter-spacing:  0.011em; --paper-font-caption_-_line-height:  20px;;
+
+      --paper-font-menu_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-menu_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-menu_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-menu_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-menu_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-menu_-_font-size:  13px; --paper-font-menu_-_font-weight:  500; --paper-font-menu_-_line-height:  24px;;
+
+      --paper-font-button_-_font-family:  var(--paper-font-common-base_-_font-family); --paper-font-button_-_-webkit-font-smoothing:  var(--paper-font-common-base_-_-webkit-font-smoothing); --paper-font-button_-_white-space:  var(--paper-font-common-nowrap_-_white-space); --paper-font-button_-_overflow:  var(--paper-font-common-nowrap_-_overflow); --paper-font-button_-_text-overflow:  var(--paper-font-common-nowrap_-_text-overflow); --paper-font-button_-_font-size:  14px; --paper-font-button_-_font-weight:  500; --paper-font-button_-_letter-spacing:  0.018em; --paper-font-button_-_line-height:  24px; --paper-font-button_-_text-transform:  uppercase;;
+
+      --paper-font-code2_-_font-family:  var(--paper-font-common-code_-_font-family); --paper-font-code2_-_-webkit-font-smoothing:  var(--paper-font-common-code_-_-webkit-font-smoothing); --paper-font-code2_-_font-size:  14px; --paper-font-code2_-_font-weight:  700; --paper-font-code2_-_line-height:  20px;;
+
+      --paper-font-code1_-_font-family:  var(--paper-font-common-code_-_font-family); --paper-font-code1_-_-webkit-font-smoothing:  var(--paper-font-common-code_-_-webkit-font-smoothing); --paper-font-code1_-_font-size:  14px; --paper-font-code1_-_font-weight:  500; --paper-font-code1_-_line-height:  20px;;
+}
+
+</style>
+</custom-style><dom-module id="paper-item-shared-styles">
+  <template>
+    <style>
+      :host, .paper-item {
+        display: block;
+        position: relative;
+        min-height: var(--paper-item-min-height, 48px);
+        padding: 0px 16px;
+      }
+
+      .paper-item {
+        @apply --paper-font-subhead;
+        border:none;
+        outline: none;
+        background: white;
+        width: 100%;
+        text-align: left;
+      }
+
+      :host([hidden]), .paper-item[hidden] {
+        display: none !important;
+      }
+
+      :host(.iron-selected), .paper-item.iron-selected {
+        font-weight: var(--paper-item-selected-weight, bold);
+
+        @apply --paper-item-selected;
+      }
+
+      :host([disabled]), .paper-item[disabled] {
+        color: var(--paper-item-disabled-color, var(--disabled-text-color));
+
+        @apply --paper-item-disabled;
+      }
+
+      :host(:focus), .paper-item:focus {
+        position: relative;
+        outline: 0;
+
+        @apply --paper-item-focused;
+      }
+
+      :host(:focus):before, .paper-item:focus:before {
+        @apply --layout-fit;
+
+        background: currentColor;
+        content: '';
+        opacity: var(--dark-divider-opacity);
+        pointer-events: none;
+
+        @apply --paper-item-focused-before;
+      }
+    </style>
+  </template>
+</dom-module><iron-iconset-svg name="chromestatus" size="24" style="display: none;">
+<svg><defs>
+
+<g id="accessibility"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"></path></g>
+
+<g id="add-circle-outline"><path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></g>
+
+<g id="android"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"></path></g>
+
+<g id="arrow-back"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></g>
+
+<g id="arrow-drop-down"><path d="M7 10l5 5 5-5z"></path></g>
+
+<g id="arrow-drop-up"><path d="M7 14l5-5 5 5z"></path></g>
+
+<g id="bug-report"><path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"></path></g>
+
+<g id="cancel"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></g>
+
+<g id="close"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></g>
+
+<g id="create"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></g>
+
+<g id="css"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"></path></g>
+
+<g id="device"><path d="M15 7v4h1v2h-3V5h2l-3-4-3 4h2v8H8v-2.07c.7-.37 1.2-1.08 1.2-1.93 0-1.21-.99-2.2-2.2-2.2-1.21 0-2.2.99-2.2 2.2 0 .85.5 1.56 1.2 1.93V13c0 1.11.89 2 2 2h3v3.05c-.71.37-1.2 1.1-1.2 1.95 0 1.22.99 2.2 2.2 2.2 1.21 0 2.2-.98 2.2-2.2 0-.85-.49-1.58-1.2-1.95V15h3c1.11 0 2-.89 2-2v-2h1V7h-4z"></path></g>
+
+<g id="dom"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path></g>
+
+<g id="extension"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"></path></g>
+
+<g id="flag"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"></path></g>
+
+<g id="fileapis"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></g>
+
+<g id="graphics"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></g>
+
+<g id="help"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"></path></g>
+
+<g id="javascript"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path></g>
+
+<g id="notifications"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path></g>
+
+<g id="notifications-off"><path d="M20 18.69L7.84 6.14 5.27 3.49 4 4.76l2.8 2.8v.01c-.52.99-.8 2.16-.8 3.42v5l-2 2v1h13.73l2 2L21 19.72l-1-1.03zM12 22c1.11 0 2-.89 2-2h-4c0 1.11.89 2 2 2zm6-7.32V11c0-3.08-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68c-.15.03-.29.08-.42.12-.1.03-.2.07-.3.11h-.01c-.01 0-.01 0-.02.01-.23.09-.46.2-.68.31 0 0-.01 0-.01.01L18 14.68z"></path></g>
+
+<g id="pan-tool"><path d="M23 5.5V20c0 2.2-1.8 4-4 4h-7.3c-1.08 0-2.1-.43-2.85-1.19L1 14.83s1.26-1.23 1.3-1.25c.22-.19.49-.29.79-.29.22 0 .42.06.6.16.04.01 4.31 2.46 4.31 2.46V4c0-.83.67-1.5 1.5-1.5S11 3.17 11 4v7h1V1.5c0-.83.67-1.5 1.5-1.5S15 .67 15 1.5V11h1V2.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5V11h1V5.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5z"></path></g>
+
+<g id="userinput"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"></path></g>
+
+<g id="menu"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></g>
+
+<g id="misc"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path></g>
+
+<g id="multimedia"><path d="M21 6h-7.59l3.29-3.29L16 2l-4 4-4-4-.71.71L10.59 6H3c-1.1 0-2 .89-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.11-.9-2-2-2zm0 14H3V8h18v12zM9 10v8l7-4z"></path></g>
+
+<g id="networkconnectivity"><path fill-opacity=".3" d="M2 22h20V2z"></path><path d="M17 7L2 22h15z"></path></g>
+
+<g id="offlinestorage"><path d="M23.64 7c-.45-.34-4.93-4-11.64-4-1.5 0-2.89.19-4.15.48L18.18 13.8 23.64 7zm-6.6 8.22L3.27 1.44 2 2.72l2.05 2.06C1.91 5.76.59 6.82.36 7l11.63 14.49.01.01.01-.01 3.9-4.86 3.32 3.32 1.27-1.27-3.46-3.46z"></path></g>
+
+<g id="ondemand-video"><path d="M21 3H3c-1.11 0-2 .89-2 2v12c0 1.1.89 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.11-.9-2-2-2zm0 14H3V5h18v12zm-5-6l-7 4V7z"></path></g>
+
+<g id="open-in-browser"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h4v-2H5V8h14v10h-4v2h4c1.1 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm-7 6l-4 4h3v6h2v-6h3l-4-4z"></path></g>
+
+<g id="open-in-new"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></g>
+
+<g id="performance"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"></path></g>
+
+<g id="realtimecommunication"><path d="M7 7.07L8.43 8.5c.91-.91 2.18-1.48 3.57-1.48s2.66.57 3.57 1.48L17 7.07C15.72 5.79 13.95 5 12 5s-3.72.79-5 2.07zM12 1C8.98 1 6.24 2.23 4.25 4.21l1.41 1.41C7.28 4 9.53 3 12 3s4.72 1 6.34 2.62l1.41-1.41C17.76 2.23 15.02 1 12 1zm2.86 9.01L9.14 10C8.51 10 8 10.51 8 11.14v9.71c0 .63.51 1.14 1.14 1.14h5.71c.63 0 1.14-.51 1.14-1.14v-9.71c.01-.63-.5-1.13-1.13-1.13zM15 20H9v-8h6v8z"></path></g>
+
+<g id="security"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></g>
+
+<g id="share"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"></path></g>
+
+<g id="star"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></g>
+
+<g id="star-border"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"></path></g>
+
+<g id="warning"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></g>
+
+<g id="webcomponents"><path d="M4.789 93.991l-4.729 1.434 5.791 21.344 7.857-1.939-1.901-7.173-3.288.545zM18.596 90.216l-5.08 1.498 5.47 21.024 46.586-12.477s12.905 20.666 32.426 21.882c19.502 1.203 34.941-8.369 42.164-18.933l-.787-3.858s-23.334 22.535-48.907 10.154c-16.098-8.611-21.716-18.395-21.716-18.395l-46.483 13.014-3.673-13.909zM121.677 38.66l-27.448 7.14-2.476 8.337 31.383-7.793z"></path></g>
+
+<g id="expand-less"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path></g>
+ <g id="expand-more"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></g>
+
+</defs></svg>
+</iron-iconset-svg></head>
+
+<body class="loading" data-path="/features?">
+  
+
+  <div id="app-content-container">
+    <app-header-layout>
+      <app-header slot="header" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px); left: 0px; right: 0px;">
+        <div class="main-toolbar" style="transform: translate3d(0px, 0px, 0px);">
+          <div class="toolbar-content">
+            <header>
+  <aside>
+    <hgroup>
+      <a href="/features" target="_top"><h1>Chrome Platform Status</h1></a>
+      <!--<span>feature support, releases, usage metrics</span>-->
+    </hgroup>
+  </aside>
+  <nav>
+    <div style="flex:0.2"></div>
+    <a href="/features">All features</a>
+    <a href="/features/schedule">Releases</a>
+    <a href="/samples" class="features">Samples</a>
+    <div class="nav-dropdown-container">
+      <a class="nav-dropdown-trigger">Stats
+        <iron-icon icon="chromestatus:arrow-drop-down"></iron-icon>
+      </a>
+      <ul>
+        <li><a href="/metrics/css/popularity">CSS</a></li>
+        <li><a href="/metrics/feature/popularity">JS/HTML</a></li>
+      </ul>
+    </div>
+
+    <div style="flex:1"></div>
+
+    
+      <a href="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://uc.appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://www.chromestatus.com/features%253F">Sign in</a>
+    
+
+  </nav>
+</header>
+
+          </div>
+        </div>
+      </app-header>
+
+      <div id="content">
+        <div id="spinner"><img src="/static/img/ring.svg"></div>
+        <div id="column-container">
+           <div id="drawer-column">
+  <h3>Chrome versions</h3>
+  
+    <!-- Use single quote here. The value is a json string with double quote. -->
+    <chromedash-metadata implstatuses="[{&quot;val&quot;: &quot;No active development&quot;, &quot;key&quot;: 1}, {&quot;val&quot;: &quot;Proposed&quot;, &quot;key&quot;: 2}, {&quot;val&quot;: &quot;In development&quot;, &quot;key&quot;: 3}, {&quot;val&quot;: &quot;In developer trial (Behind a flag)&quot;, &quot;key&quot;: 4}, {&quot;val&quot;: &quot;Enabled by default&quot;, &quot;key&quot;: 5}, {&quot;val&quot;: &quot;Deprecated&quot;, &quot;key&quot;: 6}, {&quot;val&quot;: &quot;Removed&quot;, &quot;key&quot;: 7}, {&quot;val&quot;: &quot;Origin trial&quot;, &quot;key&quot;: 8}, {&quot;val&quot;: &quot;Browser Intervention&quot;, &quot;key&quot;: 9}, {&quot;val&quot;: &quot;On hold&quot;, &quot;key&quot;: 10}, {&quot;val&quot;: &quot;No longer pursuing&quot;, &quot;key&quot;: 1000}]"></chromedash-metadata>
+  
+</div>
+           <div id="content-column">
+           <div id="horizontal-sub-nav"></div>
+             
+  <div id="subheader">
+    <div class="feature-count">
+      <h2>Features: <span class="num-features"></span></h2>
+    </div>
+    <div class="search">
+      <input type="search" placeholder="Filter" disabled="">
+      <button class="legend-button"><iron-icon icon="chromestatus:help"></iron-icon></button>
+    </div>
+    <div class="actionlinks">
+      <!-- TODO(jrobbins): Re-implement Subscribe button to use emails. -->
+      
+    </div>
+  </div>
+
+             
+  <chromedash-featurelist loginurl="https://accounts.google.com/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://uc.appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttps://www.chromestatus.com/features%253F"></chromedash-featurelist>
+
+           </div>
+         </div>
+      </div>
+
+    </app-header-layout>
+
+    <footer>
+  <div>
+     <a href="https://groups.google.com/a/chromium.org/forum/#!newtopic/blink-dev" target="_blank">Discuss</a>
+     <a href="https://github.com/GoogleChrome/chromium-dashboard/issues" target="_blank">File an issue</a>
+     <a href="https://www.google.com/policies/privacy/" target="_blank">Privacy</a>
+    <a href="https://docs.google.com/document/d/1jrSlM4Yhae7XCJ8BuasWx71CvDEMMbSKbXwx7hoh1Co/edit?pli=1" target="_blank">About</a>
+  </div>
+</footer>
+
+  </div>
+
+  <chromedash-toast msg="Welcome to chromestatus.com!"></chromedash-toast>
+
+  
+  <chromedash-legend></chromedash-legend>
+
+
+  <!-- https://github.com/ljosa/urlize.js.git. This package does not have ES module support. It sets window.urlize in browsers. -->
+  <script src="https://unpkg.com/urlize.js/urlize.js"></script>
+
+  
+  <script>
+    (function() {
+      'use strict';
+      // Get values from server. used in /static/js/features-page.js
+      const VIEWS = {
+        vendors: [{"val": "Shipped/Shipping", "key": 1}, {"val": "In development", "key": 2}, {"val": "Positive", "key": 3}, {"val": "No signal", "key": 5}, {"val": "Negative", "key": 7}, {"val": "Neutral", "key": 8}, {"val": "N/A", "key": 9}, {"val": "Under consideration", "key": 10}, {"val": "Important", "key": 11}, {"val": "Worth prototyping", "key": 12}, {"val": "Non-harmful", "key": 13}, {"val": "Defer", "key": 14}, {"val": "Harmful", "key": 15}],
+        webdevs: [{"val": "Strongly positive", "key": 1}, {"val": "Positive", "key": 2}, {"val": "Mixed signals", "key": 3}, {"val": "No signals", "key": 4}, {"val": "Negative", "key": 5}, {"val": "Strongly negative", "key": 6}],
+        standards: [{"val": "De-facto standard", "key": 1}, {"val": "Established standard", "key": 2}, {"val": "Working draft or equivalent", "key": 3}, {"val": "Editor's draft", "key": 4}, {"val": "Public discussion", "key": 5}, {"val": "No public standards discussion", "key": 6}]
+      };
+      /*! (c) 2021 Copyright (c) 2016 The Google Inc. All rights reserved. (Apache2) */
+!function(t){"use strict";window.StarService=class{static getStars(){var t="localhost"==location.hostname?"https://www.chromestatus.com/api/v0/currentuser/stars":"/api/v0/currentuser/stars";return fetch(t,{method:"GET",headers:{"Content-Type":"application/json"}}).then(t=>t.json()).then(t=>t.featureIds)}static setStar(t,e){var s="localhost"==location.hostname?"https://www.chromestatus.com/api/v0/currentuser/stars":"/api/v0/currentuser/stars";return fetch(s,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({featureId:t,starred:e})}).then(t=>t.json)}}}();
+      /*! (c) 2021 Copyright (c) 2016 The Google Inc. All rights reserved. (Apache2) */
+var featureListEl=document.querySelector("chromedash-featurelist"),chromeMetadataEl=document.querySelector("chromedash-metadata"),searchEl=document.querySelector(".search input"),legendEl=document.querySelector("chromedash-legend");function debounce(e){var t,a=arguments.length>1&&void 0!==arguments[1]?arguments[1]:300;return function(){for(var r=arguments.length,l=new Array(r),s=0;s<r;s++)l[s]=arguments[s];var n=this;clearTimeout(t),t=setTimeout(()=>{e.apply(n,l)},a)}}location.hash&&(searchEl.value=decodeURIComponent(location.hash.substr(1))),chromeMetadataEl.addEventListener("query-changed",e=>{var t=e.detail.version,a=t.match(/^[0-9]+$/);searchEl.value=a?"milestone="+t:'browsers.chrome.status:"'+t+'"',featureListEl.filter(searchEl.value,!0)}),searchEl.addEventListener("search",e=>{e.target.value||(featureListEl.filter("",!0),chromeMetadataEl.selected=null)}),searchEl.addEventListener("input",debounce(e=>{featureListEl.filter(e.target.value),chromeMetadataEl.selected=null})),featureListEl.addEventListener("filtered",e=>{document.querySelector(".num-features").textContent=e.detail.count}),featureListEl.addEventListener("has-scroll-list",()=>{document.querySelector("app-header-layout app-header").fixed=!1}),featureListEl.addEventListener("filter-category",e=>{e.stopPropagation(),searchEl.value="category: "+e.detail.val,featureListEl.filter(searchEl.value,!0)}),featureListEl.addEventListener("filter-owner",e=>{e.stopPropagation(),searchEl.value="browsers.chrome.owners: "+e.detail.val,featureListEl.filter(searchEl.value,!0)}),featureListEl.addEventListener("filter-component",e=>{e.stopPropagation(),searchEl.value="component: "+e.detail.val,featureListEl.filter(searchEl.value,!0)}),window.addEventListener("popstate",e=>{e.state&&e.state.id?featureListEl.scrollToId(e.state.id):e.state&&e.state.query&&featureListEl.filter(e.state.query)}),featureListEl.addEventListener("app-ready",()=>{document.body.classList.remove("loading"),StarService.getStars().then(e=>{featureListEl.starredFeatures=new Set(e)})}),legendEl.views=VIEWS,document.querySelector(".legend-button").addEventListener("click",e=>{e.preventDefault(),legendEl.toggle()});
+    })();
+  </script>
+
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-179341418-1"></script>
+  <script>
+    (function() {
+      'use strict';
+
+      // Unregister any existing service workers.
+      // Note, this leaves existing service workers on existing browser tabs.
+      // TODO(jrobbins): remove this in a future release.
+      if (window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+
+      /*! (c) 2021 Copyright (c) 2016 The Google Inc. All rights reserved. (Apache2) */
+"use strict";function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-179341418-1");
+    })();
+  </script>
+
+
+</body></html>
