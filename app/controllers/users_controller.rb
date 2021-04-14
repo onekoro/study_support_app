@@ -23,6 +23,26 @@ class UsersController < ApplicationController
     @places = @places.page(params[:page]).per(6)
   end
   
+  def following
+    @user  = User.find(params[:id])
+    @users = @user.following.page(params[:page]).per(100)
+  end
+
+  def followers
+    @user  = User.find(params[:id])
+    @users = @user.followers.page(params[:page]).per(100)
+  end
+  
+  def record_show
+    @user = User.find(params[:id])
+    @q = Record.ransack(params[:q])
+    if params[:q].nil?
+      @q.date_eq = Date.today
+    end
+    @records = @q.result(distinct: true).where(user_id: @user.id)
+    @records_time = sum_record(@records)
+  end
+  
   def new
     @user = User.new
   end
@@ -63,15 +83,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def following
-    @user  = User.find(params[:id])
-    @users = @user.following.page(params[:page]).per(100)
-  end
-
-  def followers
-    @user  = User.find(params[:id])
-    @users = @user.followers.page(params[:page]).per(100)
-  end
+  
   
   private
 

@@ -11,8 +11,8 @@
         - (5-comment.recommend).times do
             i.far.fa-star.star-icon
     .comment_content
-        .bun #{comment.content}
-        .delete_button
-            - if current_user?(comment.user)
-                = link_to "削除", place_comment_path(@place, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
+      .bun #{comment.content}
+      .delete_button
+          - if current_user?(comment.user)
+              = link_to "削除", place_comment_path(@place, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
     

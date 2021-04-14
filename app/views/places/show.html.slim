@@ -35,8 +35,10 @@
               .place_delete
                 p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
       .poster_comment
-        h4 投稿者コメント
-        - if @place.content == "" 
+        .title
+          i.far.fa-comment.icon
+          h4 投稿者コメント
+        - if @place.content.nil?
           .content コメントはありません
         - else
           .content #{@place.content}
@@ -82,7 +84,9 @@
             = link_to "#{@place.web}", "#{@place.web}"
   .row.comments
     .col-lg-12
-      h4 レビュー
+      .title
+        i.far.fa-comments.icon
+        h4 レビュー一覧
     .col-lg-6
       - if @comments
         = render @comments

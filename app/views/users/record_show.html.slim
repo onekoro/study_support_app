@@ -1,0 +1,21 @@
+= provide(:title, "学習記録")
+
+.record.container
+  = render partial: 'show_head', locals: { user: @user }
+  .row
+    .col-lg-2
+    .col-lg-6
+      = search_form_for(@q, url:record_show_user_path(@user)) do |f|
+        h4.form_group
+          i.fas.fa-pen.fa-lg.pen-icon.mr-2
+          .date.mr-3
+            = raw sprintf(f.date_select(:date_eq, use_month_numbers:true, end_year: Time.now.year, date_separator:'%s'),'年','月')+'日の学習記録'
+          = f.submit "更新する", class: "btn btn-outline-success btn-sm d-block"
+  .row
+    .col-lg-2
+    .col-lg-4.col-sm-6
+      .sum_record_title 合計
+      h4.sum_record #{@records_time}時間
+  .row
+    = render @records
+    

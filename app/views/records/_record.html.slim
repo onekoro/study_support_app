@@ -1,0 +1,54 @@
+.col-lg-2
+.col-lg-4.col-sm-6
+  .place_content.my-2
+    = link_to place_path(record.place), class: "place_link" do
+    .place_image_thumb
+      - if record.place.image?
+        = image_tag record.place.image.to_s, class: "mb-1 img-fluid"
+      - else
+        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+    .title
+      h4.mb-0.py-1 #{record.place.title}
+    .place_wifi_cost
+      .wifi
+        - if record.place.wifi == "あり"
+          i.fas.fa-wifi.wifi-icon
+          .word Wifiあり
+        - else
+          = image_tag "wifi_slash_icon.png", class: "img-fluid"
+          .word Wifiなし
+      .cost
+        i.fas.fa-yen-sign.yen-icon
+        .word #{record.place.cost}円
+    .place_tags.row
+      - if record.place.tags
+        = render partial: 'places/tag', locals: { tags: record.place.tags }
+    .place_info.d-flex
+      .user_info.mr-3
+        - if logged_in?
+          = link_to user_path(record.place.user), class: "inlink user_link" do
+            = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+            = record.place.user.name
+        - else
+          = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+          = record.place.user.name
+      .created_at = record.place.created_at.strftime("%Y/%m/%d").to_s
+      .place_like.inlink
+        - if logged_in?
+          = render partial: 'likes/like_form', locals: { place: record.place }
+.col-lg-4.col-sm-6
+  .day_record_info
+    .time
+      i.fas.fa-clock.clock-icon.icon
+      .hour.word #{record.hour}時間
+      .minute.word #{record.minute}分
+    .contents
+      .title
+        i.far.fa-comment.icon
+        .word コメント
+      - if record.content.nil?
+        .content コメントはありません
+      - else
+        .content #{record.content}
+.col-lg-2
+    

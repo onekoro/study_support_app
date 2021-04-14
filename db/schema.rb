@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_19_020355) do
+ActiveRecord::Schema.define(version: 2021_04_13_055918) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 2021_03_19_020355) do
     t.float "longitude"
     t.index ["user_id", "created_at"], name: "index_places_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_places_on_user_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.date "date"
+    t.integer "hour"
+    t.integer "minute"
+    t.integer "user_id", null: false
+    t.integer "place_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "content"
+    t.index ["place_id"], name: "index_records_on_place_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -91,6 +104,8 @@ ActiveRecord::Schema.define(version: 2021_03_19_020355) do
   add_foreign_key "comments", "places"
   add_foreign_key "comments", "users"
   add_foreign_key "places", "users"
+  add_foreign_key "records", "places"
+  add_foreign_key "records", "users"
   add_foreign_key "tag_maps", "places"
   add_foreign_key "tag_maps", "tags"
 end

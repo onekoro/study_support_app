@@ -1,0 +1,34 @@
+.row
+  .col-lg-4.col-sm-2
+  .form.col-lg-4.col-sm-8.py-2
+    .subhead
+      h2 = yield(:title)
+    
+    = form_with(model: @record, local: true) do |f|
+      = render "shared/error_messages", object: f.object
+    
+      .form-group
+        .d-flex
+          = f.label :date, "日付"
+          p （必須）
+        = raw sprintf(f.date_select(:date, prompt:"--", use_month_numbers:true, end_year: Time.now.year, date_separator:'%s'),'年','月')+'日'
+    
+      .form-group
+        .d-flex
+          = f.label :email, "学習時間"
+          p （必須）
+        .d-flex
+          = f.number_field :hour, min: 0, max: 24, class: "form-control"
+          .span 時間
+          = f.number_field :minute, min: 0, max: 60, class: "form-control"
+          .span 分    
+      .form-group
+        .d-flex
+          = f.label :place_id, "学習場所"
+          p （必須）
+        = f.collection_radio_buttons :place_id, Place.all, :id, :title, class: "form-control"
+      .form-group
+        = f.label :content, "コメント"
+        = f.text_area :content, class: "form-control"
+        
+      = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"

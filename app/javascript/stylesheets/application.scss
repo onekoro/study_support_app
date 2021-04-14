@@ -116,6 +116,61 @@ header{
   }
 }
 
+// users/show
+.user_show{
+  .follow{
+    .content{
+      color: rgb(91, 112, 131);
+    }
+  }
+}
+
+.my_content:hover{
+  background-color: #D9E5FF;
+}
+
+.follow_count{
+  a{
+    color: $text-grey;
+  }
+}
+
+// users/record_show
+.record{
+  .form_group{
+    @include y-center;
+    .pen-icon{
+      height: 100%;
+    }
+    #text{
+      @include y-center;
+    }
+  }
+  .day_record_info{
+    .time{
+      @include y-center;
+      .icon{
+        width: 30px;
+        height: 30px;
+        margin: 0.5rem;
+      }
+    }
+    .title{
+      @include y-center;
+      .icon{
+        width: 30px;
+        height: 30px;
+        margin: 0.5rem;
+      }
+    }
+    .content{
+      min-height: 130px;
+      @include grey-border;
+    }
+  }
+}
+
+
 // places/show
 .place_show{
   .row{
@@ -136,6 +191,14 @@ header{
     margin: 0 0.5rem 0 auto;
   }
   .poster_comment{
+    .title{
+      @include y-center;
+    }
+    .icon{
+      width: 30px;
+      height: 30px;
+      margin: 0 0.5rem 0.5rem 0.5rem;
+    }
     .content{
       min-height: 130px;
       @include grey-border;
@@ -184,6 +247,14 @@ header{
   }
   .comments{
     margin-bottom: 5%;
+    .title{
+      @include y-center;
+      .icon{
+        width: 30px;
+        height: 30px;
+        margin: 0 0.5rem 0.5rem 0.5rem;
+      }
+    }
     .content{
       @include grey-border;
       word-wrap: break-word;
@@ -200,7 +271,7 @@ header{
 }
 
 
-// place/index
+// places/index
 .home_back{
   background-image: url('/assets/haikei.jpg');
   // background-image: image-url('haikei.jpg');
@@ -225,7 +296,7 @@ header{
   }
 }
 
-// tag_search
+// places/tag_search
 .tag_search{
   display: flex;
   justify-content: center;
@@ -286,9 +357,6 @@ header{
   }
   .place_wifi_cost{
     @include y-center;
-    .wifi{
-      width: 85px;
-    }
     img{
       height: 25%;
       width: 25%;
@@ -302,22 +370,4 @@ header{
   }
 }
 
-// user/show
-.user_show{
-  .follow{
-    .content{
-      color: rgb(91, 112, 131);
-    }
-  }
-}
-
-.my_content:hover{
-  background-color: #D9E5FF;
-}
-
-.follow_count{
-  a{
-    color: $text-grey;
-  }
-}
 
