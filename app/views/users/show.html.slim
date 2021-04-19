@@ -2,14 +2,18 @@
 .container.user_show
   = render partial: 'show_head', locals: { user: @user }
   .row
-    .my_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
+    .col-1
+    .my_record.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "学習記録", record_show_user_path(@user), class: "stretched-link text-secondary"
+    .my_post.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
       = link_to "投稿", user_path(@user), class: "stretched-link"
-    .likes_post.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+    .likes_post.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
       = link_to "いいね", like_show_user_path(@user), class: "stretched-link text-secondary"
-    .follow.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+    .follow.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
       = link_to "フォロー", following_user_path(@user), class: "stretched-link text-secondary"
-    .follower.my_content.col-3.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+    .follower.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
       = link_to "フォロワー", followers_user_path(@user), class: "stretched-link text-secondary"
+    .col-1
   .row.places
     - if @places
       = render @places

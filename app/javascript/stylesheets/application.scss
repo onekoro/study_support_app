@@ -137,11 +137,8 @@ header{
 
 // users/record_show
 .record{
-  .form_group{
+  h4{
     @include y-center;
-    .pen-icon{
-      height: 100%;
-    }
     #text{
       @include y-center;
     }

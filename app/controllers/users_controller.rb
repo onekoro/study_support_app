@@ -35,12 +35,21 @@ class UsersController < ApplicationController
   
   def record_show
     @user = User.find(params[:id])
-    @q = Record.ransack(params[:q])
+    # user_idによる絞り込み
+    @user_record = Record.where(user_id: @user.id)
+    # 週のデータ
+    @week_data = week_record(@user_record)
+    # 週の総学習時間
+    @sum_week_time = sum_week_record(@user_record)
+    # 日付による絞り込み
+    @q = @user_record.ransack(params[:q])
+    # 入力値がなければ今日のデータを入力
     if params[:q].nil?
       @q.date_eq = Date.today
     end
-    @records = @q.result(distinct: true).where(user_id: @user.id)
-    @records_time = sum_record(@records)
+    @records = @q.result(distinct: true)
+    # 1日の総学習時間
+    @sum_day_time = sum_day_record(@records)
   end
   
   def new

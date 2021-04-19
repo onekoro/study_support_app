@@ -22,6 +22,7 @@ gem 'kaminari'
 gem 'ransack'
 gem "geocoder"
 gem "dotenv-rails"
+gem "chartkick"
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'

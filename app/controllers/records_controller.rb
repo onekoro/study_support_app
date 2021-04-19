@@ -3,7 +3,7 @@ class RecordsController < ApplicationController
   before_action :correct_recorder, only: [:edit, :update, :destroy]
   
   def new
-    @place = Place.all
+    @places = Place.all
     @record = Record.new
   end
   

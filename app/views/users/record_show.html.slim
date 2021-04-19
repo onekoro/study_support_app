@@ -3,19 +3,45 @@
 .record.container
   = render partial: 'show_head', locals: { user: @user }
   .row
-    .col-lg-2
-    .col-lg-6
-      = search_form_for(@q, url:record_show_user_path(@user)) do |f|
-        h4.form_group
+    .col-1
+    .my_record.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.border-primary.position-relative
+      = link_to "学習記録", record_show_user_path(@user), class: "stretched-link"
+    .my_post.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "投稿", user_path(@user), class: "stretched-link text-secondary"
+    .likes_post.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "いいね", like_show_user_path(@user), class: "stretched-link text-secondary"
+    .follow.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "フォロー", following_user_path(@user), class: "stretched-link text-secondary"
+    .follower.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
+      = link_to "フォロワー", followers_user_path(@user), class: "stretched-link text-secondary"
+    .col-1
+  .row.mt-3
+    .col-1
+    .col-10
+      .row
+        h4.week
           i.fas.fa-pen.fa-lg.pen-icon.mr-2
-          .date.mr-3
-            = raw sprintf(f.date_select(:date_eq, use_month_numbers:true, end_year: Time.now.year, date_separator:'%s'),'年','月')+'日の学習記録'
-          = f.submit "更新する", class: "btn btn-outline-success btn-sm d-block"
-  .row
-    .col-lg-2
-    .col-lg-4.col-sm-6
-      .sum_record_title 合計
-      h4.sum_record #{@records_time}時間
-  .row
-    = render @records
+          .week 週の学習記録
+      .row
+        .col-lg-6
+          .sum_record_title 合計
+          h4.sum_record = show_hours_and_minutes(@sum_week_time)
+        .col-lg-6
+          .average_record_title 平均
+          h4.average_record = show_hours_and_minutes(@sum_week_time/7)
+      .row
+        = column_chart @week_data, width: "100%", colors: ["#007BFF", "#666"],  max: 24, ytitle: "学習時間（時間）"
+      .row.mt-3
+        = search_form_for(@q, url:record_show_user_path(@user)) do |f|
+          h4.day
+            i.fas.fa-pen.fa-lg.pen-icon.mr-2
+            .date.mr-3
+              = raw sprintf(f.date_select(:date_eq, use_month_numbers:true, end_year: Time.now.year, date_separator:'%s'),'年','月')+'日の学習記録'
+            = f.submit "更新する", class: "btn btn-outline-success btn-sm d-block"
+      .row
+        .col-lg-6
+          .sum_record_title 合計
+          h4.sum_record = show_hours_and_minutes(@sum_day_time)
+      .row.day_record_info
+        = render @records
     

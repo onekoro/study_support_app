@@ -1,6 +1,6 @@
 .row
-  .col-lg-4.col-sm-2
-  .form.col-lg-4.col-sm-8.py-2
+  .col-lg-3.col-sm-2
+  .form.col-lg-6.col-sm-8.py-2
     .subhead
       h2 = yield(:title)
     
@@ -19,14 +19,16 @@
           p （必須）
         .d-flex
           = f.number_field :hour, min: 0, max: 24, class: "form-control"
-          .span 時間
+          span 時間
           = f.number_field :minute, min: 0, max: 60, class: "form-control"
-          .span 分    
+          span 分    
       .form-group
         .d-flex
           = f.label :place_id, "学習場所"
           p （必須）
-        = f.collection_radio_buttons :place_id, Place.all, :id, :title, class: "form-control"
+        - @places.each do |place|
+          = render partial: "record_places", locals: { place: place, f: f }
+
       .form-group
         = f.label :content, "コメント"
         = f.text_area :content, class: "form-control"
