@@ -8,31 +8,20 @@
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title
       h4.mb-0.py-1 #{place.title}
-    .place_wifi_cost
-      .wifi
-        - if place.wifi == "あり"
-          i.fas.fa-wifi.wifi-icon
-          .word Wifiあり
-        - else
-          = image_tag "wifi_slash_icon.png", class: "img-fluid"
-          .word Wifiなし
-      .cost
-        i.fas.fa-yen-sign.yen-icon
-        .word #{place.cost}円
     .place_tags.row
       - if place.tags
         = render partial: 'places/tag', locals: { tags: place.tags }
-    .place_info.d-flex
-      .user_info.mr-3
+    .place_info
+      .user_info
         - if logged_in?
-          = link_to user_path(place.user), class: "inlink user_link" do
+          = link_to user_path(place.user), class: "inlink user_link mr-2" do
             = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
             = place.user.name
         - else
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
-      .created_at = place.created_at.strftime("%Y/%m/%d").to_s
-      .place_like.inlink
-        - if logged_in?
-          = render partial: 'likes/like_form', locals: { place: place }
+        .created_at = place.created_at.strftime("%Y/%m/%d").to_s
+        .place_like.inlink
+          - if logged_in?
+            = render partial: 'likes/like_form', locals: { place: place }
     

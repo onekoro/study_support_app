@@ -1,11 +1,14 @@
 class PlacesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :correct_poster, only: [:edit, :update, :destroy]
+  before_action :set_place_search, only: [:index]
   
   def index
-    @q = Place.ransack(params[:q])
-    @places = @q.result(distinct: true).page(params[:page]).per(6)
-    @tag_list = Tag.all
+    @path = places_path
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def  tag_search

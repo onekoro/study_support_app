@@ -21,4 +21,12 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def set_place_search
+      unless params[:q].present?
+        params[:q] = { sorts: 'updated_at desc' }
+      end
+      @q = Place.ransack(params[:q])
+      @places = @q.result(distinct: true).page(params[:page]).per(6)
+    end
+    
 end

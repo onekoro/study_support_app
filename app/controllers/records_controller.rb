@@ -1,10 +1,15 @@
 class RecordsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_recorder, only: [:edit, :update, :destroy]
+  before_action :set_place_search, only: [:new, :edit]
   
   def new
-    @places = Place.all
     @record = Record.new
+    @path = new_record_path
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def create
@@ -12,34 +17,38 @@ class RecordsController < ApplicationController
     @record.user_id = current_user.id
     if @record.save
       flash[:success] = "学習内容を記録しました"
-      redirect_to record_show_user(current_user)
+      redirect_to record_show_user_path(current_user)
     else
-      # flash[:danger] = "内容に不備があります"
+      set_place_search
       render new_record_path
     end
   end
   
   def edit
-    @place = Place.all
     @record = Record.find(params[:id])
+    @path = edit_record_path(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def update
     @record = Record.find(params[:id])
     if @record.update(record_params)
       flash[:success] = "更新しました"
-      redirect_to record_show_user(current_user)
+      redirect_to record_show_user_path(current_user)
     else
-      # flash[:danger] = "内容に不備があります"
-      render new_record_path
+      set_place_search
+      render record_edit_path(params[:id])
     end
   end
   
   def destroy
-    @record = Record.find(params[:id])
-    Record.destroy
+    record = Record.find(params[:id])
+    record.destroy
     flash[:success] = "削除しました"
-    redirect_to record_show_user(current_user)
+    redirect_to record_show_user_path(current_user)
   end
   
   private

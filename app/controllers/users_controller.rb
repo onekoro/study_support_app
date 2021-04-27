@@ -12,15 +12,22 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @places = Place.find_by(user_id: @user.id)
-    # @places = Kaminari.paginate_array(@places).page(params[:page]).per(10)
-    # @places = @places.page(params[:page]).per(10)
+    @places = Place.where(user_id: @user.id)
+    @places = Kaminari.paginate_array(@places).page(params[:page]).per(6)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def like_show
     @user = User.find(params[:id])
     @places = @user.good_places
     @places = @places.page(params[:page]).per(6)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def following

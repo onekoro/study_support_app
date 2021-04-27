@@ -83,9 +83,9 @@ header{
   margin: 0;
   .tag{
     margin-left: 5px;
-    a{
-      padding: 0 3px;
-    }
+  }
+  .btn{
+    padding: 0 3px;
   }
 }
 
@@ -323,6 +323,15 @@ header{
       border-bottom: solid 2px #1F2125;
     }
   }
+  .form_group{
+    margin-bottom: 1rem;
+  }
+  .post{
+    @include y-center;
+    label{
+      margin: 0;
+    }
+  }
 }
 
 // _place
@@ -332,7 +341,8 @@ header{
   position: relative;
   z-index: 1;
   &:hover{
-    border: solid 2px rgb(0, 123, 255);
+    // border: solid 2px rgb(0, 123, 255);
+    background-color: #D9E5FF;
   }
   .place_link{
     position: absolute;
@@ -352,13 +362,6 @@ header{
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .place_wifi_cost{
-    @include y-center;
-    img{
-      height: 25%;
-      width: 25%;
-    }
-  }
   .user_info{
     @include y-center;
   }
@@ -367,4 +370,31 @@ header{
   }
 }
 
+// records/new_record
+.record{
+  .title{
+    @include y-center;
+  }
+  span{
+    @include y-center;
+    writing-mode: horizontal-tb;
+  }
+  // bootstrapによるボタンのhover状態を適用しない
+  .btn:hover{
+    background-color: #17a2b8;
+  }
+  input[type=radio] {
+    display: none;
+  }
+  input[type="radio"]:checked + label {
+    border: solid 4px rgb(0, 123, 255);
+    border-radius: 0 0 3% 3%;
+    .place_content{
+      border: none;
+    }
+  }
+  label:hover{
+    cursor: pointer;
+  }
 
+}

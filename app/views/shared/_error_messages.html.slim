@@ -1,7 +1,9 @@
-- if object.errors.any?
-  #error_explanation
-    .alert.alert-warning
-      入力内容に不備があります
-    .ul
-      - object.errors.full_messages.each do |msg|
-        li.text-danger = msg
+.row
+  .col-12
+    - if object.errors.any?
+      #error_explanation
+        .alert.alert-warning
+          入力内容に不備があります
+        .ul
+          - object.errors.full_messages.each do |msg|
+            li.text-danger = msg

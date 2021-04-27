@@ -3,8 +3,8 @@ header
     nav.navbar.navbar-expand-lg.navbar-light.fixed-top.px-1.py-3
       .title
         = link_to root_path, class: "navbar-brand d-flex" do
-          li.fas.fa-pen.fa-2x.mx-2
-          h3 Study Spot Serch
+          li.fas.fa-graduation-cap.fa-2x.mx-2
+          h3 Study Support
         
       button.navbar-toggler.ml-auto type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
         span.navbar-toggler-icon
@@ -14,16 +14,20 @@ header
           li.nav-item
             = link_to root_path, class: "nav-link"
               i.fas.fa-map-marker-alt.fa-lg
-              .tag Spots
+              .tag 場所一覧
           - if logged_in?
             li.nav-item
               = link_to new_place_path, class: "nav-link"
                 i.fas.fa-plus-square
-                .tag New
+                .tag 場所投稿
+            li.nav-item
+              = link_to new_record_path, class: "nav-link"
+                i.fas.fa-pencil-alt
+                .tag 学習を記録する
             li.nav-item
               = link_to users_path, class: "nav-link"
                 i.fas.fa-users.fa-lg
-                .tag Users
+                .tag ユーザー一覧
             li.nav-item
               = link_to record_show_user_path(current_user), class: "nav-link"
                 = image_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"

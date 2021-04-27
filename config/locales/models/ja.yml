@@ -8,3 +8,19 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+      place:
+        title: タイトル
+        address: 所在地
+        web: Webページ
+        cost: 費用
+        wifi: Wifiの有無
+        recommend: 評価
+        tag_name: タグ
+        content: コメント
+        image: 写真
+      record:
+        place: 学習場所
+        date: 日付
+        hour: 時間
+        minute: 分
+        content: コメント

@@ -16,35 +16,8 @@
   .row.subhead
     h2 投稿一覧
   .row
-    .serch_box
-      .box_title.d-flex
-        .serch_icon
-          i.fas.fa-search.fa-lg.mx-1
-        h4 検索
-      .box_content
-        = search_form_for @q do |f|
-          .row
-            .form_group.col-lg-3.col-sm-6.d-flex.flex-column
-              = f.label :keyword, "キーワード"
-              = f.search_field :title_or_address_or_content
-            .col-lg-0
-            .form_group.col-lg-6
-              = f.label :cost, "費用"
-              .d-flex
-                = f.number_field :cost_gteq
-                h5 ~
-                = f.number_field :cost_lteq
-                h5 円
-            .form_group.col-lg-3.col-sm-6.d-flex.flex-column
-              = f.label :wifi, "Wifiの有無"
-              = f.select :wifi_eq, [["あり", "あり"], ["なし", "なし"]], include_blank: "選択して下さい"
-            .col-lg-0.col-sm-6
-            .col-12.row
-              .col-5
-              .form_group.col-2
-                = f.submit "検索", class: "my-4 w-100 btn btn-outline-secondary"
-              .col-5
-    
+    = render "search_box"
   .row.places
     = render @places
-    = paginate @places
+  .row.paginate
+    = render "paginate", places: @places

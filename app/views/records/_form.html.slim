@@ -1,36 +1,40 @@
 .row
-  .col-lg-3.col-sm-2
-  .form.col-lg-6.col-sm-8.py-2
+  .form.px-2
     .subhead
       h2 = yield(:title)
-    
-    = form_with(model: @record, local: true) do |f|
+    = form_with(model: @record, local: true, id: "record") do |f|
       = render "shared/error_messages", object: f.object
-    
       .form-group
         .d-flex
           = f.label :date, "日付"
           p （必須）
-        = raw sprintf(f.date_select(:date, prompt:"--", use_month_numbers:true, end_year: Time.now.year, date_separator:'%s'),'年','月')+'日'
+        = raw sprintf(f.date_select(:date, use_month_numbers:true, end_year: Time.now.year, form: "record", date_separator:'%s'),'年','月')+'日'
     
       .form-group
         .d-flex
-          = f.label :email, "学習時間"
+          = f.label :hour, "学習時間"
           p （必須）
         .d-flex
-          = f.number_field :hour, min: 0, max: 24, class: "form-control"
+          = f.number_field :hour, min: 0, max: 24
           span 時間
-          = f.number_field :minute, min: 0, max: 60, class: "form-control"
-          span 分    
+          = f.number_field :minute, min: 0, max: 60
+          span 分
       .form-group
-        .d-flex
-          = f.label :place_id, "学習場所"
-          p （必須）
-        - @places.each do |place|
-          = render partial: "record_places", locals: { place: place, f: f }
-
-      .form-group
-        = f.label :content, "コメント"
-        = f.text_area :content, class: "form-control"
+        .d-flex.flex-column
+           = f.label :content, "コメント"
+           = f.text_area :content
+         
+          
+    .form-group
+      .d-flex
+        label for="record_place_id" 学習場所
+        p （必須）
+    .box-content
+      = render "places/search_box"
+    .row.places
+      = render partial: "record_places", collection: @places, as: "place"
+    .row.paginate
+      = render "places/paginate", places: @places
         
-      = f.submit yield(:button_text), class: "btn btn-primary mx-auto d-block"
+    input.btn.btn-primary.mx-auto.d-block type="submit" name="commit" value="記録する" form="record" data-disable-with="記録する"
+

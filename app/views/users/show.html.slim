@@ -14,7 +14,9 @@
     .follower.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
       = link_to "フォロワー", followers_user_path(@user), class: "stretched-link text-secondary"
     .col-1
-  .row.places
-    - if @places
+  - if @places
+    .row.places
       = render @places
+    .row.paginate
+      = render "places/paginate", places: @places
     

@@ -1,39 +1,23 @@
 .col-lg-4.col-sm-6
-  .place_content.my-2
-    .place_image_thumb
-      - if place.image?
-        = image_tag place.image.to_s, class: "mb-1 img-fluid"
-      - else
-        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
-    .title
-      h4.mb-0.py-1.d-flex
-        = f.radio_button :place_id, place.id
-        .t #{place.title}
-    .place_wifi_cost
-      .wifi
-        - if place.wifi == "あり"
-          i.fas.fa-wifi.wifi-icon
-          .word Wifiあり
+  input form="record" type="radio" value="#{place.id}" name="record[place_id]" id="record_place_id_#{place.id}"
+  label form="record" for="record_place_id_#{place.id}"
+    .place_content
+      .place_image_thumb
+        - if place.image?
+          = image_tag place.image.to_s, class: "mb-1 img-fluid"
         - else
-          = image_tag "wifi_slash_icon.png", class: "img-fluid"
-          .word Wifiなし
-      .cost
-        i.fas.fa-yen-sign.yen-icon
-        .word #{place.cost}円
-    .place_tags.row
-      - if place.tags
-        = render partial: 'places/tag', locals: { tags: place.tags }
-    .place_info.d-flex
-      .user_info.mr-3
-        - if logged_in?
-          = link_to user_path(place.user), class: "inlink user_link" do
-            = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
-            = place.user.name
-        - else
+          = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+      h4.mb-0.py-1.title #{place.title}
+      .place_tags.row
+        - if place.tags
+          - place.tags.each do |tag|
+            .tag.btn.btn-info.btn-sm.tag #{tag.tag_name}
+      .place_info.d-flex
+        .user_info.mr-3
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
           = place.user.name
-      .created_at = place.created_at.strftime("%Y/%m/%d").to_s
-      .place_like.inlink
-        - if logged_in?
-          = render partial: 'likes/like_form', locals: { place: place }
-    
+        .created_at = place.created_at.strftime("%Y/%m/%d").to_s
+        .place_like.inlink.d-flex.align-items-center.p-2
+          i.far.fa-heart.text-danger
+          h5.ml-2.my-0 #{place.likes.count}
+      

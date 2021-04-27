@@ -45,8 +45,14 @@
       .title
         i.far.fa-comment.icon
         .word コメント
-      - if record.content.nil?
-        .content コメントはありません
-      - else
+      - if record.content
         .content #{record.content}
+      - else
+        .content コメントはありません
+    - if logged_in? && current_user?(record.user)
+      .record_edit_form.d-flex.mt-1
+        .record_edit.mr-2
+          p.my-0 = link_to "編集", edit_record_path(record), class: "btn btn-primary btn-sm"
+        .record_delete
+          p.my-0 = link_to "削除", record, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
     
