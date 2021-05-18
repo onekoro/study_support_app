@@ -7,8 +7,8 @@ RSpec.feature "Places", type: :feature do
     valid_login(user)
     
     expect{
-      click_link "New"
-      fill_in "店名", with: "テスト"
+      click_link "場所投稿"
+      fill_in "場所名", with: "テスト"
       fill_in "所在地", with: "東京"
       fill_in "Webページ", with: "test.com"
       fill_in "費用", with: 500
@@ -20,6 +20,7 @@ RSpec.feature "Places", type: :feature do
       expect(page).to have_content "勉強場所を投稿しました"
       expect(page).to have_content "テスト"
       expect(page).to have_content "東京"
+      expect(page).to have_content "test.com"
       expect(page).to have_content 500
       expect(page).to have_content "Wifiあり"
       expect(page).to have_content "コーヒーが美味しい"

@@ -1,4 +1,6 @@
 = form_with model: current_user.active_relationships.build, remote: true, class: "inlink" do |f|
   = hidden_field_tag :page_user_id, @user.id
   = hidden_field_tag :followed_id, user.id
-  = f.submit "フォローする", class: "btn btn-outline-primary btn-sm btn-block my-3"
+  = f.button type: "submit", class: "btn btn-outline-primary btn-sm btn-block my-3" do
+    i.fas.fa-user-plus
+    .word フォローする

@@ -76,6 +76,81 @@ RSpec.describe "Users", type: :request do
     end
   end
   
+  describe "#following" do
+    let(:user) { create(:user) }
+    
+    context "ユーザーがログイン済みの時" do
+      it "正常にレスポンスを返す" do
+        sign_in user
+        get following_user_path(user)
+        aggregate_failures do
+          expect(response).to be_successful
+          expect(response).to have_http_status "200"
+        end
+      end
+    end
+  
+    context "ユーザーがログインしていない時" do
+      it "ログインページに移動する" do
+        get following_user_path(user)
+        aggregate_failures do
+          expect(response).to have_http_status "302"
+          expect(response).to redirect_to login_path
+        end
+      end
+    end
+  end
+  
+  describe "#followers" do
+    let(:user) { create(:user) }
+    
+    context "ユーザーがログイン済みの時" do
+      it "正常にレスポンスを返す" do
+        sign_in user
+        get followers_user_path(user)
+        aggregate_failures do
+          expect(response).to be_successful
+          expect(response).to have_http_status "200"
+        end
+      end
+    end
+  
+    context "ユーザーがログインしていない時" do
+      it "ログインページに移動する" do
+        get followers_user_path(user)
+        aggregate_failures do
+          expect(response).to have_http_status "302"
+          expect(response).to redirect_to login_path
+        end
+      end
+    end
+  end
+  
+  describe "#record_show" do
+    let(:user) { create(:user) }
+    
+    context "ユーザーがログイン済みの時" do
+      it "正常にレスポンスを返す" do
+        sign_in user
+        get record_show_user_path(user)
+        aggregate_failures do
+          expect(response).to be_successful
+          expect(response).to have_http_status "200"
+        end
+      end
+    end
+  
+    context "ユーザーがログインしていない時" do
+      it "ログインページに移動する" do
+        get record_show_user_path(user)
+        aggregate_failures do
+          expect(response).to have_http_status "302"
+          expect(response).to redirect_to login_path
+        end
+      end
+    end
+  end
+  
   describe "#new" do
     let(:user) { create(:user) }
     
@@ -110,7 +185,6 @@ RSpec.describe "Users", type: :request do
         post users_path, params: { user: user }
         aggregate_failures do
           expect(User.count).to eq 1
-          expect(response).to have_http_status "302"
           expect(response).to redirect_to root_path
         end
       end
@@ -122,7 +196,6 @@ RSpec.describe "Users", type: :request do
         sign_in user
         post users_path
         aggregate_failures do
-          expect(response).to have_http_status "302"
           expect(response).to redirect_to user_path(user)
         end
       end

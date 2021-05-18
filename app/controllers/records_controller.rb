@@ -37,7 +37,7 @@ class RecordsController < ApplicationController
     @record = Record.find(params[:id])
     if @record.update(record_params)
       flash[:success] = "更新しました"
-      redirect_to record_show_user_path(current_user)
+      redirect_to record_show_user_path(@record.user)
     else
       set_place_search
       render record_edit_path(params[:id])
@@ -46,9 +46,10 @@ class RecordsController < ApplicationController
   
   def destroy
     record = Record.find(params[:id])
+    record_user = record.user
     record.destroy
     flash[:success] = "削除しました"
-    redirect_to record_show_user_path(current_user)
+    redirect_to record_show_user_path(record_user)
   end
   
   private
@@ -59,8 +60,8 @@ class RecordsController < ApplicationController
     
     def correct_recorder
       @record = Record.find(params[:id])
-      unless @record.user == current_user || current_user.admin
-        redirect_to record_show_user_path(current_user)
+      unless @record.user_id.to_i == current_user.id || current_user.admin?
+        redirect_to record_show_user_path(@record.user)
       end
     end
         

@@ -14,7 +14,6 @@ class PlacesController < ApplicationController
   def  tag_search
     @tag = Tag.find(params[:id])  #クリックしたタグを取得
     @places = @tag.places.page(params[:page]).per(6)
-    @tag_list = Tag.all
   end
   
   def show
@@ -22,6 +21,7 @@ class PlacesController < ApplicationController
     @comments = @place.comments
     @comment = Comment.new
     @place_tags = @place.tags
+    @recommends = ((@place.recommend+@comments.sum(:recommend))/(@comments.count+1).to_f).round(2)
   end
   
   def new
@@ -65,11 +65,12 @@ class PlacesController < ApplicationController
   private
   
     def place_params
-      params.require(:place).permit(:title, :content, :image, :address, :web, :cost, :wifi, :recommend, :latitude, :longitude)
+      params.require(:place).permit(:title, :content, :image, :address, :web, :cost, :wifi, :recommend)
     end
     
     def correct_poster
       unless Place.find(params[:id]).user_id.to_i == current_user.id || current_user.admin?
+        flash[:danger] = "この投稿を編集・削除する権限はありません"
         redirect_to user_path(current_user)
       end
     end

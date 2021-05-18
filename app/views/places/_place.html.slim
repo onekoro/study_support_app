@@ -14,7 +14,7 @@
     .place_info
       .user_info
         - if logged_in?
-          = link_to user_path(place.user), class: "inlink user_link mr-2" do
+          = link_to record_show_user_path(place.user), class: "inlink user_link mr-2" do
             = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
             = place.user.name
         - else
@@ -24,4 +24,4 @@
         .place_like.inlink
           - if logged_in?
             = render partial: 'likes/like_form', locals: { place: place }
-    
+      

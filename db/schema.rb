@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_055918) do
+ActiveRecord::Schema.define(version: 2021_05_01_042553) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2021_04_13_055918) do
     t.integer "hour"
     t.integer "minute"
     t.integer "user_id", null: false
-    t.integer "place_id", null: false
+    t.integer "place_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "content"

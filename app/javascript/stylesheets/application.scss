@@ -3,7 +3,7 @@
 $text-grey: rgb(91, 112, 131);
 
 @mixin grey-border{
-  border: solid 2px #EEEEEE;
+  border: 2px solid #EEEEEE;
 }
 
 @mixin y-center{
@@ -13,11 +13,12 @@ $text-grey: rgb(91, 112, 131);
 
 body{
   margin-top: 83px;
+  background: #faf9f5;
 }
 
 header{
   .navbar {
-    background-color: #FFFF99;
+    background-color: #17a2b8;
   }
   .title{
     h3{
@@ -51,6 +52,16 @@ header{
   }
 }
 
+textarea{
+  min-height: 150px;
+}
+
+// ボタンの設定
+.btn{
+  @include y-center;
+  justify-content: center;
+}
+
 // placeのwifiとcost
 .place_wifi_cost{
   // @include y-center;
@@ -82,12 +93,13 @@ header{
   width: 100%;
   margin: 0;
   .tag{
-    margin-left: 5px;
+    margin: 0 5px 5px 0;
   }
   .btn{
     padding: 0 3px;
   }
 }
+
 
 
 
@@ -97,9 +109,11 @@ header{
   z-index: 1;
   border: solid #EEEEEE;
   border-width: 0 0 1px 0;
+  background-color: white;
   &:hover{
-    border: solid rgb(0, 123, 255);
-    border-width: 2px 0 2px 0;
+    // border: solid rgb(0, 123, 255);
+    // border-width: 2px 0 2px 0;
+    background-color: #D9E5FF;
   }
   .user_link{
     position: absolute;
@@ -137,6 +151,9 @@ header{
 
 // users/record_show
 .record{
+  .title{
+    border-bottom: 1px solid black;
+  }
   h4{
     @include y-center;
     #text{
@@ -152,7 +169,7 @@ header{
         margin: 0.5rem;
       }
     }
-    .title{
+    .record_comment{
       @include y-center;
       .icon{
         width: 30px;
@@ -173,19 +190,41 @@ header{
   .row{
     margin-bottom: 10px;
   }
-  .place_title{
-    @include grey-border;
-    border-radius: 3%;
-    margin-bottom: 5%;
+  .title{
+    border-bottom: 1px solid black;
   }
   .user_info{
     @include y-center;
   }
   .place_recommend{
+    // @include y-center;
     font-size: 120%;
   }
   .place_edit_form{
-    margin: 0 0.5rem 0 auto;
+    margin: 0 0 0 auto;
+  }
+  
+  .comment_icons{
+    @include y-center;
+    font-size: 2rem;
+    .icon{
+      @include y-center;
+    }
+  }
+  .like_icons{
+    .btn{
+      padding: 0;
+      font-size: 2rem;
+      height: 48px;
+      h5{
+        font-size: 2rem;
+      }
+    }
+  }
+  
+  .bun{
+    font-size: 1.2rem;
+    word-wrap: break-word;
   }
   .poster_comment{
     .title{
@@ -198,11 +237,9 @@ header{
     }
     .content{
       min-height: 130px;
-      @include grey-border;
     }
   }
   .place_wifi_cost{
-    @include grey-border;
     border-radius: 3%;
     margin-bottom: 5%;
     img{
@@ -217,19 +254,16 @@ header{
     }
     .word{
       font-size: 120%;
+      word-break: break-all;
+    }
+    .place_address{
+      @include y-center;
+      .map-icon{
+        color: red;
+      }
     }
     a{
       word-break: break-all;
-    }
-  }
-  .place_address{
-    @include y-center;
-    margin-bottom: 2px;
-    .map-icon{
-      color: red;
-    }
-    .address{
-      border-bottom: solid 2px black;
     }
   }
   .map{
@@ -242,8 +276,13 @@ header{
   .star-icon{
     color: #28a745;
   }
+  .comment{
+    word-wrap: break-word;
+    .comment_recommend{
+      border-bottom: 1px solid #EEEEEE;
+    }
+  }
   .comments{
-    margin-bottom: 5%;
     .title{
       @include y-center;
       .icon{
@@ -252,19 +291,16 @@ header{
         margin: 0 0.5rem 0.5rem 0.5rem;
       }
     }
-    .content{
+    .comment{
       @include grey-border;
-      word-wrap: break-word;
-      margin-bottom: 10px;
+      border-radius: 2px;
     }
   }
   .comment_form{
-    margin-bottom: 5%;
-    .content{
-      @include grey-border;
+    .remark{
+      color: red;
     }
   }
-  
 }
 
 
@@ -328,9 +364,6 @@ header{
   }
   .post{
     @include y-center;
-    label{
-      margin: 0;
-    }
   }
 }
 
@@ -340,6 +373,7 @@ header{
   border-radius: 0 0 3% 3%;
   position: relative;
   z-index: 1;
+  background-color: white;
   &:hover{
     // border: solid 2px rgb(0, 123, 255);
     background-color: #D9E5FF;
@@ -371,7 +405,7 @@ header{
 }
 
 // records/new_record
-.record{
+.record_new{
   .title{
     @include y-center;
   }

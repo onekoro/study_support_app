@@ -1,13 +1,13 @@
 .row
   .col-lg-3.col-sm-2
-  .form.col-lg-6.col-sm-8.py-2
+  .form.col-lg-6.col-sm-8.py-2.bg-white
     h2 = yield(:title)
     
     = form_with(model: @place, local: true) do |f|
       = render "shared/error_messages", object: f.object
       .form-group
         .d-flex
-          = f.label :title, "タイトル"
+          = f.label :title, "場所名"
           p （必須）
         = f.text_field :title, class: "form-control"
         

@@ -16,19 +16,19 @@
             h5 ~
             = f.number_field :cost_lteq, placeholder: "最高額"
             h5 円
-        .form_group.col-lg-2.d-flex.flex-column
+        .form_group.col-lg-3.col-6.d-flex.flex-column
           = f.label :wifi, "Wifiの有無"
-          = f.select :wifi_eq, [["なし", "なし"], ["あり", "あり"]]
-        .form_group.col-lg-2.d-flex.flex-column
+          = f.select :wifi_eq, [["なし", "なし"], ["あり", "あり"]], { include_blank: '選択してください'}
+        .form_group.col-lg-3.col-6.d-flex.flex-column
           = f.label :sorts, "並び替え"
           = f.select(:sorts, { "投稿の新しい順": "updated_at desc", "投稿の古い順": "updated_at asc", "費用の高い順": "cost desc", "費用の低い順": "cost asc" }, { selected: params[:q][:sorts] })
         - if logged_in?
-          .form_group.col-lg-2.d-flex.post
+          label.d-flex.post.col-lg-2.col-6
             = f.check_box :user_id_eq_any, { multiple: true }, current_user.id, ''
-            = f.label :user_id, "自分の投稿"
-          .form_group.col-lg-2.d-flex.post
+            .word 自分の投稿
+          label.d-flex.post.col-lg-2.col-6
             = f.check_box :likes_user_id_eq_any, { multiple: true }, current_user.id, ''
-            = f.label :user_id, "いいねした投稿"
+            .word いいねした投稿
         .col-12.row
           .col-5
           .col-2

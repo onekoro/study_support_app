@@ -6,10 +6,10 @@ class LikesController < ApplicationController
     unless @place.good?(current_user)
       @place.good(current_user)
       @place.reload
-      respond_to do |format|
-        format.html { redirect_to request.referrer || root_url }
-        format.js
-      end
+    end
+    respond_to do |format|
+      format.html { redirect_to request.referrer || root_url }
+      format.js
     end
   end
 
@@ -18,10 +18,10 @@ class LikesController < ApplicationController
     if @place.good?(current_user)
       @place.ungood(current_user)
       @place.reload
-      respond_to do |format|
-        format.html { redirect_to request.referrer || root_url }
-        format.js
-      end
+    end
+    respond_to do |format|
+      format.html { redirect_to request.referrer || root_url }
+      format.js
     end
   end
 end

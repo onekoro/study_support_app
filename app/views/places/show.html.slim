@@ -1,100 +1,124 @@
 - provide(:title, @place.title)
 .container.place_show
+  .row.head.bg-white
+    .col-lg-7.mb-3.place_title.align-items-center
+      .d-flex
+        h1.mr-4 = @place.title
+      .row
+        .col-8
+          .place_recommend.mb-2.d-flex
+            - @recommends.floor.times do
+              i.fas.fa-star.star-icon
+            - (5-@recommends.floor).times do
+              i.far.fa-star.star-icon
+            h5.count.ml-1 #{@recommends}(#{@comments.count+1}人の評価）
+          - if @place.tags
+            .place_tags.row
+              = render partial: 'places/tag', locals: { tags: @place.tags }
+        .col-4.d-flex
+          - if logged_in?
+            - if current_user.admin? || current_user?(@place.user)
+              .place_edit_form.d-flex.align-items-end
+                .place_edit.mr-2
+                  p.my-0 = link_to "編集", edit_place_path(@place), class: "btn btn-primary btn-sm"
+                .place_delete
+                  p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
+    .col-lg-5.mb-3.place_count.my-auto
+      .container
+        .contents.row
+          .col-1
+          .comment_count_form.col-5
+            h5 レビュー
+            = link_to "#comments", class: "comment_icons d-flex" do
+              i.far.fa-comment.icon.mr-2
+              .f #{@place.comments.count}
+          .like_count_form.col-5
+            h5 いいね
+            .like_icons
+              = render partial: 'likes/like_form', locals: { place: @place }
+          .col-1
+      
   .row
-    .place_image.col-12
+    .place_image.col-lg-7.mb-3
       - if @place.image?
         = image_tag @place.image.to_s, class: "mb-1"
       - else
         = image_tag "default_place.jpg", class: "mb-1 img-fluid"
-  .row
-    .col-lg-7.mb-3
-      .place_title.align-items-center
-        .d-flex
-          h1.mr-4 = @place.title
-        .place_info1.d-flex.mb-2
-          .user_info.mr-2
-            = link_to user_path(@place.user), class: "user_link" do
-              = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
-              = @place.user.name
-          .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
-        .place_recommend.d-flex.mb-2
-          - @place.recommend.times do
-            i.fas.fa-star.star-icon
-          - (5-@place.recommend).times do
-            i.far.fa-star.star-icon
-        - if @place.tags
-          .place_tags.row
-            = render partial: 'places/tag', locals: { tags: @place.tags }
-        .place_info2.d-flex
-          .place_like
-            = render partial: 'likes/like_form', locals: { place: @place }
-          - if logged_in? && current_user.admin? || current_user?(@place.user)
-            .place_edit_form.d-flex
-              .place_edit.mr-2
-                p.my-0 = link_to "編集", edit_place_path(@place), class: "btn btn-primary btn-sm"
-              .place_delete
-                p.my-0 = link_to "削除", @place, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
-      .poster_comment
-        .title
-          i.far.fa-comment.icon
-          h4 投稿者コメント
-        - if @place.content.nil?
-          .content コメントはありません
-        - else
-          .content #{@place.content}
     .col-lg-5
-      - if @place.latitude && @place.longitude
-        .map
-          .place_address
-            i.fas.fa-map-marker-alt.map-icon
-            .address #{@place.address}
-          #map
-          javascript:
-            let map
-      
-            function initMap(){
-              geocoder = new google.maps.Geocoder()
-      
-              var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
-              map = new google.maps.Map(document.getElementById('map'), {
-                center: test,
-                zoom: 17,
-              });
-            
-              marker = new google.maps.Marker({
-                position: test,
-                map: map
-              });
-            }
-          script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
-      .place_wifi_cost
+      .place_wifi_cost.bg-white
         .wifi
           - if @place.wifi == "あり"
             i.fas.fa-wifi.wifi-icon.icon
-            .word Wifiあり
+            .word Wifi：あり
           - else
             = image_tag "wifi_slash_icon.png", class: "img-fluid"
-            .word Wifiなし
+            .word Wifi：なし
         .cost
           i.fas.fa-yen-sign.yen-icon.icon
-          .word #{@place.cost}円
+          .word 費用：#{@place.cost}円
         - if @place.web
           .url
             i.fas.fa-link.link_icon.icon
-            = link_to "#{@place.web}", "#{@place.web}"
-  .row.comments
-    .col-lg-12
-      .title
-        i.far.fa-comments.icon
-        h4 レビュー一覧
-    .col-lg-6
-      - if @comments
-        = render @comments
-      - else
-        p レビューはありません
-  .row.comment_form
-    - if logged_in?
-      .col-lg-12
-        h5 レビュー・評価する
-      .col-lg-6
-        = render "comment_form"
+            .word URL：
+            = link_to "#{@place.web}"
+        .place_address
+          i.fas.fa-map-marker-alt.map-icon.icon
+          .word 所在地：#{@place.address}
+        - if @place.latitude && @place.longitude
+          .map
+            #map
+            javascript:
+              let map
+        
+              function initMap(){
+                geocoder = new google.maps.Geocoder()
+        
+                var test = { lat: #{@place.latitude}, lng:#{@place.longitude} };
+                map = new google.maps.Map(document.getElementById('map'), {
+                  center: test,
+                  zoom: 17,
+                });
+              
+                marker = new google.maps.Marker({
+                  position: test,
+                  map: map
+                });
+              }
+            script{ src="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_API_KEY'] }&callback=initMap" async defer}
+  .row
+    .col-lg-8
+      .poster_comment#comments.bg-white.my-4.p-1
+        .title
+          i.far.fa-comment.icon
+          h4 投稿者コメント
+        .comment.mx-2.p-1
+          .comment_info.d-flex
+              .comenter_info.mr-2
+                = link_to record_show_user_path(@place.user), class: "user_link" do
+                    = image_tag @place.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+                    = @place.user.name
+              .created_at = @place.created_at.strftime("%Y/%m/%d").to_s
+          .comment_recommend
+              - @place.recommend.times do
+                  i.fas.fa-star.star-icon
+              - (5-@place.recommend).times do
+                  i.far.fa-star.star-icon
+          - if @place.content         
+            .comment_content
+              .bun #{@place.content}
+          - else
+            .comment_content
+              .bun コメントはありません
+      .comments.bg-white.my-4.p-1
+        .title
+          i.far.fa-comments.icon
+          h4 レビュー一覧
+        - if @comments
+          = render @comments
+        - else
+          p レビューはありません
+      .comment_form.bg-white.my-4.p-1
+        - if logged_in?
+          .title
+            h5 レビュー・評価する
+          = render "places/comment_form"

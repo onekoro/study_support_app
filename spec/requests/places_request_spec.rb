@@ -14,11 +14,9 @@ RSpec.describe "Places", type: :request do
   describe "#tag_search" do
     let!(:place) { create(:place) }
     let!(:tag) { create(:tag) }
-    # let(:tag_map) { create(:tag_map, place_id: place.id, tag_id: tag.id) }
     
     context "タグが存在する時" do
       it "正常にレスポンスを返す" do
-        # tag_map = create(:tag_map, place_id: place.id, tag_id: tag.id)
         get tag_search_place_path(tag)
         aggregate_failures do
           expect(response).to be_successful
@@ -138,7 +136,7 @@ RSpec.describe "Places", type: :request do
     end
     
     context "管理者権限のあるユーザーが編集しようとした時" do
-      it "マイページに戻る" do
+      it "正常にレスポンスを返す" do
         other_user = create(:user, admin: true)
         sign_in other_user
         get edit_place_path(place)

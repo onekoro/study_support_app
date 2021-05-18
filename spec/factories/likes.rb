@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :tag_map  do
+  factory :like do
+    association :user
     association :place
-    association :tag
   end
 end

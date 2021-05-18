@@ -1,7 +1,7 @@
 - provide(:title, "フォロー一覧")
 .container.follow_list
   = render partial: 'show_head', locals: { user: @user }
-  .row
+  .row.bg-white
     .col-1
     .my_record.my_content.col-2.p-3.d-flex.align-items-center.justify-content-center.border-bottom.position-relative
       = link_to "学習記録", record_show_user_path(@user), class: "stretched-link text-secondary"

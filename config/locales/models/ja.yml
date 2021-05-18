@@ -24,3 +24,6 @@ ja:
         hour: 時間
         minute: 分
         content: コメント
+      comment:
+        recommend: 評価
+        content: コメント

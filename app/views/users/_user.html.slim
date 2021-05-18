@@ -1,5 +1,5 @@
-.row.position-relative.user_form
-  = link_to user_path(user), class: "user_link" do
+.row.position-relative.user_form.my-1
+  = link_to record_show_user_path(user), class: "user_link" do
   .col-1
   .col-lg-2.col-3
     = image_tag user.image.userpage.url, class: "border border-dark rounded-circle m-1 img-fluid"

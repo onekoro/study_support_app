@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :show, :like_show, :edit, :update, :destroy, :following, :followers]
+  before_action :logged_in_user, only: [:index, :show, :like_show, :edit, :update, :destroy, :following, :followers, :record_show]
   before_action :unlogged_in_user, only: [:new, :create]
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :check_guest, only: [:edit, :destroy]
