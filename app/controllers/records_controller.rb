@@ -55,7 +55,7 @@ class RecordsController < ApplicationController
   private
   
     def record_params
-      params.require(:record).permit(:date, :hour, :minute, :place_id)
+      params.require(:record).permit(:date, :hour, :minute, :content, :place_id)
     end
     
     def correct_recorder

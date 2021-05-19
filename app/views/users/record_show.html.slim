@@ -19,7 +19,7 @@
     .col-1
     .col-10
       .row.week_form.mt-3.bg-white.p-2
-        .col-12.title.mb-2
+        .col-12.subtitle.mb-2
           h4
             i.fas.fa-pen.fa-lg.pen-icon.mr-2
             .week 週の学習記録
@@ -32,7 +32,7 @@
         .col-12
           = column_chart @week_data, width: "100%", colors: ["#007BFF", "#666"],  max: 24, ytitle: "学習時間（時間）"
       .row.day_form.mt-3.bg-white.p-2
-        .col-12.title.mb-2
+        .col-12.subtitle.mb-2
           = search_form_for(@q, url:record_show_user_path(@user)) do |f|
             h4.day
               i.fas.fa-pen.fa-lg.pen-icon.mr-2
