@@ -30,7 +30,7 @@ header
                 .tag ユーザー一覧
             li.nav-item
               = link_to record_show_user_path(current_user), class: "nav-link"
-                = image_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
+                = image_pack_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
                 .tag #{current_user.name}
             li.nav-item 
               = link_to logout_path, class: "nav-link", method: :delete

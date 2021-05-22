@@ -1,7 +1,7 @@
 .row.align-items-center.bg-white
   .col-1
   .col-lg-3.col-sm-2.mt-1
-    = image_tag user.image.url, class: "border border-dark rounded-circle img-fluid"
+    = image_pack_tag user.image.url, class: "border border-dark rounded-circle img-fluid"
   .col-lg-4.col-sm-4
     h2 #{user.name}
     .follow_count.d-flex

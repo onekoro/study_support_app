@@ -2,7 +2,7 @@
     .comment_info.d-flex
         .comenter_info.mr-2
           = link_to record_show_user_path(comment.user), class: "user_link" do
-              = image_tag comment.user.image.url, height: "30px", class: "border border-dark rounded-circle"
+              = image_pack_tag comment.user.image.url, height: "30px", class: "border border-dark rounded-circle"
               = comment.user.name
         .created_at = comment.created_at.strftime("%Y/%m/%d").to_s
     .comment_recommend

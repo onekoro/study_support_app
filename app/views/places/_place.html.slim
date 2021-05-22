@@ -3,9 +3,9 @@
     = link_to place_path(place), class: "place_link" do
     .place_image_thumb
       - if place.image?
-        = image_tag place.image.to_s, class: "mb-1 img-fluid"
+        = image_pack_tag place.image.to_s, class: "mb-1 img-fluid"
       - else
-        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+        = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title
       h4.mb-0.py-1 #{place.title}
     .place_tags.row

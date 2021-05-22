@@ -16,7 +16,7 @@
         .user_info.mr-3
           - if logged_in?
             = link_to user_path(record.place.user), class: "inlink user_link" do
-              = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+              = image_pack_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
               = record.place.user.name
           - else
             = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"

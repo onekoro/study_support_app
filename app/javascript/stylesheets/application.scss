@@ -306,8 +306,8 @@ textarea{
 
 // places/index
 .home_back{
-  // background-image: url('/assets/haikei.jpg');
-  background-image: image-url('/images/haikei.jpg');
+  background-image: url('../images/haikei.jpg');
+  // background: image-pack-tag('haikei.jpg');
   background-size: cover;
   position: relative;
   &::before{

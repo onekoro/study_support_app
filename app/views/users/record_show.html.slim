@@ -45,4 +45,6 @@
         .col-12.day_record_info
           .row
             = render @records
+        .col-sm-4.mx-auto
+          = link_to "学習記録を追加", new_record_path, class: "btn btn-primary btn-sm"
       
