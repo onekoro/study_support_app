@@ -3,7 +3,7 @@
     = link_to place_path(place), class: "place_link" do
     .place_image_thumb
       - if place.image?
-        = image_pack_tag place.image.to_s, class: "mb-1 img-fluid"
+        = image_tag place.image.to_s, class: "mb-1 img-fluid"
       - else
         = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
     .title

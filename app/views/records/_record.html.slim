@@ -6,7 +6,7 @@
         - if record.place.image?
           = image_tag record.place.image.to_s, class: "mb-1 img-fluid"
         - else
-          = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+          = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
       .title
         h4.mb-0.py-1 #{record.place.title}
       .place_tags.row
