@@ -1,36 +1,41 @@
-.serch_box
+.search_box.w-100
   .box_title.d-flex
-    .serch_icon
+    .serch_icon.icon
       i.fas.fa-search.fa-lg.mx-1
     h4 検索
   .box_content
     = search_form_for(@q, url:@path, remote:true) do |f|
       .row
-        .form_group.col-lg-6.d-flex.flex-column
+        .form_group.col-lg-12.d-flex.flex-column
           = f.label :keyword, "キーワード"
           = f.search_field :title_or_address_or_user_name_cont, placeholder: "場所名，住所，ユーザー名"
-        .form_group.col-lg-6
+      .row.details  
+        .form_group.col-lg-12
           = f.label :cost, "費用"
           .d-flex
             = f.number_field :cost_gteq, placeholder: "最低額"
             h5 ~
             = f.number_field :cost_lteq, placeholder: "最高額"
             h5 円
-        .form_group.col-lg-3.col-6.d-flex.flex-column
+        .form_group.col-lg-6.d-flex.flex-column
           = f.label :wifi, "Wifiの有無"
           = f.select :wifi_eq, [["なし", "なし"], ["あり", "あり"]], { include_blank: '選択してください'}
-        .form_group.col-lg-3.col-6.d-flex.flex-column
+        .form_group.col-lg-6.d-flex.flex-column
           = f.label :sorts, "並び替え"
           = f.select(:sorts, { "投稿の新しい順": "updated_at desc", "投稿の古い順": "updated_at asc", "費用の高い順": "cost desc", "費用の低い順": "cost asc" }, { selected: params[:q][:sorts] })
         - if logged_in?
-          label.d-flex.post.col-lg-2.col-6
+          label.d-flex.post.col-lg-6
             = f.check_box :user_id_eq_any, { multiple: true }, current_user.id, ''
             .word 自分の投稿
-          label.d-flex.post.col-lg-2.col-6
+          label.d-flex.post.col-lg-6
             = f.check_box :likes_user_id_eq_any, { multiple: true }, current_user.id, ''
             .word いいねした投稿
-        .col-12.row
-          .col-5
-          .col-2
-            = f.submit "検索", class: "my-4 w-100 btn btn-outline-secondary"
-          .col-5
+      .change-details.d-flex
+        .icon.detail-down
+          i.fas.fa-chevron-down
+        .icon.detail-up
+          i.fas.fa-chevron-up
+        .detail-comment 詳細条件を追加
+      .row
+        .col-4.mx-auto
+          = f.submit "検索", class: "my-4 w-100 btn btn-outline-secondary"

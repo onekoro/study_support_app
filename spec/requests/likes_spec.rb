@@ -45,7 +45,7 @@ RSpec.describe "Likes", type: :request do
     context "ユーザーがログイン済みの時" do
       it "いいね解除ができる" do
         sign_in user
-        delete likes_path(like.id), params: { place_id: place.id }
+        delete like_path(like.id), params: { place_id: place.id }
         aggregate_failures do
           expect(Like.count).to eq 0
         end
@@ -54,7 +54,7 @@ RSpec.describe "Likes", type: :request do
     
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
-        delete likes_path(like.id), params: { place_id: place.id }
+        delete like_path(like.id), params: { place_id: place.id }
         aggregate_failures do
           expect(Like.count).not_to eq 0
           expect(response).to redirect_to login_path

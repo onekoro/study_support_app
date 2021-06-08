@@ -1,53 +1,54 @@
-.col-sm-6.mb-3
-  - if record.place
-    .place_content.my-2
-      = link_to place_path(record.place), class: "place_link" do
-      .place_image_thumb
-        - if record.place.image?
-          = image_tag record.place.image.to_s, class: "mb-1 img-fluid"
-        - else
-          = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
-      .title
-        h4.mb-0.py-1 #{record.place.title}
-      .place_tags.row
-        - if record.place.tags
-          = render partial: 'places/tag', locals: { tags: record.place.tags }
-      .place_info.d-flex
-        .user_info.mr-3
-          - if logged_in?
-            = link_to user_path(record.place.user), class: "inlink user_link" do
-              = image_pack_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
-              = record.place.user.name
+.row.border-bottom.pb-3.mb-3
+  .col-sm-6
+    - if record.place
+      .place_content.my-2
+        = link_to place_path(record.place), class: "place_link" do
+        .place_image_thumb
+          - if record.place.image?
+            = image_tag record.place.image.to_s, class: "mb-1 img-fluid"
           - else
-            = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
-            = record.place.user.name
-        .created_at = record.place.created_at.strftime("%Y/%m/%d").to_s
-        .place_like.inlink
-          - if logged_in?
-            = render partial: 'likes/like_form', locals: { place: record.place }
-  - else
-    h4 学習場所の記録がありません
-    = link_to "学習場所を追加する", edit_record_path(record)
-
-.col-sm-6.mb-3
-  .day_record_info
-    .time
-      i.fas.fa-clock.clock-icon.icon
-      .hour.word #{record.hour}時間
-      .minute.word #{record.minute}分
-    .contents
-      .record_comment
-        i.far.fa-comment.icon
-        .word コメント
-      - unless record.content.nil?
-        .content #{record.content}
-      - else
-        .content コメントはありません
-
-    - if current_user?(record.user) || current_user.admin?
-      .record_edit_form.d-flex.mt-1
-        .record_edit.mr-2
-          p.my-0 = link_to "編集", edit_record_path(record), class: "btn btn-primary btn-sm"
-        .record_delete
-          p.my-0 = link_to "削除", record, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
-    
+            = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
+        .title
+          h4.mb-0.py-1 #{record.place.title}
+        .place_tags.row
+          - if record.place.tags
+            = render partial: 'places/tag', locals: { tags: record.place.tags }
+        .place_info.d-flex
+          .user_info.mr-3
+            - if logged_in?
+              = link_to user_path(record.place.user), class: "inlink user_link" do
+                = image_pack_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+                = record.place.user.name
+            - else
+              = image_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
+              = record.place.user.name
+          .created_at = record.place.created_at.strftime("%Y/%m/%d").to_s
+          .place_like.inlink
+            - if logged_in?
+              = render partial: 'likes/like_form', locals: { place: record.place }
+    - else
+      h4 学習場所の記録がありません
+      = link_to "学習場所を追加する", edit_record_path(record)
+  
+  .col-sm-6
+    .day_record_info
+      .time
+        i.fas.fa-clock.clock-icon.icon
+        .hour.word #{record.hour}時間
+        .minute.word #{record.minute}分
+      .contents
+        .record_comment
+          i.far.fa-comment.icon
+          .word コメント
+        - unless record.content.nil?
+          .content #{record.content}
+        - else
+          .content コメントはありません
+  
+      - if current_user?(record.user) || current_user.admin?
+        .record_edit_form.d-flex.mt-1
+          .record_edit.mr-2
+            p.my-0 = link_to "編集", edit_record_path(record), class: "btn btn-primary btn-sm"
+          .record_delete
+            p.my-0 = link_to "削除", record, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
+      

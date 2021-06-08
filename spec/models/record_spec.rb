@@ -22,11 +22,11 @@ RSpec.describe Record, type: :model do
     end
   end
   
-  describe "placeが削除された時" do
-    it "recordは削除されない" do
-      place = record.place
-      place.destroy
-      expect(Record.count).to eq 1
-    end
-  end
+  # describe "placeが削除された時" do
+  #   it "recordは削除されない" do
+  #     place = record.place
+  #     place.destroy
+  #     expect(Record.count).to eq 1
+  #   end
+  # end
 end

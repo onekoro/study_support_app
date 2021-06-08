@@ -1,12 +1,17 @@
 - provide(:title, "#{@tag.tag_name}の検索結果")
 .container
+  .row
+    .tags.px-4.py-2.mx-auto.my-3.bg-white.shadow-sm
+      .subhead
+        h4.border-bottom.border-secondary タグ一覧
+      .row.good-posts
+        = render "tag", tags: @tags
   .row.tag_search
     h2
       |
       span
         |#{@tag.tag_name}
       |の検索結果
-  
   .row.places
     = render @places
     = paginate @places

@@ -22,7 +22,7 @@ RSpec.feature "Places", type: :feature do
       expect(page).to have_content "東京"
       expect(page).to have_content "test.com"
       expect(page).to have_content 500
-      expect(page).to have_content "Wifiあり"
+      expect(page).to have_content "Wifi：あり"
       expect(page).to have_content "コーヒーが美味しい"
       expect(page).to have_content "静か"
     }.to change(user.places, :count).by(1)

@@ -1,24 +1,38 @@
 - provide(:title, "学習場所一覧")
-.home_back
+.home_back.py-3.mb-3
   .container.home
-    .row.align-items-center.justify-content-center.text-center
-      .text_contents
-        h1.font-weight-bold 勉強は場所選びから
-        p.text-white-75.font-weight-light.mb-5 お気に入りの勉強場所を探すアプリ
-    .row.align-items-center.justify-content-center.text-center
-      .login_contents.d-flex
-        - if !logged_in?
-          = link_to "ログイン", login_path, class: "btn btn-primary btn-xl m-1"
-          = link_to "新規登録", new_user_path, class: "btn btn-primary btn-xl m-1"
-          = link_to "ゲストログイン", guest_login_path, method: :post, class: "btn btn-success btn-xl m-1"
-        - else
-          = link_to "学習場所を投稿", new_place_path, class: "btn btn-primary btn-xl m-1"
-          = link_to "学習を記録する", new_record_path, class: "btn btn-success btn-xl m-1"
-.container.index
-  .row.subhead
+    .row
+      .col-lg-6.pb-3.my-auto
+        .row.align-items-center.justify-content-center.text-center
+          .text_contents
+            h1.font-weight-bold 勉強は場所選びから
+            p.text-white-75.font-weight-light.mb-5 お気に入りの勉強場所を探すアプリ
+        .row.align-items-center.justify-content-center.text-center
+          .login_contents.d-flex
+            - if !logged_in?
+              = link_to "ログイン", login_path, class: "btn btn-primary btn-xl m-1"
+              = link_to "新規登録", new_user_path, class: "btn btn-primary btn-xl m-1"
+              = link_to "ゲストログイン", guest_login_path, method: :post, class: "btn btn-success btn-xl m-1"
+            - else
+              = link_to "学習場所を投稿", new_place_path, class: "btn btn-primary btn-xl m-1"
+              = link_to "学習を記録する", new_record_path, class: "btn btn-success btn-xl m-1"
+      .col-lg-6.my-auto
+        .row
+          = render "search_box"
+.container.mb-3.middle-contents
+  .row.mx-auto
+    .goods.col-lg-8.px-4.py-2.mb-3.mr-lg-5.bg-white.shadow-sm
+      h4.subhead.border-bottom.border-secondary いいねの多い投稿
+      .row.good-posts
+          = render partial: "rank_places", collection: @good_places, as: :place
+    .tags.col-lg-3.px-4.py-2.mb-3.bg-white.shadow-sm
+      .subhead
+        h4.border-bottom.border-secondary タグ一覧
+      .row.good-posts
+        = render "tag", tags: @tags
+.container.px-4.py-2.mb-3.shadow-sm.bg-white.index
+  .subhead.places_title
     h2 投稿一覧
-  .row
-    = render "search_box"
   .row.places
     = render @places
   .row.paginate

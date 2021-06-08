@@ -6,8 +6,14 @@
         = image_tag place.image.to_s, class: "mb-1 img-fluid"
       - else
         = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
-    .title
+    .title.mr-2
       h4.mb-0.py-1 #{place.title}
+    .place_recommend.d-flex
+      - recommends(place).floor.times do
+        i.fas.fa-star.star-icon
+      - (5-recommends(place).floor).times do
+        i.far.fa-star.star-icon
+      .count （#{recommends(place)}）
     .place_tags.row
       - if place.tags
         = render partial: 'places/tag', locals: { tags: place.tags }

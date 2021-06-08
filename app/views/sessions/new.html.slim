@@ -2,8 +2,7 @@
 
 .login.container
   .row
-    .col-lg-4.col-sm-2
-    .col-lg-4.col-sm-8.py-2.form.bg-white
+    .col-lg-4.col-sm-8.py-2.form.bg-white.mx-auto
       .subhead
         h2 ログイン
       = form_with(url: login_path, scope: :session, local: true) do |f|
@@ -24,6 +23,5 @@
       .d-flex.my-2
         span ゲストログインは 
         = link_to "こちら", guest_login_path, method: :post
-    .col-lg-4.col-sm-2
     
   

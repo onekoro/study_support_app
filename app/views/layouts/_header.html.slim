@@ -14,7 +14,7 @@ header
           li.nav-item
             = link_to root_path, class: "nav-link"
               i.fas.fa-map-marker-alt.fa-lg
-              .tag 場所一覧
+              .tag 投稿一覧
           - if logged_in?
             li.nav-item
               = link_to new_place_path, class: "nav-link"
@@ -23,7 +23,7 @@ header
             li.nav-item
               = link_to new_record_path, class: "nav-link"
                 i.fas.fa-pencil-alt
-                .tag 学習を記録する
+                .tag 学習を記録
             li.nav-item
               = link_to users_path, class: "nav-link"
                 i.fas.fa-users.fa-lg

@@ -1,4 +1,4 @@
-.col-lg-4.col-sm-6
+.col-lg-6
   input form="record" type="radio" value="#{place.id}" name="record[place_id]" id="record_place_id_#{place.id}"
   label form="record" for="record_place_id_#{place.id}"
     .place_content
@@ -8,10 +8,15 @@
         - else
           = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
       h4.mb-0.py-1.title #{place.title}
+      .place_recommend.mb-2.d-flex
+        - recommends(place).floor.times do
+          i.fas.fa-star.star-icon
+        - (5-recommends(place).floor).times do
+          i.far.fa-star.star-icon
       .place_tags.row
         - if place.tags
           - place.tags.each do |tag|
-            .tag.btn.btn-info.btn-sm.tag #{tag.tag_name}
+            .tag.p-0.mt-0.mr-1.mb-2.ml-0.btn.btn-info.btn-sm #{tag.tag_name}
       .place_info.d-flex
         .user_info.mr-3
           = image_tag place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"

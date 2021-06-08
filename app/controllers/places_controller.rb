@@ -4,6 +4,8 @@ class PlacesController < ApplicationController
   before_action :set_place_search, only: [:index]
   
   def index
+    @good_places = Place.find(Like.group(:place_id).order('count(place_id) desc').limit(3).pluck(:place_id))
+    @tags = Tag.order(:created_at).take(18)
     @path = places_path
     respond_to do |format|
       format.html
@@ -14,6 +16,7 @@ class PlacesController < ApplicationController
   def  tag_search
     @tag = Tag.find(params[:id])  #クリックしたタグを取得
     @places = @tag.places.page(params[:page]).per(6)
+    @tags = Tag.all
   end
   
   def show
@@ -21,7 +24,6 @@ class PlacesController < ApplicationController
     @comments = @place.comments
     @comment = Comment.new
     @place_tags = @place.tags
-    @recommends = ((@place.recommend+@comments.sum(:recommend))/(@comments.count+1).to_f).round(2)
   end
   
   def new

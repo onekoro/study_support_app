@@ -21,48 +21,71 @@ User.create!(name:  "Example User",
 60.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
-  password = "password"
+  password = "password#{n}"
   User.create!(name:  name,
                email: email,
                password:              password,
                password_confirmation: password)
 end
 
-# ユーザーの一部を対象にマイクロポストを生成する
-users = User.order(:created_at).take(10)
-5.times do |n|
-  # title = Faker::String.random(length: 5..20)
-  title = "test"
-  # content = Faker::String.random(length: 100..400)
-  content = "test"
-  image = "default_place.jpg"
-  # address = Faker::Address.full_address
-  address = "東京"
-  # web = Faker::Internet.url
-  web = "test"
-  cost = Faker::Number.between(from: 100, to: 10000)
-  if n%2 == 0
-    wifi = "あり"
-  else
-    wifi = "なし"
+# ユーザーの一部を対象に投稿を生成する
+users = User.order(:created_at).take(50)
+10.times do |n|
+  users.each do |user|
+    title = Faker::Lorem.word
+    content = Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
+    image = "default_place.jpg"
+    address = Faker::Address.full_address
+    web = Faker::Internet.url
+    cost = Faker::Number.between(from: 0, to: 10000)
+    if n%2 == 0
+      wifi = "あり"
+    else
+      wifi = "なし"
+    end
+    recommend = Faker::Number.within(range: 1..5) 
+    user.places.create!(title: title, content: content, image: image, address: address, web: web, cost: cost, wifi: wifi, recommend: recommend)
   end
-  recommend = n
-  users.each { |user| user.places.create!(title: title, content: content, image: image, address: address, web: web, cost: cost, wifi: wifi, recommend: recommend) }
+end
+
+# ユーザーの一部を対象に学習記録を生成する
+10.times do |n|
+  date = Date.today-n
+  hour = Faker::Number.between(from: 0, to: 10)
+  minute = Faker::Number.between(from: 1, to: 59)
+  place_id = n+1
+  content = Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
+  users.each { |user| user.records.create!(date: date, hour: hour, minute: minute, place_id: place_id, content: content) }
 end
 
 # 以下のリレーションシップを作成する
-users = User.all
 user1 = users.first
-user2 = users.second
-following = users[2..50]
+following = users[2..40]
 followers = users[3..40]
 following.each { |followed| user1.follow(followed) }
 followers.each { |follower| follower.follow(user1) }
 
-places1 = user1.places
-places1.each { |place1| place1.good(user2) }
-places2 = user2.places
-places2.each { |place2| place2.good(user1) }
+places = Place.order(:created_at).take(10)
+# 投稿にいいねする
+10.times do |n|
+  user = User.find(n+1)
+  places.each { |place| place.good(user) }
+end
 
+# 投稿にコメントする
+5.times do |n|
+  user = User.find(n+1)
+  recommend = Faker::Number.within(range: 1..5)
+  content = Faker::Lorem.sentence
+  places.each { |place| place.comments.create!(recommend: recommend, content: content, user_id: user.id) }
+end
 
+# タグの生成
+10.times do |n|
+  Tag.create(tag_name: Faker::Lorem.word)
+end
+# タグと場所の関連づけ
+5.times do |n|
+  places.each { |place| TagMap.create(tag_id: n+1, place_id: place.id) }
+end
 

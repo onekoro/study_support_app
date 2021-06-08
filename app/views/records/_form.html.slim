@@ -1,5 +1,5 @@
-.row
-  .form.px-2.bg-white
+.row.mb-3
+  .form.p-2.bg-white.shadow-sm.col-sm-8.mx-auto
     .subhead
       h2 = yield(:title)
     = form_with(model: @record, local: true, id: "record") do |f|
@@ -23,11 +23,15 @@
         .d-flex.flex-column
            = f.label :content, "コメント"
            = f.text_area :content, class: "form-control"
-          
-    .form-group
-      label for="record_place_id" 学習場所
-    .box-content
+    label for="record_place_id" 学習場所(クリックして選択）
+    .box-content.mb-2
       = render "places/search_box"
+    .add-search-box.d-flex.mb-2
+      .icon.search-down
+        i.fas.fa-chevron-down
+      .icon.search-up
+        i.fas.fa-chevron-up
+      .search-comment 絞り込みをする
     .row.places
       = render partial: "record_places", collection: @places, as: "place"
     .row.paginate

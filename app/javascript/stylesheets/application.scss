@@ -38,7 +38,6 @@ header{
 .subhead{
   h2{
     border-bottom: solid 2px #1F2125;
-    margin: 2% 0;
   }
 }
 
@@ -61,7 +60,10 @@ textarea{
   @include y-center;
   justify-content: center;
 }
-
+// placeのアイコン
+.star-icon{
+  color: #28a745;
+}
 // placeのwifiとcost
 .place_wifi_cost{
   // @include y-center;
@@ -92,15 +94,12 @@ textarea{
   display: flex;
   width: 100%;
   margin: 0;
-  .tag{
-    margin: 0 5px 5px 0;
-  }
-  .btn{
-    padding: 0 3px;
-  }
 }
 
-
+// いいねボタンの設定
+.btn-like:hover{
+  background-color: #FFD5EC;
+}
 
 
 // _user
@@ -111,8 +110,6 @@ textarea{
   border-width: 0 0 1px 0;
   background-color: white;
   &:hover{
-    // border: solid rgb(0, 123, 255);
-    // border-width: 2px 0 2px 0;
     background-color: #D9E5FF;
   }
   .user_link{
@@ -212,12 +209,17 @@ textarea{
     }
   }
   .like_icons{
-    .btn{
+    .btn-like{
       padding: 0;
       font-size: 2rem;
       height: 48px;
       h5{
         font-size: 2rem;
+      }
+      .not-logged{
+        padding: 0;
+        font-size: 32px;
+        height: 48px;
       }
     }
   }
@@ -226,34 +228,27 @@ textarea{
     font-size: 1.2rem;
     word-wrap: break-word;
   }
-  .poster_comment{
-    .title{
+  
+  .place_infos{
+    .info{
       @include y-center;
+      margin: 0.5rem;
+      border-bottom: 1px solid #EEEEEE;
     }
     .icon{
       width: 30px;
       height: 30px;
       margin: 0 0.5rem 0.5rem 0.5rem;
     }
-    .content{
-      min-height: 130px;
+    .min-icon{
+      margin-right: 0.5rem;
     }
-  }
-  .place_wifi_cost{
-    border-radius: 3%;
-    margin-bottom: 5%;
     img{
-      width: 30px;
-      height: 30px;
-      margin: 0.5rem;
-    }
-    .icon{
-      width: 30px;
-      height: 30px;
-      margin: 0.5rem;
+      width: 20px;
+      height: 16px;
+      margin-right: 0.5rem;
     }
     .word{
-      font-size: 120%;
       word-break: break-all;
     }
     .place_address{
@@ -267,19 +262,28 @@ textarea{
     }
   }
   .map{
-    margin-bottom: 5%;
     #map{
       height: 180px;
       width: 100%;
     }
   }
-  .star-icon{
-    color: #28a745;
-  }
   .comment{
     word-wrap: break-word;
     .comment_recommend{
       border-bottom: 1px solid #EEEEEE;
+    }
+  }
+  .poster_comment{
+    .title{
+      @include y-center;
+    }
+    .icon{
+      width: 30px;
+      height: 30px;
+      margin: 0 0.5rem 0.5rem 0.5rem;
+    }
+    .content{
+      min-height: 130px;
     }
   }
   .comments{
@@ -307,9 +311,10 @@ textarea{
 // places/index
 .home_back{
   background-image: url('../images/haikei.jpg');
-  // background: image-pack-tag('haikei.jpg');
   background-size: cover;
   position: relative;
+  min-height: 400px;
+  @include y-center;
   &::before{
     background-color: rgba(0,0,0,0.4);
     position: absolute;
@@ -319,10 +324,8 @@ textarea{
     left: 0;
     content: ' ';
   }
-  height: 330px;
   .home{
     position: relative;
-    top: 50px;
     .text_contents{
       color: white;
     }
@@ -344,23 +347,35 @@ textarea{
   }
 }
 
-.serch_box{
+.search_box{
   padding: 2%;
-  margin: 2% auto;
+  margin: 0 auto;
   border: solid 2px #1F2125;
-  background-color: #f8f9fa;
+  background-color: #EEEEEE;
   border-radius: 8px;
-  .box_title{
-    .serch_icon{
+  .icon{
       @include y-center;
       justify-content: center;
-    }
+  }
+  .box_title{
     h4{
       border-bottom: solid 2px #1F2125;
     }
   }
   .form_group{
     margin-bottom: 1rem;
+  }
+  .details{
+    display: none;
+  }
+  .change-details{
+    cursor: pointer;
+    :hover{
+      opacity: 0.7;
+    }
+    .detail-up{
+      display: none;
+    }
   }
   .post{
     @include y-center;
@@ -396,6 +411,9 @@ textarea{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .place_recommend{
+    @include y-center;
+  }
   .user_info{
     @include y-center;
   }
@@ -430,5 +448,16 @@ textarea{
   label:hover{
     cursor: pointer;
   }
-
+  .box-content{
+      display: none;
+  }
+  .add-search-box{
+    cursor: pointer;
+    :hover{
+      opacity: 0.7;
+    }
+    .search-up{
+      display: none;
+    }
+  }
 }
