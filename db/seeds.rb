@@ -35,7 +35,7 @@ users = User.order(:created_at).take(50)
     title = Faker::Lorem.word
     content = Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
     image = "default_place.jpg"
-    address = Faker::Address.full_address
+    address = Gimei.address.kanji
     web = Faker::Internet.url
     cost = Faker::Number.between(from: 0, to: 10000)
     if n%2 == 0

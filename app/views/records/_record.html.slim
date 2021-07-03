@@ -1,5 +1,5 @@
 .row.border-bottom.pb-3.mb-3
-  .col-sm-6
+  .col-md-6
     - if record.place
       .place_content.my-2
         = link_to place_path(record.place), class: "place_link" do
@@ -30,7 +30,7 @@
       h4 学習場所の記録がありません
       = link_to "学習場所を追加する", edit_record_path(record)
   
-  .col-sm-6
+  .col-md-6
     .day_record_info
       .time
         i.fas.fa-clock.clock-icon.icon

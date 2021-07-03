@@ -18,6 +18,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
 gem 'faker',                   '2.1.2'
+gem 'gimei'
 gem 'kaminari'
 gem 'ransack'
 gem "geocoder"

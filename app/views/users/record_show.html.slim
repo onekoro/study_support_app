@@ -22,7 +22,7 @@
         .col-12.subtitle.mb-2
           h4
             i.fas.fa-pen.fa-lg.pen-icon.mr-2
-            .week 週の学習記録
+            .week 過去7日間の学習記録
         .col-6
           .sum_record_title 合計
           h4.sum_record = show_hours_and_minutes(@sum_week_time)
@@ -45,6 +45,6 @@
         .col-12.day_record_info
           = render @records
         - if current_user?(@user)
-          .col-sm-4.mx-auto
+          .col-md-4.col-sm-6.mx-auto
             = link_to "学習記録を追加", new_record_path, class: "btn btn-primary btn-sm"
       

@@ -125,6 +125,8 @@ GEM
       sassc (>= 1.11)
     formatador (0.2.5)
     geocoder (1.6.6)
+    gimei (1.0.0)
+      romaji
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     guard (2.16.2)
@@ -245,6 +247,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.8.2)
+    romaji (0.2.4)
+      rake (>= 0.8.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.1)
@@ -351,6 +355,7 @@ DEPENDENCIES
   fog-aws
   font-awesome-sass
   geocoder
+  gimei
   guard (= 2.16.2)
   html2slim
   jbuilder (= 2.9.1)
