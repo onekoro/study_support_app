@@ -1,4 +1,4 @@
-server "54.168.149.243", user: "jun", roles: %w{app db web}
+server "18.182.123.181", user: "jun", roles: %w{app db web}
 
 set :ssh_options, {
   keys: %w(~/.ssh/study_support_app.pem),
