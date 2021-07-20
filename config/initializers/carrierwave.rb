@@ -6,9 +6,9 @@ if Rails.env.production?
   CarrierWave.configure do |config|
     config.fog_credentials = {
       provider: 'AWS',
-      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      region: ENV['AWS_DEFAULT_REGION']
+      aws_access_key_id: Rails.application.credentials.aws[:access_key_id],
+      aws_secret_access_key: Rails.application.credentials.aws[:secret_access_key],
+      region: Rails.application.credentials.aws[:default_region]
     }
     config.cache_storage  = :fog
     config.fog_provider = 'fog/aws'
@@ -16,13 +16,13 @@ if Rails.env.production?
     config.fog_public = false
     config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" }
     # config.asset_host = 'https://study-support.s3.amazonaws.com'
-    
+
     # For an application which utilizes multiple servers but does not need caches persisted across requests,
     # uncomment the line :file instead of the default :storage.  Otherwise, it will use AWS as the temp cache store.
     # config.cache_storage = :file
   end
 end
-  
+
 #   CarrierWave.configure do |config|
 #   if Rails.env.production? || Rails.env.development? # 開発中もs3使う
 #     config.storage :fog

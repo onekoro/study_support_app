@@ -28,9 +28,9 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: study_support_app_production
   username: study_support_app
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_ENDPOINT'] %>
-  
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
+
 
   # <<: *default
   # database: db/production.sqlite3

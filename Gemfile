@@ -22,7 +22,6 @@ gem 'gimei'
 gem 'kaminari'
 gem 'ransack'
 gem "geocoder"
-gem "dotenv-rails"
 gem "chartkick"
 
 group :development, :test do
@@ -53,12 +52,10 @@ group :test do
   gem 'rails-controller-testing', '1.0.4'
   gem 'shoulda-matchers'
   gem 'guard',                    '2.16.2'
-  # gem 'guard-minitest',           '2.4.6'
 end
 
 group :production do
   gem 'pg', '1.1.4'
 end
 
-# Windows ではタイムゾーン情報用の tzinfo-data gem を含める必要があります
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
