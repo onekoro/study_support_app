@@ -23,11 +23,11 @@ gem 'kaminari'
 gem 'ransack'
 gem "geocoder"
 gem "chartkick"
+gem 'pg', '1.1.4'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails', '~> 4.10.0'
-  gem 'sqlite3', '1.4.1'
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -55,7 +55,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '1.1.4'
+  # gem 'pg', '1.1.4'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

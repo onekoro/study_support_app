@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_05_01_042553) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.string "content"
     t.integer "recommend"
@@ -55,8 +58,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_042553) do
     t.date "date"
     t.integer "hour"
     t.integer "minute"
-    t.integer "user_id", null: false
-    t.integer "place_id"
+    t.bigint "user_id", null: false
+    t.bigint "place_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "content"

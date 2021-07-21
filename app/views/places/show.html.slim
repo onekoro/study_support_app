@@ -91,7 +91,7 @@
                   map: map
                 });
               }
-            script{ src="https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:map_api_key] }&callback=initMap" async defer}
+            script{ src="https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:map_api_key]}" async defer}
   .row
     .col-lg-8.mx-auto
       .poster_comment#comments.bg-white.my-4.p-1.shadow-sm
