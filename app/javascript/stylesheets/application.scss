@@ -74,7 +74,7 @@ textarea{
     @include y-center;
   }
   .url{
-    @include y-center;    
+    @include y-center;
   }
 }
 // placeの製作者の画像と名前
@@ -200,7 +200,6 @@ textarea{
   .place_edit_form{
     margin: 0 0 0 auto;
   }
-  
   .comment_icons{
     @include y-center;
     font-size: 2rem;
@@ -223,12 +222,11 @@ textarea{
       }
     }
   }
-  
   .bun{
     font-size: 1.2rem;
     word-wrap: break-word;
   }
-  
+
   .place_infos{
     .info{
       @include y-center;
