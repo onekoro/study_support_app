@@ -10,5 +10,6 @@ if Rails.env.production?
       region: "ap-northeast-1"
     }
     config.fog_directory  = 'study-support-app'
+    config.asset_host = "https://static.study-support-app.com"
   end
 end
