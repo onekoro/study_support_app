@@ -10,11 +10,11 @@ RSpec.describe "Places", type: :request do
       end
     end
   end
-  
+
   describe "#tag_search" do
     let!(:place) { create(:place) }
     let!(:tag) { create(:tag) }
-    
+
     context "タグが存在する時" do
       it "正常にレスポンスを返す" do
         get tag_search_place_path(tag)
@@ -25,10 +25,10 @@ RSpec.describe "Places", type: :request do
       end
     end
   end
-  
+
   describe "#show" do
     let(:place) { create(:place) }
-    
+
     context "投稿場所が存在する時" do
       it "正常にレスポンスを返す" do
         get place_path(place)
@@ -39,10 +39,10 @@ RSpec.describe "Places", type: :request do
       end
     end
   end
-  
+
   describe "#new" do
     let(:user) { create(:user) }
-    
+
     context "ユーザがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -53,7 +53,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "302レスポンスを返す" do
         get new_place_path
@@ -64,7 +64,7 @@ RSpec.describe "Places", type: :request do
       end
     end
   end
-  
+
   describe "#create" do
     let!(:place) { build(:place) }
     let!(:tag) { build(:tag) }
@@ -82,7 +82,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "302レスポンスを返す" do
         place_params = attributes_for(:place)
@@ -94,7 +94,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "無効な属性値の時" do
       it "新規作成ページに戻る" do
         user = place.user
@@ -109,11 +109,11 @@ RSpec.describe "Places", type: :request do
       end
     end
   end
-  
+
   describe "#edit" do
     let!(:place) { create(:place) }
     let!(:tag) { create(:tag) }
-    
+
     context "ユーザーがログインしている時" do
       it "正常にレスポンスを返す" do
         sign_in place.user
@@ -124,7 +124,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         get edit_place_path(place)
@@ -134,7 +134,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のあるユーザーが編集しようとした時" do
       it "正常にレスポンスを返す" do
         other_user = create(:user, admin: true)
@@ -146,7 +146,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のないユーザーが編集しようとした時" do
       it "マイページに戻る" do
         other_user = create(:user)
@@ -154,16 +154,16 @@ RSpec.describe "Places", type: :request do
         get edit_place_path(place)
         aggregate_failures do
           expect(response).to have_http_status "302"
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end
   end
-  
+
   describe "#update" do
     let!(:place) { create(:place) }
     let!(:tag) { create(:tag) }
-    
+
     context "ユーザーがログインしている時" do
       it "自分の投稿の編集ができる" do
         sign_in  place.user
@@ -182,8 +182,8 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
-    
+
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         place_params = attributes_for(:place, content: "new_content", address: "new_address", web: "new_web.com", cost: 0, wifi: "なし", recommend: 2)
@@ -201,7 +201,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のあるユーザーの時" do
       it "他のユーザーの投稿を編集できる" do
         other_user = create(:user, admin: true)
@@ -221,7 +221,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のないユーザーの時" do
       it "他のユーザーを編集できない" do
         other_user = create(:user)
@@ -237,16 +237,16 @@ RSpec.describe "Places", type: :request do
           expect(place.reload.cost).not_to eq 0
           expect(place.reload.wifi).not_to eq "なし"
           expect(place.reload.recommend).not_to eq 2
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end
   end
-  
+
   describe "#destroy" do
     let!(:place) { create(:place) }
     # let!(:tag) { create(:tag) }
-    
+
     context "ユーザーがログインしている時" do
       it "自分の投稿を削除できる" do
         user = place.user
@@ -254,11 +254,11 @@ RSpec.describe "Places", type: :request do
         delete place_path(place.id)
         aggregate_failures do
           expect(user.places.count).to eq 0
-          expect(response).to redirect_to user_path(user)
+          expect(response).to redirect_to record_show_user_path(user)
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         user = place.user
@@ -269,7 +269,7 @@ RSpec.describe "Places", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のあるユーザーの時" do
       it "他のユーザーの投稿を削除できる" do
         user = place.user
@@ -278,11 +278,11 @@ RSpec.describe "Places", type: :request do
         delete place_path(place.id)
         aggregate_failures do
           expect(user.places.count).to eq 0
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end
-    
+
     context "管理者権限のないユーザーの時" do
       it "他のユーザーの投稿を削除できない" do
         user = place.user
@@ -291,7 +291,7 @@ RSpec.describe "Places", type: :request do
         delete place_path(place.id)
         aggregate_failures do
           expect(user.places.count).to eq 1
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end

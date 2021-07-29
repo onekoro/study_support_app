@@ -3,13 +3,13 @@ class UsersController < ApplicationController
   before_action :unlogged_in_user, only: [:new, :create]
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :check_guest, only: [:edit, :destroy]
-  
+
   def index
     @user = current_user
     @q = User.ransack(params[:q])
     @users = @q.result(distinct: true).page(params[:page]).per(20)
   end
-  
+
   def show
     @user = User.find(params[:id])
     @places = Place.where(user_id: @user.id)
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       format.js
     end
   end
-  
+
   def like_show
     @user = User.find(params[:id])
     @places = @user.good_places
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       format.js
     end
   end
-  
+
   def following
     @user  = User.find(params[:id])
     @users = @user.following.page(params[:page]).per(100)
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     @user  = User.find(params[:id])
     @users = @user.followers.page(params[:page]).per(100)
   end
-  
+
   def record_show
     @user = User.find(params[:id])
     # user_idによる絞り込み
@@ -58,11 +58,11 @@ class UsersController < ApplicationController
     # 1日の総学習時間
     @sum_day_time = sum_day_record(@records)
   end
-  
+
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -73,21 +73,21 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "更新しました"
-      redirect_to @user
+      redirect_to record_show_user_path(@user)
     else
       render 'edit'
     end
   end
-  
+
   def destroy
     user = User.find(params[:id])
     user.destroy
@@ -98,15 +98,13 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
   end
-  
-  
-  
+
   private
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :image)
     end
-    
+
     # 正しいユーザーかどうか確認
     def correct_user
       @user = User.find(params[:id])
@@ -115,7 +113,7 @@ class UsersController < ApplicationController
         redirect_to user_path(current_user)
       end
     end
-    
+
     # ゲストユーザーか確認
     def check_guest
       if current_user.email == 'guest@example.com'
@@ -124,5 +122,5 @@ class UsersController < ApplicationController
       end
     end
 
-    
+
 end

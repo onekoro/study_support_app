@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   describe "#index" do
     let(:user) { create(:user) }
-    
+
     context "ユーザがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -14,7 +14,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "302レスポンスを返す" do
         get users_path
@@ -25,10 +25,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#show" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -39,7 +39,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "302レスポンスを返す" do
         get user_path(user)
@@ -50,10 +50,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#like_show" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -64,7 +64,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "ログインページに移動する" do
         get like_show_user_path(user)
@@ -75,10 +75,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#following" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -89,7 +89,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "ログインページに移動する" do
         get following_user_path(user)
@@ -100,10 +100,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#followers" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -114,7 +114,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "ログインページに移動する" do
         get followers_user_path(user)
@@ -125,10 +125,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#record_show" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログイン済みの時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -139,7 +139,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-  
+
     context "ユーザーがログインしていない時" do
       it "ログインページに移動する" do
         get record_show_user_path(user)
@@ -150,10 +150,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#new" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログインしていない時" do
       it "正常にレスポンスを返す" do
         get new_user_path(user)
@@ -163,7 +163,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしている時" do
       it "302レスポンスを返す" do
         sign_in user
@@ -175,10 +175,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#create" do
     let(:user) { attributes_for(:user) }
-    
+
     context "ユーザーがログインしていない時" do
       it "正常にレスポンスを返す" do
         user[:password_confirmation] = user[:password]
@@ -189,7 +189,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしている時" do
       it "ユーザー詳細ページに戻る" do
         user = create(:user)
@@ -200,7 +200,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "無効な属性値の時" do
       it "新規作成ページに戻る" do
         user = attributes_for(:user, :invalid)
@@ -213,10 +213,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#edit" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログインしている時" do
       it "正常にレスポンスを返す" do
         sign_in user
@@ -227,7 +227,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         get edit_user_path(user)
@@ -237,7 +237,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "別のユーザーを編集しようとした時" do
       it "マイページに戻る" do
         other_user = create(:user)
@@ -250,10 +250,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#update" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログインしている時" do
       it "自分のアカウントの編集ができる" do
         sign_in user
@@ -263,12 +263,12 @@ RSpec.describe "Users", type: :request do
           expect(user.reload.name).to eq "new_name"
           expect(user.reload.email).to eq "new@new.com"
           # expect(user.reload.password).to eq "newpass"
-          expect(response).to redirect_to user_path(user)
+          expect(response).to redirect_to record_show_user_path(user)
         end
       end
     end
-    
-    
+
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         user_params = attributes_for(:user, name: "new_name", email: "new@new.com", password: "newpass", password_confirmation: "newpass")
@@ -281,7 +281,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のあるユーザーの時" do
       it "他のユーザーを編集できる" do
         other_user = create(:user, admin: true)
@@ -292,11 +292,11 @@ RSpec.describe "Users", type: :request do
           expect(user.reload.name).to eq "new_name"
           expect(user.reload.email).to eq "new@new.com"
           # expect(user.reload.password).not_to eq "newpass"
-          expect(response).to redirect_to user_path(user)
+          expect(response).to redirect_to record_show_user_path(user)
         end
       end
     end
-    
+
     context "管理者権限のないユーザーの時" do
       it "他のユーザーを編集できない" do
         other_user = create(:user)
@@ -312,10 +312,10 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
-  
+
   describe "#destroy" do
     let(:user) { create(:user) }
-    
+
     context "ユーザーがログインしている時" do
       it "自分のアカウントを削除できる" do
         sign_in user
@@ -326,7 +326,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "ユーザーがログインしていない時" do
       it "ログインページに戻る" do
         delete user_path(user.id)
@@ -336,7 +336,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のあるユーザーの時" do
       it "他のユーザーを削除できる" do
         other_user = create(:user, admin: true)
@@ -348,7 +348,7 @@ RSpec.describe "Users", type: :request do
         end
       end
     end
-    
+
     context "管理者権限のないユーザーの時" do
       it "他のユーザーを削除できない" do
         other_user = create(:user)
@@ -362,4 +362,3 @@ RSpec.describe "Users", type: :request do
     end
   end
 end
-

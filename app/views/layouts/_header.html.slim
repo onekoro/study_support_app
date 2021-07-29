@@ -5,10 +5,10 @@ header
         = link_to root_path, class: "navbar-brand d-flex" do
           li.fas.fa-graduation-cap.fa-2x.mx-2
           h3 Study Support
-        
+
       button.navbar-toggler.ml-auto type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
         span.navbar-toggler-icon
-      
+
       .collapse.navbar-collapse#navbarNavAltMarkup
         ul.navbar-nav.ml-auto.my-2.my-lg-0
           li.nav-item
@@ -30,9 +30,9 @@ header
                 .tag ユーザー一覧
             li.nav-item
               = link_to record_show_user_path(current_user), class: "nav-link"
-                = image_pack_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
+                = image_tag current_user.image.url, height: "25px",  class: "border border-dark rounded-circle"
                 .tag #{current_user.name}
-            li.nav-item 
+            li.nav-item
               = link_to logout_path, class: "nav-link", method: :delete
                 i.fas.fa-sign-out-alt.fa-lg
                 .tag ログアウト
@@ -42,6 +42,5 @@ header
                 i.fas.fa-sign-in-alt.fa-lg
                 .tag ログイン
             li.nav-item
-              
+
               = link_to "新規登録", new_user_path, class: "nav-link"
-  

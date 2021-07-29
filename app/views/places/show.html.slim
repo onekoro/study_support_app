@@ -33,15 +33,10 @@
               i.far.fa-comment.mr-2.icon
               .f #{@place.comments.count}
           .like_count_form.col-5.mx-auto
-            h5 いいね
             .like_icons
               - if logged_in?
+                h5 いいね
                 = render partial: 'likes/like_form', locals: { place: @place }
-              - else
-                .d-flex.align-items-center.not-logged
-                  i.far.fa-heart.text-muted.text-danger
-                  h5.ml-2.my-0 #{@place.likes.count}
-
   .row
     .place_image.col-lg-7.mb-3
       - if @place.image?
@@ -109,20 +104,20 @@
                   i.fas.fa-star.star-icon
               - (5-@place.recommend).times do
                   i.far.fa-star.star-icon
-          - if @place.content
+          - if @place.content.length == 0
             .comment_content
-              .bun #{@place.content}
+              p コメントはありません
           - else
             .comment_content
-              .bun コメントはありません
+              .bun #{@place.content}
       .comments.bg-white.my-4.p-1.shadow-sm
         .title
           i.far.fa-comments.icon
           h4 レビュー一覧
-        - if @comments
-          = render @comments
-        - else
+        - if @comments.count == 0
           p レビューはありません
+        - else
+          = render @comments
       .comment_form.bg-white.my-4.p-1.shadow-sm
         - if logged_in?
           .title

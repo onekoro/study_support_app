@@ -9,5 +9,5 @@
     - if logged_in? && !current_user?(user)
       = render partial: 'follow_form', locals: { user: user }
     - if current_user.admin? && !current_user?(user)
-      = link_to "アカウント削除", user, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-outline-danger btn-sm btn-block my-3 inlink" 
+      = link_to "アカウント削除", user, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-outline-danger btn-sm btn-block my-3 inlink"
   .col-1
