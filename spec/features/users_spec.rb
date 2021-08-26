@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature "Users", type: :feature do
+RSpec.describe "Users", type: :feature do
   let(:user) { create(:user) }
   let(:new_user) { build(:user) }
 
-  scenario "新規登録に成功する" do
+  it "新規登録に成功する" do
     visit root_path
 
     within "header" do
@@ -17,11 +17,11 @@ RSpec.feature "Users", type: :feature do
         click_button "新規登録"
       }.to change(User, :count).by(1)
       expect(page).to have_content "ユーザー登録ができました"
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path, ignore_query: true
     end
   end
 
-  scenario "新規登録に失敗する" do
+  it "新規登録に失敗する" do
     visit root_path
 
     within "header" do
@@ -39,7 +39,7 @@ RSpec.feature "Users", type: :feature do
     end
   end
 
-  scenario "ユーザー情報の編集に成功する" do
+  it "ユーザー情報の編集に成功する" do
     valid_login(user)
 
     visit user_path(user)
@@ -55,11 +55,11 @@ RSpec.feature "Users", type: :feature do
       expect(has_css?('.alert-success')).to be_truthy
       expect(user.reload.name).to eq new_user.name
       expect(user.reload.email).to eq new_user.email
-      expect(current_path).to eq record_show_user_path(user)
+      expect(page).to have_current_path record_show_user_path(user), ignore_query: true
     end
   end
 
-  scenario "ユーザー情報の編集に失敗する" do
+  it "ユーザー情報の編集に失敗する" do
     valid_login(user)
 
     visit user_path(user)

@@ -14,7 +14,7 @@ RSpec.describe Relationship, type: :model do
     it "active_relationshipsも削除" do
       active_relationship = create(:active_relationship)
       user = active_relationship.follower
-      expect{ user.destroy }.to change{ Relationship.count }.by(-1)
+      expect{ user.destroy }.to change(Relationship, :count).by(-1)
     end
   end
   
@@ -22,7 +22,7 @@ RSpec.describe Relationship, type: :model do
     it "passive_relationshipsも削除" do
       passive_relationship = create(:passive_relationship)
       user = passive_relationship.followed
-      expect{ user.destroy }.to change{ Relationship.count }.by(-1)
+      expect{ user.destroy }.to change(Relationship, :count).by(-1)
     end
   end
 end

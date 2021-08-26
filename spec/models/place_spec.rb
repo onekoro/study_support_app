@@ -20,7 +20,7 @@ RSpec.describe Place, type: :model do
   describe "userが削除された時" do
     it "placeも削除" do
       user = place.user
-      expect{ user.destroy }.to change{ Place.count }.by(-1)
+      expect{ user.destroy }.to change(Place, :count).by(-1)
     end
   end
       

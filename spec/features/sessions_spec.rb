@@ -1,20 +1,20 @@
 require 'rails_helper'
 
-RSpec.feature "Sessions", type: :feature do
+RSpec.describe "Sessions", type: :feature do
   let(:user) { create(:user) }
   
-  scenario "ログインが成功する" do
+  it "ログインが成功する" do
     valid_login(user)
     
     aggregate_failures do
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path, ignore_query: true
       expect(page).to have_content "ログインしました"
       expect(page).to have_content "ログアウト"
-      expect(page).to_not have_content "新規登録"
+      expect(page).not_to have_content "新規登録"
     end
   end
   
-  scenario "無効な情報ではログインに失敗する" do
+  it "無効な情報ではログインに失敗する" do
     visit root_path
     
     within "header" do
@@ -27,19 +27,19 @@ RSpec.feature "Sessions", type: :feature do
     click_button "ログイン"
     
     aggregate_failures do
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
       expect(page).to have_content "メールアドレスまたはパスワードが異なります"
     end
   end
   
   
-  scenario "ログアウトが成功する" do
+  it "ログアウトが成功する" do
     valid_login(user)
 
     click_link "ログアウト"
     
     aggregate_failures do
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path root_path, ignore_query: true
       expect(page).to have_content "ログアウトしました"
       expect(page).to have_content "ログイン"
       expect(page).to have_content "新規登録"

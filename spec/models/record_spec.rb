@@ -18,7 +18,7 @@ RSpec.describe Record, type: :model do
   describe "userが削除された時" do
     it "recordも削除" do
       user = record.user
-      expect{ user.destroy }.to change{ Record.count }.by(-1)
+      expect{ user.destroy }.to change(Record, :count).by(-1)
     end
   end
   

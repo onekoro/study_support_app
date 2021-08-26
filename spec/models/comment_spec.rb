@@ -15,14 +15,14 @@ RSpec.describe Comment, type: :model do
     describe "userが削除された時" do
         it "commentも削除" do
             user = comment.user
-            expect{ user.destroy }.to change{ Comment.count }.by(-1)
+            expect{ user.destroy }.to change(Comment, :count).by(-1)
         end
     end
     
     describe "placeが削除された時" do
         it "commentも削除" do
             place = comment.place
-            expect{ place.destroy }.to change{ Comment.count }.by(-1)
+            expect{ place.destroy }.to change(Comment, :count).by(-1)
         end
     end
 end

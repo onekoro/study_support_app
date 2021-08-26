@@ -19,10 +19,13 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
 
 development:
   <<: *default
+  host: db
+  username: app_user_role
+  password: password
   database: study_support_app_development
 
   # The specified database role being used to connect to postgres.
@@ -57,6 +60,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: db
+  username: app_user_role
+  password: password
   database: study_support_app_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -81,7 +87,7 @@ test:
 #
 production:
   <<: *default
-  database: study_support_app_production
   username: postgres
-  password: <%= Rails.application.credentials.db[:password] %>
+  database: study_support_app_production
   host: <%= Rails.application.credentials.db[:hostname] %>
+  password: <%= Rails.application.credentials.db[:password] %>

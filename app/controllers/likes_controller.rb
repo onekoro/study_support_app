@@ -8,7 +8,7 @@ class LikesController < ApplicationController
       @place.reload
     end
     respond_to do |format|
-      format.html { redirect_to request.referrer || root_url }
+      format.html { redirect_to request.referer || root_url }
       format.js
     end
   end
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
       @place.reload
     end
     respond_to do |format|
-      format.html { redirect_to request.referrer || root_url }
+      format.html { redirect_to request.referer || root_url }
       format.js
     end
   end

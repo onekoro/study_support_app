@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.feature "Places", type: :feature do
-  scenario "ユーザーが新しい勉強場所を投稿する" do
+RSpec.describe "Places", type: :feature do
+  it "ユーザーが新しい勉強場所を投稿する" do
     user = create(:user)
     
     valid_login(user)
@@ -26,6 +26,6 @@ RSpec.feature "Places", type: :feature do
       expect(page).to have_content "コーヒーが美味しい"
       expect(page).to have_content "静か"
     }.to change(user.places, :count).by(1)
-    expect(current_path).to eq place_path(Place.last)
+    expect(page).to have_current_path place_path(Place.last), ignore_query: true
   end
 end

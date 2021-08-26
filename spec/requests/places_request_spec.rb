@@ -73,7 +73,8 @@ RSpec.describe "Places", type: :request do
       it "場所の追加ができる" do
         user = place.user
         sign_in user
-        place_params = { title: place.title, content: place.content, address: place.address, web: place.web, cost: place.cost, wifi: place.wifi, recommend: place.recommend, tag_name: tag.tag_name }
+        place_params = { title: place.title, content: place.content, address: place.address, web: place.web, cost: place.cost, wifi: place.wifi, 
+                         recommend: place.recommend, tag_name: tag.tag_name }
         post places_path, params: { place: place_params }
         aggregate_failures do
           expect(user.places.count).to eq 1
@@ -99,7 +100,8 @@ RSpec.describe "Places", type: :request do
       it "新規作成ページに戻る" do
         user = place.user
         sign_in user
-        place_params = { title: "", content: place.content, address: place.address, web: place.web, cost: place.cost, wifi: place.wifi, recommend: place.recommend }
+        place_params = { title: "", content: place.content, address: place.address, web: place.web, cost: place.cost, wifi: place.wifi, 
+                         recommend: place.recommend }
         place_params[:tag_name] = tag.tag_name
         post places_path, params: { place: place_params }
         aggregate_failures do
@@ -167,7 +169,8 @@ RSpec.describe "Places", type: :request do
     context "ユーザーがログインしている時" do
       it "自分の投稿の編集ができる" do
         sign_in  place.user
-        place_params = attributes_for(:place, title: "new_title", content: "new_content", address: "new_address", web: "new_web.com", cost: 0, wifi: "なし", recommend: 2)
+        place_params = attributes_for(:place, title: "new_title", content: "new_content", address: "new_address", web: "new_web.com", cost: 0, 
+                                              wifi: "なし", recommend: 2)
         place_params[:tag_name] = tag.tag_name
         patch place_path(place.id), params: { place: place_params }
         aggregate_failures do
@@ -206,7 +209,8 @@ RSpec.describe "Places", type: :request do
       it "他のユーザーの投稿を編集できる" do
         other_user = create(:user, admin: true)
         sign_in other_user
-        place_params = attributes_for(:place, title: "new_title", content: "new_content", address: "new_address", web: "new_web.com", cost: 0, wifi: "なし", recommend: 2)
+        place_params = attributes_for(:place, title: "new_title", content: "new_content", address: "new_address", web: "new_web.com", cost: 0, 
+                                              wifi: "なし", recommend: 2)
         place_params[:tag_name] = tag.tag_name
         patch place_path(place.id), params: { place: place_params }
         aggregate_failures do

@@ -14,13 +14,13 @@ RSpec.describe TagMap, type: :model do
   
   describe "tagが削除された時" do
     it "tag_mapも削除" do
-      expect{ tag.destroy }.to change{ TagMap.count }.by(-1)
+      expect{ tag.destroy }.to change(TagMap, :count).by(-1)
     end
   end
   
   describe "placeが削除された時" do
     it "tag_mapも削除" do
-      expect{ place.destroy }.to change{ TagMap.count }.by(-1)
+      expect{ place.destroy }.to change(TagMap, :count).by(-1)
     end
   end
 end
