@@ -2,7 +2,7 @@ version: 2
 jobs:
   rubocop:
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers-legacy
+      - image: circleci/ruby:2.6.3-node-browsers-legacy
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
@@ -10,6 +10,7 @@ jobs:
         environment:
           POSTGRES_USER: app_user_role
           POSTGRES_DB: study_support_app_test
+          POSTGRES_PASSWORD: password
     working_directory: ~/repo
     steps:
       - checkout
@@ -30,7 +31,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers-legacy
+      - image: circleci/ruby:2.6.3-node-browsers-legacy
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
@@ -47,7 +48,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - run: yarn install
+      - run: yarn install --ignore-engines
       - save_cache:
           paths:
             - ./vendor/bundle
