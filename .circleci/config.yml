@@ -4,13 +4,14 @@ orbs:
   ruby: circleci/ruby@1.1.2
   node: circleci/node@2
 
+#setup
 commands:
   setup:
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: yarn --frozen-lockfile
           cache-key: "yarn.lock"
 
 jobs:
