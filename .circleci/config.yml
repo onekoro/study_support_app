@@ -11,9 +11,8 @@ commands:
       - checkout
       - ruby/install-deps
       - node/install-packages:
-          pkg-manager: yarn --frozen-lockfile
+          pkg-manager: yarn
           cache-key: "yarn.lock"
-
 jobs:
   build:
     docker:
