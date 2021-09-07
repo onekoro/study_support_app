@@ -85,6 +85,7 @@ jobs:
           paths:
             - ~/.cache/yarn
 
+      - run: mv config/database.yml.ci config/database.yml
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       # Rspec
