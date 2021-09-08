@@ -6,12 +6,13 @@ jobs:
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
+          TZ: "Japan"
 
       - image: circleci/postgres:9.4
         environment:
           POSTGRES_USER: app_user_role
           POSTGRES_DB: study_support_app_test
-          # POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: password
           # POSTGRES_HOST_AUTH_METHOD: 'trust'
         working_directory: ~/repo
 
@@ -47,13 +48,27 @@ jobs:
           name: Rubocop
           command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
 
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run:
+          name: DB Initializing
+          command: |
+            dockerize -wait tcp://localhost:5432 -timeout 1m
+            bundle exec rake db:schema:load
+      - run:
+          name: rspec
+          command: |
+            bundle exec rspec --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format documentation
+      - store_test_results:
+          path: test_results
+
+      # - run: bundle exec rake db:create
+      # - run: bundle exec rake db:schema:load
 
       # Rspec
-      - run:
-          name: Rspec
-          command: bundle exec rspec
+      # - run:
+      #     name: Rspec
+      #     command: bundle exec rspec
 
 
   # rspec:
