@@ -49,7 +49,7 @@ jobs:
           command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
 
       - run:
-          name: DB Initializing
+          name: "waiting DB start"
           command: |
             dockerize -wait tcp://localhost:5432 -timeout 1m
             bundle exec rake db:schema:load
