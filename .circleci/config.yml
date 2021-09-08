@@ -6,12 +6,13 @@ jobs:
         environment:
           RAILS_ENV: test
           POSTGRES_HOST: 127.0.0.1
+
       - image: circleci/postgres:9.4
         environment:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: app_user_role
           POSTGRES_DB: study_support_app_test
-          POSTGRES_HOST_AUTH_METHOD: 'trust'
-    working_directory: ~/repo
+          # POSTGRES_HOST_AUTH_METHOD: 'trust'
+      working_directory: ~/repo
 
     steps:
       - checkout
@@ -45,59 +46,66 @@ jobs:
           name: Rubocop
           command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
 
-
-  rspec:
-    docker:
-      - image: circleci/ruby:2.6.3-node-browsers-legacy
-        environment:
-          RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres:9.4
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: study_support_app_test
-          POSTGRES_HOST_AUTH_METHOD: 'trust'
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      - restore_cache:
-          keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
-
-      - run: yarn install --ignore-engines
-
-      - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      - run: mv config/database.yml.ci config/database.yml
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
+
       # Rspec
       - run:
           name: Rspec
           command: bundle exec rspec
 
-workflows:
-  version: 2
-  rubocop_rspec:
-    jobs:
-      - rubocop
-      - rspec:
-          requires:
-            - rubocop
+
+  # rspec:
+  #   docker:
+  #     - image: circleci/ruby:2.6.3-node-browsers-legacy
+  #       environment:
+  #         RAILS_ENV: test
+  #         POSTGRES_HOST: 127.0.0.1
+  #     - image: circleci/postgres:9.4
+  #       environment:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_DB: study_support_app_test
+  #         POSTGRES_HOST_AUTH_METHOD: 'trust'
+  #   working_directory: ~/repo
+
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #           - v1-dependencies-{{ checksum "Gemfile.lock" }}
+  #           - v1-dependencies-
+
+  #     - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+  #     - save_cache:
+  #         paths:
+  #           - ./vendor/bundle
+  #         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+  #     - restore_cache:
+  #         keys:
+  #           - rails-demo-yarn-{{ checksum "yarn.lock" }}
+  #           - rails-demo-yarn-
+
+  #     - run: yarn install --ignore-engines
+
+  #     - save_cache:
+  #         key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+  #         paths:
+  #           - ~/.cache/yarn
+
+  #     - run: bundle exec rake db:create
+  #     - run: bundle exec rake db:schema:load
+  #     # Rspec
+  #     - run:
+  #         name: Rspec
+  #         command: bundle exec rspec
+
+# workflows:
+#   version: 2
+#   rubocop_rspec:
+#     jobs:
+#       - rubocop
+#       - rspec:
+#           requires:
+#             - rubocop
