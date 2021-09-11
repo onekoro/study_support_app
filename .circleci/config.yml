@@ -9,7 +9,7 @@ jobs:
     working_directory: ~/study_support_app
     steps:
       - checkout:
-        path: ~/study_support_app
+          path: ~/study_support_app
       - ruby/install-deps
 
   test:
@@ -28,23 +28,23 @@ jobs:
     working_directory: ~/study_support_app
     steps:
       - checkout:
-        path: ~/study_support_app
+          path: ~/study_support_app
       - ruby/install-deps
       - run:
-        name: Database setup
-        command: bundle exec rails db:migrate
+          name: Database setup
+          command: bundle exec rails db:migrate
       - run:
-        name: Rubocop
-        command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
+          name: Rubocop
+          command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
       - run:
-        name: Rspec
-        command: bundle exec rspec --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format documentation
+          name: Rspec
+          command: bundle exec rspec --format RspecJunitFormatter \
+                                --out test_results/rspec.xml \
+                                --format documentation
 
 workflows:
   version: 2
-  test_and_deploy:
+  build_and_test:
     jobs:
       - build
       - test:
