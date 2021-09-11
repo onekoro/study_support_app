@@ -16,15 +16,15 @@ jobs:
     docker:
       - image: circleci/ruby:2.6
       - image: circleci/postgres:9.4
-      environment:
-        POSTGRES_USER: app_user_role
-        POSTGRES_DB: study_support_app_test
-        POSTGRES_PASSWORD: password
-      environment:
-          RAILS_ENV: test
-          BUNDLE_JOBS: "3"
-          BUNDLE_RETRY: "3"
-          APP_DATABASE_HOST: 127.0.0.1
+        environment:
+          POSTGRES_USER: app_user_role
+          POSTGRES_DB: study_support_app_test
+          POSTGRES_PASSWORD: password
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      RAILS_ENV: test
     working_directory: ~/study_support_app
     steps:
       - checkout:
@@ -41,135 +41,6 @@ jobs:
         command: bundle exec rspec --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
                               --format documentation
-
-      #   environment:
-      #     RAILS_ENV: test
-      #     POSTGRES_HOST: 127.0.0.1
-      #     TZ: "Japan"
-
-      # - image: circleci/postgres:9.4
-      #   environment:
-      #     POSTGRES_USER: app_user_role
-      #     POSTGRES_DB: study_support_app_test
-      #     POSTGRES_PASSWORD: password
-          # POSTGRES_HOST_AUTH_METHOD: 'trust'
-
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      - restore_cache:
-          keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
-
-      - run: yarn install --ignore-engines
-
-      - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      # Rubocop
-      - run:
-          name: Rubocop
-          command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
-
-      - run:
-          name: "waiting DB start"
-          command: |
-            dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      - run:
-          name: "initialize DB"
-          command: |
-            bundle exec rake db:create
-            bundle exec rake db:migrate
-
-      - run:
-          name: rspec
-          command: |
-            bundle exec rspec --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format documentation
-      - store_test_results:
-          path: test_results
-
-      # - run: bundle exec rake db:create
-      # - run: bundle exec rake db:schema:load
-
-      # Rspec
-      # - run:
-      #     name: Rspec
-      #     command: bundle exec rspec
-
-
-  # rspec:
-  #   docker:
-  #     - image: circleci/ruby:2.6.3-node-browsers-legacy
-  #       environment:
-  #         RAILS_ENV: test
-  #         POSTGRES_HOST: 127.0.0.1
-  #     - image: circleci/postgres:9.4
-  #       environment:
-  #         POSTGRES_USER: postgres
-  #         POSTGRES_DB: study_support_app_test
-  #         POSTGRES_HOST_AUTH_METHOD: 'trust'
-  #   working_directory: ~/repo
-
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys:
-  #           - v1-dependencies-{{ checksum "Gemfile.lock" }}
-  #           - v1-dependencies-
-
-  #     - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-  #     - save_cache:
-  #         paths:
-  #           - ./vendor/bundle
-  #         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-  #     - restore_cache:
-  #         keys:
-  #           - rails-demo-yarn-{{ checksum "yarn.lock" }}
-  #           - rails-demo-yarn-
-
-  #     - run: yarn install --ignore-engines
-
-  #     - save_cache:
-  #         key: rails-demo-yarn-{{ checksum "yarn.lock" }}
-  #         paths:
-  #           - ~/.cache/yarn
-
-  #     - run: bundle exec rake db:create
-  #     - run: bundle exec rake db:schema:load
-  #     # Rspec
-  #     - run:
-  #         name: Rspec
-  #         command: bundle exec rspec
-
-# workflows:
-#   version: 2
-#   rubocop_rspec:
-#     jobs:
-#       - rubocop
-#       - rspec:
-#           requires:
-#             - rubocop
 
 workflows:
   version: 2
