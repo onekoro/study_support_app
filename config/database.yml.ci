@@ -4,6 +4,6 @@ test:
   pool: 5
   username: app_user_role
   password: password
-  port: 3306
+  port: 5
   host: '127.0.0.1'
   database: study_support_app_test
