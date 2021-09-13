@@ -39,9 +39,7 @@ jobs:
           command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
       - run:
           name: Rspec
-          command: bundle exec rspec --format RspecJunitFormatter \
-                                --out test_results/rspec.xml \
-                                --format documentation
+          command: bundle exec rspec
 workflows:
   version: 2
   build_and_test:

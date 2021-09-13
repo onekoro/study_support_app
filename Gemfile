@@ -29,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
@@ -56,7 +57,6 @@ group :test do
   gem 'rails-controller-testing', '1.0.4'
   gem 'shoulda-matchers'
   gem 'guard',                    '2.16.2'
-  gem 'rspec_junit_formatter'
 end
 
 group :production do
