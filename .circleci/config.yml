@@ -42,7 +42,6 @@ jobs:
           command: bundle exec rspec --format RspecJunitFormatter \
                                 --out test_results/rspec.xml \
                                 --format documentation
-
 workflows:
   version: 2
   build_and_test:
