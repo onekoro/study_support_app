@@ -31,6 +31,8 @@ jobs:
           path: ~/study_support_app
       - ruby/install-deps
 
+      - run: mv config/database.yml.ci config/database.yml
+
       - run:
           name: Database setup
           command: bundle exec rails db:migrate
