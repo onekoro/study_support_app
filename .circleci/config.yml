@@ -8,7 +8,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6
-    working_directory: ~/repo
+    working_directory: ~/study_support_app
     steps:
       - checkout:
           path: ~/study_support_app
@@ -29,7 +29,7 @@ jobs:
       BUNDLE_RETRY: "3"
       APP_DATABASE_HOST: "127.0.0.1"
       RAILS_ENV: test
-    working_directory: ~/repo
+    working_directory: ~/study_support_app
     steps:
       - checkout:
           path: ~/study_support_app
