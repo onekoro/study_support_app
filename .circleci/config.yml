@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@1.1.4
-  node: circleci/node@4.7
+  ruby: circleci/ruby@1.1.2
+  node: circleci/node@3.0.1
 
 
 jobs:
@@ -15,7 +15,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: 'yarn.lock'
 
   test:
     docker:
@@ -37,7 +36,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: 'yarn.lock'
       - run: mv config/database.yml.ci config/database.yml
       - run:
           name: Database setup
