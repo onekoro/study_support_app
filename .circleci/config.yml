@@ -11,6 +11,9 @@ jobs:
       - checkout:
           path: ~/study_support_app
       - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: 'yarn.lock'
 
   test:
     docker:
