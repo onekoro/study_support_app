@@ -7,19 +7,20 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6
+      - image: circleci/ruby:2.6-node
     working_directory: ~/study_support_app
     steps:
       - checkout:
           path: ~/study_support_app
       - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          app-dir: ~/study_support_app
+      # - node/install-packages:
+      #     pkg-manager: yarn
+      #     app-dir: ~/study_support_app
+      - run: yarn install
 
   test:
     docker:
-      - image: circleci/ruby:2.6
+      - image: circleci/ruby:2.6-node
       - image: circleci/postgres:9.4
         environment:
           POSTGRES_USER: app_user_role
@@ -35,8 +36,9 @@ jobs:
       - checkout:
           path: ~/study_support_app
       - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
+      - run: yarn install
+      # - node/install-packages:
+      #     pkg-manager: yarn
       - run: mv config/database.yml.ci config/database.yml
       - run:
           name: Database setup
