@@ -30,7 +30,9 @@ jobs:
       - checkout:
           path: ~/study_support_app
       - ruby/install-deps
-      - run: bundle exec bin/webpack
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: 'yarn.lock'
       - run: mv config/database.yml.ci config/database.yml
       - run:
           name: Database setup
@@ -38,9 +40,7 @@ jobs:
       - run:
           name: Rubocop
           command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
-      - run:
-          name: Rspec
-          command: bundle exec rspec
+      - ruby/rspec-test
 workflows:
   version: 2
   build_and_test:
