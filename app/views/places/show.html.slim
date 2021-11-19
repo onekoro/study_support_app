@@ -38,12 +38,13 @@
                 h5 いいね
                 = render partial: 'likes/like_form', locals: { place: @place }
   .row
-    .place_image.col-lg-7.mb-3
-      - if @place.image?
-        = image_tag @place.image.to_s, class: "mb-1"
-      - else
-        = image_tag "default_place.jpg", class: "mb-1 img-fluid"
-    .col-lg-5
+    .col-lg-7.mb-3
+      .place_image.bg-white.shadow-sm.h-100.d-flex.align-items-center.justify-content-center
+        - if @place.image?
+          = image_tag @place.image.to_s, class: "d-flex align-items-center justify-content-center"
+        - else
+          = image_tag "default_place.jpg", class: "mb-1 img-fluid"
+    .col-lg-5.mb-3
       .place_infos.bg-white.shadow-sm.p-1
         .title.d-flex
           i.fas.fa-info.icon
@@ -62,7 +63,7 @@
           .url.info
             i.fas.fa-link.link-icon.min-icon
             .word URL：
-            = link_to "#{@place.web}"
+            = link_to "#{@place.web}", "#{@place.web}"
         .place_address.info
           i.fas.fa-map-marker-alt.map-icon.min-icon
           .word 所在地：#{@place.address}

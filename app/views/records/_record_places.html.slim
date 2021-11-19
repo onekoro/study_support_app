@@ -2,11 +2,11 @@
   input form="record" type="radio" value="#{place.id}" name="record[place_id]" id="record_place_id_#{place.id}"
   label form="record" for="record_place_id_#{place.id}"
     .place_content
-      .place_image_thumb
+      .place_thumb.d-flex.align-items-center.justify-content-center
         - if place.image?
-          = image_tag place.image.to_s, class: "mb-1 img-fluid"
+          = image_tag place.image.to_s, class: "img-fluid"
         - else
-          = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
+          = image_pack_tag "default_place.jpg", class: "img-fluid"
       h4.mb-0.py-1.title #{place.title}
       .place_recommend.mb-2.d-flex
         - recommends(place).floor.times do
@@ -25,4 +25,3 @@
         .place_like.inlink.d-flex.align-items-center.p-2
           i.far.fa-heart.text-danger
           h5.ml-2.my-0 #{place.likes.count}
-      

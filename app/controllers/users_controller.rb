@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       unless current_user.admin? || current_user?(@user)
         flash[:danger] = "他のユーザーの編集・削除はできません"
-        redirect_to user_path(current_user)
+        redirect_to record_show_user_path(current_user)
       end
     end
 
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     def check_guest
       if current_user.email == 'guest@example.com'
         flash[:danger] = 'ゲストユーザーは編集・削除できません。'
-        redirect_to user_path(current_user)
+        redirect_to record_show_user_path(current_user)
       end
     end
 

@@ -9,7 +9,7 @@
           = f.label :date, "日付"
           p （必須）
         = raw sprintf(f.date_select(:date, use_month_numbers:true, end_year: Time.now.year, form: "record", date_separator:'%s'),'年','月')+'日'
-    
+
       .form-group
         .d-flex
           = f.label :hour, "学習時間"
@@ -23,19 +23,18 @@
         .d-flex.flex-column
            = f.label :content, "コメント"
            = f.text_area :content, class: "form-control"
-    label for="record_place_id" 学習場所(クリックして選択）
+    label for="record_place_id" 学習した場所
     .box-content.mb-2
       = render "places/search_box"
-    .add-search-box.d-flex.mb-2
-      .icon.search-down
+    .add-search-box.d-flex.mb-2.justify-content-center
+      .icon.search-down.mr-1
         i.fas.fa-chevron-down
-      .icon.search-up
+      .icon.search-up.mr-1
         i.fas.fa-chevron-up
-      .search-comment 絞り込みをする
+      .search-comment 検索を非表示
     .row.places
       = render partial: "record_places", collection: @places, as: "place"
     .row.paginate
       = render "places/paginate", places: @places
-        
-    input.btn.btn-primary.mx-auto.d-block type="submit" name="commit" value="記録する" form="record" data-disable-with="記録する"
 
+    input.btn.btn-primary.mx-auto.d-block type="submit" name="commit" value="記録する" form="record" data-disable-with="記録する"

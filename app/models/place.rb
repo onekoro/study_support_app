@@ -17,7 +17,7 @@ class Place < ApplicationRecord
   mount_uploader :image, ImageUploader
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
-  
+
   # 投稿をいいねする
   def good(user)
     likes.create(user_id: user.id)
@@ -27,12 +27,12 @@ class Place < ApplicationRecord
   def ungood(user)
     likes.find_by(user_id: user.id).destroy
   end
-  
+
   # 現在のユーザーがいいねしてたらtrueを返す
   def good?(user)
     good_users.include?(user)
   end
-  
+
   def save_tag(sent_tags)
   current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
   old_tags = current_tags - sent_tags

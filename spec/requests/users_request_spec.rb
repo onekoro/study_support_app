@@ -245,7 +245,7 @@ RSpec.describe "Users", type: :request do
         get edit_user_path(user)
         aggregate_failures do
           expect(response).to have_http_status "302"
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end
@@ -307,7 +307,7 @@ RSpec.describe "Users", type: :request do
           expect(user.reload.name).not_to eq "new_name"
           expect(user.reload.email).not_to eq "new@new.com"
           # expect(user.reload.password).not_to eq "newpass"
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end
@@ -356,7 +356,7 @@ RSpec.describe "Users", type: :request do
         delete user_path(user.id)
         aggregate_failures do
           expect(User.count).to eq 2
-          expect(response).to redirect_to user_path(other_user)
+          expect(response).to redirect_to record_show_user_path(other_user)
         end
       end
     end

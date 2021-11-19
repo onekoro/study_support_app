@@ -4,8 +4,9 @@ class PlacesController < ApplicationController
   before_action :set_place_search, only: [:index]
 
   def index
-    @good_places = Place.find(Like.group(:place_id).order('count(place_id) desc').limit(3).pluck(:place_id))
-    @tags = Tag.order(:created_at).take(18)
+    # @good_places = Place.find(Like.group(:place_id).order('count(place_id) desc').limit(3).pluck(:place_id))
+    @good_places = Place.includes(:good_users).sort {|a,b| b.good_users.size <=> a.good_users.size}.first(3)
+    @tags = Tag.find(TagMap.group(:tag_id).order('count(tag_id) desc').limit(15).pluck(:tag_id))
     @path = places_path
     respond_to do |format|
       format.html
@@ -16,7 +17,7 @@ class PlacesController < ApplicationController
   def  tag_search
     @tag = Tag.find(params[:id])  #クリックしたタグを取得
     @places = @tag.places.page(params[:page]).per(6)
-    @tags = Tag.all
+    @tags = Tag.find(TagMap.group(:tag_id).order('count(tag_id) desc').pluck(:tag_id))
   end
 
   def show

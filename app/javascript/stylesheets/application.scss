@@ -109,6 +109,7 @@ textarea{
   border: solid #EEEEEE;
   border-width: 0 0 1px 0;
   background-color: white;
+  min-height: 100px;
   &:hover{
     background-color: #D9E5FF;
   }
@@ -330,6 +331,10 @@ textarea{
   }
 }
 
+.third{
+  color: #CD853F;
+}
+
 // places/tag_search
 .tag_search{
   display: flex;
@@ -390,6 +395,7 @@ textarea{
   &:hover{
     // border: solid 2px rgb(0, 123, 255);
     background-color: #D9E5FF;
+    cursor: pointer;
   }
   .place_link{
     position: absolute;
@@ -403,6 +409,9 @@ textarea{
   .inlink{
     position: relative;
     z-index: 3;
+  }
+  .place_thumb{
+    min-height: 200px;
   }
   .title h4{
     white-space: nowrap;
@@ -429,8 +438,8 @@ textarea{
     @include y-center;
     writing-mode: horizontal-tb;
   }
-  // bootstrapによるボタンのhover状態を適用しない
-  .btn:hover{
+  // bootstrapによるタグのボタンのhover状態を適用しない
+  .tag:hover{
     background-color: #17a2b8;
   }
   input[type=radio] {
@@ -446,15 +455,15 @@ textarea{
   .search-comment:hover{
     cursor: pointer;
   }
-  .box-content{
-      display: none;
-  }
+  // .box-content{
+  //     display: none;
+  // }
   .add-search-box{
     cursor: pointer;
     :hover{
       opacity: 0.7;
     }
-    .search-up{
+    .search-down{
       display: none;
     }
   }

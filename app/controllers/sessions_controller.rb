@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   before_action :unlogged_in_user, only: [:new, :create, :new_guest]
   before_action :logged_in_user, only: [:destroy]
-  
+
   def new
   end
 
@@ -17,12 +17,12 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def new_guest
-    user = User.find_by(email: 'guest@example.com') 
+    user = User.find_by(email: 'guest@example.com')
     log_in user
     flash[:success] = "ゲストユーザーとしてログインしました"
-    redirect_back_or root_path
+    redirect_back_or record_show_user_path(user)
   end
 
   def destroy

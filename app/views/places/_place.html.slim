@@ -1,11 +1,11 @@
-.col-lg-4.col-sm-6
+.col-xl-4.col-md-6
   .place_content.my-2
     = link_to place_path(place), class: "place_link" do
-    .place_image_thumb
+    .place_thumb.d-flex.align-items-center.justify-content-center
       - if place.image?
-        = image_tag place.image.to_s, class: "mb-1 img-fluid"
+        = image_tag place.image.to_s, class: "img-fluid"
       - else
-        = image_pack_tag "default_place.jpg", class: "mb-1 img-fluid"
+        = image_pack_tag "default_place.jpg", class: "img-fluid"
     .title.mr-2
       h4.mb-0.py-1 #{place.title}
     .place_recommend.d-flex

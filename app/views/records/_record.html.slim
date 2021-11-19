@@ -3,7 +3,7 @@
     - if record.place
       .place_content.my-2
         = link_to place_path(record.place), class: "place_link" do
-        .place_image_thumb
+        .place_thumb.d-flex.align-items-center.justify-content-center
           - if record.place.image?
             = image_tag record.place.image.to_s, class: "mb-1 img-fluid"
           - else
@@ -16,7 +16,7 @@
         .place_info.d-flex
           .user_info.mr-3
             - if logged_in?
-              = link_to user_path(record.place.user), class: "inlink user_link" do
+              = link_to record_show_user_path(record.place.user), class: "inlink user_link" do
                 = image_pack_tag record.place.user.image.url, height: "30px",  class: "border border-dark rounded-circle"
                 = record.place.user.name
             - else
@@ -29,7 +29,7 @@
     - else
       h4 学習場所の記録がありません
       = link_to "学習場所を追加する", edit_record_path(record)
-  
+
   .col-md-6
     .day_record_info
       .time
@@ -44,11 +44,10 @@
           .content #{record.content}
         - else
           .content コメントはありません
-  
+
       - if current_user?(record.user) || current_user.admin?
         .record_edit_form.d-flex.mt-1
           .record_edit.mr-2
             p.my-0 = link_to "編集", edit_record_path(record), class: "btn btn-primary btn-sm"
           .record_delete
             p.my-0 = link_to "削除", record, method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm"
-      
