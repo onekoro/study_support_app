@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     # user_idによる絞り込み
     @user_record = Record.where(user_id: @user.id)
     # 週のデータ
-    @week_data = week_record(@user_record)
+    @week_data = week_record(@user_record) unless sum_week_record(@user_record) == 0
     # 週の総学習時間
     @sum_week_time = sum_week_record(@user_record)
     # 日付による絞り込み

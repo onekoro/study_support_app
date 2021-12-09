@@ -3,10 +3,10 @@
 .container.users_index
   .row.subhead
     h2 ユーザー一覧
-  .row.justify-content-center.align-items-center
-    i.fas.fa-search.fa-lg.mx-1
+  .row.justify-content-center.align-items-center.my-3
+    i.fas.fa-search.fa-lg.mr-2
     = search_form_for @q do |f|
-        = f.search_field :name_cont
+        = f.search_field :name_cont, placeholder: "名前を入力", class: "mr-2"
         = f.submit "検索"
   = render @users
   = paginate @users
